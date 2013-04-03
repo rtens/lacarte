@@ -1,0 +1,7 @@
+/.idea
+/.htaccess
+/vendor
+/build
+/#notes
+/db
+Thumbs.db

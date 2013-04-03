@@ -1,0 +1,32 @@
+{
+    "minimum-stability": "dev",
+    "name": "rtens/lacarte",
+    "description": "Tool to manage Orders of a group of people",
+    "keywords": [ "order", "watoki" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikolas Martens",
+            "email": "Nikolas.M@rtens.org",
+            "homepage": "http://rtens.org"
+        }
+    ],
+	
+    "require": {
+        "php": ">=5.3.8",
+        "watoki/tempan": "*",
+        "watoki/collections": "*",
+        "watoki/stache": "*",
+		"watoki/factory": "*",
+		"watoki/webco": "*"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "3.7.5"
+	},
+    "autoload": {
+        "psr-0": {
+            "rtens\\lacarte": "src/",
+            "spec\\rtens\\lacarte": ""
+        }
+    }
+}
