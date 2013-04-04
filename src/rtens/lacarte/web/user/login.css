@@ -1,0 +1,19 @@
+.container {
+	max-width: 450px;
+}
+
+.container .content {
+    padding: 40px 50px;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="password"],
+.form-signin .btn {
+	font-size: 16px;
+	height: auto;
+	padding: 7px 9px;
+}
+
+.form-admin .input-small {
+    height: 30px;
+}
