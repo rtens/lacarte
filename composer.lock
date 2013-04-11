@@ -1,6 +1,57 @@
 {
-    "hash": "4704544d428a47fd460ce94c4603dff1",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "59f1dc683f3a769d4b09566e42c0a3fe",
     "packages": [
+        {
+            "name": "symfony/console",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Console.git",
+                "reference": "a10a2fb156267b9b8f01d717a06979e6ebb69251"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a10a2fb156267b9b8f01d717a06979e6ebb69251",
+                "reference": "a10a2fb156267b9b8f01d717a06979e6ebb69251",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "time": "2013-04-11 10:05:07"
+        },
         {
             "name": "watoki/collections",
             "version": "dev-master",
@@ -52,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "6b276b728fea05c50c264b76b0b67f277daeb687"
+                "reference": "ab32e124a0903cf9aca9047ec5f2b4f724d072f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/6b276b728fea05c50c264b76b0b67f277daeb687",
-                "reference": "6b276b728fea05c50c264b76b0b67f277daeb687",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/ab32e124a0903cf9aca9047ec5f2b4f724d072f1",
+                "reference": "ab32e124a0903cf9aca9047ec5f2b4f724d072f1",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +143,7 @@
                 "mvc",
                 "watoki"
             ],
-            "time": "2013-04-03 19:15:03"
+            "time": "2013-04-05 09:26:48"
         },
         {
             "name": "watoki/factory",
@@ -100,12 +151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/factory.git",
-                "reference": "545d4e59391164b1757cf291e42b6ab7113f8c46"
+                "reference": "861d9f9948191baf805e01454986b94e3cd60014"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/factory/zipball/545d4e59391164b1757cf291e42b6ab7113f8c46",
-                "reference": "545d4e59391164b1757cf291e42b6ab7113f8c46",
+                "url": "https://api.github.com/repos/watoki/factory/zipball/861d9f9948191baf805e01454986b94e3cd60014",
+                "reference": "861d9f9948191baf805e01454986b94e3cd60014",
                 "shasum": ""
             },
             "require": {
@@ -118,7 +169,7 @@
                     "spec\\watoki\\factory": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -135,7 +186,7 @@
                 "dependency injection",
                 "watoki"
             ],
-            "time": "2013-04-03 18:55:23"
+            "time": "2013-04-06 10:31:11"
         },
         {
             "name": "watoki/smokey",
@@ -227,6 +278,54 @@
             "time": "2013-03-05 08:49:26"
         },
         {
+            "name": "watoki/stepper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/watoki/stepper.git",
+                "reference": "895ac536f4f06a654295aee246e0a671791c536d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/watoki/stepper/zipball/895ac536f4f06a654295aee246e0a671791c536d",
+                "reference": "895ac536f4f06a654295aee246e0a671791c536d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.8",
+                "symfony/console": "2.2.*",
+                "watoki/factory": "*"
+            },
+            "require-dev": {
+                "rtens/mockster": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "watoki\\stepper": "src/",
+                    "spec\\watoki\\stepper": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Martens",
+                    "email": "Nikolas.M@rtens.org",
+                    "homepage": "http://rtens.org"
+                }
+            ],
+            "description": "A minimal migration tool for PHP.",
+            "homepage": "http://github.com/watoki/stepper",
+            "keywords": [
+                "migration",
+                "watoki"
+            ],
+            "time": "2013-04-11 19:23:21"
+        },
+        {
             "name": "watoki/tempan",
             "version": "dev-master",
             "source": {
@@ -273,7 +372,9 @@
             "time": "2013-03-26 12:38:32"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],

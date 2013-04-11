@@ -18,10 +18,10 @@
         "watoki/collections": "*",
         "watoki/stache": "*",
 		"watoki/factory": "*",
-		"watoki/curir": "*"
+		"watoki/curir": "*",
+		"watoki/stepper": "*"
     },
 	"require-dev": {
-		"phpunit/phpunit": "3.7.5"
 	},
     "autoload": {
         "psr-0": {
