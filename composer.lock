@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "59f1dc683f3a769d4b09566e42c0a3fe",
+    "hash": "cf2f1f3366bd59d46edb8d199a2d5a84",
     "packages": [
         {
             "name": "symfony/console",
@@ -373,7 +373,51 @@
         }
     ],
     "packages-dev": [
-
+        {
+            "name": "rtens/mockster",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rtens/mockster.git",
+                "reference": "1.1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rtens/mockster/zipball/1.1.2",
+                "reference": "1.1.2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "rtens\\mockster": "src/",
+                    "spec\\rtens\\mockster": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Martens",
+                    "email": "Nikolas.M@rtens.org",
+                    "homepage": "http://rtens.org"
+                }
+            ],
+            "description": "PHP Mocking framework",
+            "homepage": "http://github.com/rtens/mockster",
+            "keywords": [
+                "BDD",
+                "mock",
+                "mocking",
+                "unit testing"
+            ],
+            "time": "2013-04-10 14:03:39"
+        }
     ],
     "aliases": [
 

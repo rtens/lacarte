@@ -2,6 +2,7 @@
 namespace spec\rtens\lacarte;
 
 use rtens\lacarte\core\Database;
+use rtens\mockster\MockFactory;
 use watoki\factory\Factory;
 use watoki\stepper\Migrater;
 
@@ -17,12 +18,19 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
      */
     public $factory;
 
+    /**
+     * @var MockFactory
+     */
+    public $mf;
+
     private $stateFile;
 
     protected function setUp() {
         parent::setUp();
 
         $this->stateFile = __DIR__ . '/migration';
+
+        $this->mf = new MockFactory();
 
         $this->factory = new Factory();
         $this->factory->getInstance(Database::$CLASS, array(
@@ -88,6 +96,16 @@ class Test_Then {
 
     function __construct(Test $test) {
         $this->test = $test;
+    }
+
+    protected function getFieldIn($string, $field) {
+        foreach (explode('/', $string) as $key) {
+            if (!array_key_exists($key, $field)) {
+                throw new \Exception("Could not find '$key' in " . json_encode($field));
+            }
+            $field = $field[$key];
+        }
+        return $field;
     }
 
 }

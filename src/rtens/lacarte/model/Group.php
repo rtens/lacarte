@@ -3,6 +3,8 @@ namespace rtens\lacarte\model;
  
 class Group {
 
+    public $id;
+
     private $name;
 
     private $adminEmail;
