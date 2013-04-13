@@ -45,7 +45,9 @@ class Login extends Component {
         if ($this->session->has('group')) {
             return $this->redirectToList();
         }
-        return array();
+        return array(
+            'error' => null
+        );
     }
 
     private function redirectToList() {

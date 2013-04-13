@@ -42,7 +42,7 @@ class LoginTest extends Test {
 
     function testAccessPage() {
         $this->when->iGoToTheLoginPage();
-        $this->then->theModelShouldBe("[]");
+        $this->then->theModelShouldBe('{"error":null}');
     }
 
     function testAlreadyLoggedIn() {
