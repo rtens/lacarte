@@ -1,0 +1,6 @@
+<?php
+namespace cfg\rtens\lacarte;
+
+class UserConfiguration extends DefaultConfiguration {
+
+}

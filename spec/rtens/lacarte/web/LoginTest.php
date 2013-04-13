@@ -40,6 +40,19 @@ class LoginTest extends Test {
         $this->then->_shouldBe('email', 'my@email.com');
     }
 
+    function testAccessPage() {
+        $this->when->iGoToTheLoginPage();
+        $this->then->theModelShouldBe("[]");
+    }
+
+    function testAlreadyLoggedIn() {
+        $this->given->iAmAlreadyLoggedInForGroup('test');
+
+        $this->when->iGoToTheLoginPage();
+
+        $this->then->iShouldBeRedirectedTo('../order/list.html');
+    }
+
 }
 
 /**
@@ -57,7 +70,7 @@ class LoginTest_Given extends Test_Given {
     public $password;
 
     /**
-     * @var Map
+     * @var Session|Mock
      */
     public $session;
 
@@ -65,7 +78,17 @@ class LoginTest_Given extends Test_Given {
         parent::__construct($test);
 
         $this->userInteractor = $this->test->mf->createMock(UserInteractor::$CLASS);
-        $this->session = new Map();
+        $this->session = $this->test->mf->createMock(Session::$CLASS);
+        $sessionVars = new Map();
+        $this->session->__mock()->method('set')->willCall(function ($key, $value) use ($sessionVars) {
+            $sessionVars->set($key, $value);
+        });
+        $this->session->__mock()->method('get')->willCall(function ($key) use ($sessionVars) {
+            return $sessionVars->get($key);
+        });
+        $this->session->__mock()->method('has')->willCall(function ($key) use ($sessionVars) {
+            return $sessionVars->has($key);
+        });
     }
 
     public function iEnteredTheCorrectCredentialsForGroup($groupName) {
@@ -78,6 +101,12 @@ class LoginTest_Given extends Test_Given {
         $this->userInteractor->__mock()->method('authorizeAdmin')->willReturn(null);
         $this->email = $email;
         $this->password = $password;
+    }
+
+    public function iAmAlreadyLoggedInForGroup($groupName) {
+        $group = new Group($groupName, '', '');
+        $group->id = 1;
+        $this->session->set('group', $group->id);
     }
 }
 
@@ -94,12 +123,24 @@ class LoginTest_When extends Test_When {
     public $response;
 
     public function iLoginAsAdmin() {
-        $component = new Login($this->test->factory, new Path(), null,
+        $component = $this->createComponent();
+        $this->model = $component->doLoginAdmin($this->test->given->email, $this->test->given->password);
+        $this->response = $component->getResponse();
+    }
+
+    public function iGoToTheLoginPage() {
+        $component = $this->createComponent();
+        $this->model = $component->doGet();
+        $this->response = $component->getResponse();
+    }
+
+    /**
+     * @return Login
+     */
+    private function createComponent() {
+        return new Login($this->test->factory, new Path(), null,
             $this->test->given->userInteractor,
             $this->test->given->session);
-
-        $this->model = $component->doPost($this->test->given->email, $this->test->given->password);
-        $this->response = $component->getResponse();
     }
 }
 
@@ -127,5 +168,9 @@ class LoginTest_Then extends Test_Then {
 
     public function theSessionShouldContain_WithValue($field, $value) {
         $this->test->assertEquals($value, $this->test->given->session->get($field));
+    }
+
+    public function theModelShouldBe($json) {
+        $this->test->assertEquals($json, json_encode($this->test->when->model));
     }
 }

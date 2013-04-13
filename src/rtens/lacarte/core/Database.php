@@ -12,10 +12,10 @@ class Database {
      */
     private $pdo;
 
-    function __construct(Factory $factory, \PDO $pdo) {
+    function __construct(Factory $factory, Configuration $config) {
         $factory->setSingleton(self::$CLASS, $this);
 
-        $this->pdo = $pdo;
+        $this->pdo = new \PDO($config->getPdoDataSourceName(), $config->getPdoUser(), $config->getPdoPassword());
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
     }
 

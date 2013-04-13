@@ -14,9 +14,9 @@ class WebApplication {
 
     private $factory;
 
-    function __construct($route) {
+    function __construct($route, Factory $factory = null) {
+        $this->factory = $factory ?: new Factory();
         $this->route = new Path(new Liste(array($route)));
-        $this->factory = new Factory();
     }
 
     public function handleRequest($request, $moduleClass) {

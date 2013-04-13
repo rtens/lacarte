@@ -1,6 +1,7 @@
 <?php
 namespace spec\rtens\lacarte;
 
+use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\Database;
 use rtens\mockster\MockFactory;
 use watoki\factory\Factory;
@@ -32,10 +33,11 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
         $this->mf = new MockFactory();
 
+        $config = $this->mf->createMock(Configuration::Configuration);
+        $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
+
         $this->factory = new Factory();
-        $this->factory->getInstance(Database::$CLASS, array(
-            'pdo' => new \PDO('sqlite::memory:')
-        ));
+        $this->factory->setSingleton(Configuration::Configuration, $config);
 
         if (file_exists($this->stateFile)) unlink($this->stateFile);
         $this->migrate();

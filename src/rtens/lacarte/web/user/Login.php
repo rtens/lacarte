@@ -9,6 +9,7 @@ use watoki\curir\Url;
 use watoki\curir\controller\Component;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
+use watoki\tempan\Renderer;
 
 class Login extends Component {
 
@@ -19,13 +20,13 @@ class Login extends Component {
     private $session;
 
     function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $interactor, Map $session) {
+                         UserInteractor $interactor, Session $session) {
         parent::__construct($factory, $route, $parent);
         $this->interactor = $interactor;
         $this->session = $session;
     }
 
-    public function doPost($email, $password) {
+    public function doLoginAdmin($email, $password) {
         $group = $this->interactor->authorizeAdmin($email, $password);
 
         if (!$group) {
@@ -37,7 +38,24 @@ class Login extends Component {
 
         $this->session->set('group', $group->id);
         $this->session->set('isAdmin', true);
+        return $this->redirectToList();
+    }
+
+    public function doGet() {
+        if ($this->session->has('group')) {
+            return $this->redirectToList();
+        }
+        return array();
+    }
+
+    private function redirectToList() {
         return $this->redirect(Url::parse('../order/list.html'));
     }
+
+    protected function getRenderer() {
+        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
+        return parent::getRenderer();
+    }
+
 
 }
