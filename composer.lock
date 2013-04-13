@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "a10a2fb156267b9b8f01d717a06979e6ebb69251"
+                "reference": "a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a10a2fb156267b9b8f01d717a06979e6ebb69251",
-                "reference": "a10a2fb156267b9b8f01d717a06979e6ebb69251",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d",
+                "reference": "a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-11 10:05:07"
+            "time": "2013-04-12 13:15:07"
         },
         {
             "name": "watoki/collections",
@@ -283,12 +283,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/stepper.git",
-                "reference": "895ac536f4f06a654295aee246e0a671791c536d"
+                "reference": "1415aca72c62ff94577811621c41420eac4b58f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/stepper/zipball/895ac536f4f06a654295aee246e0a671791c536d",
-                "reference": "895ac536f4f06a654295aee246e0a671791c536d",
+                "url": "https://api.github.com/repos/watoki/stepper/zipball/1415aca72c62ff94577811621c41420eac4b58f8",
+                "reference": "1415aca72c62ff94577811621c41420eac4b58f8",
                 "shasum": ""
             },
             "require": {
@@ -323,7 +323,7 @@
                 "migration",
                 "watoki"
             ],
-            "time": "2013-04-11 19:23:21"
+            "time": "2013-04-13 12:44:45"
         },
         {
             "name": "watoki/tempan",

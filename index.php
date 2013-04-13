@@ -1,6 +1,6 @@
 <?php
 
-require_once 'bootstrap.php';
+$factory = require_once 'bootstrap.php';
 
-$app = new \rtens\lacarte\core\WebApplication($_REQUEST['_']);
+$app = new \rtens\lacarte\core\WebApplication($_REQUEST['_'], $factory);
 $app->handleRequest($_REQUEST['-'], \rtens\lacarte\web\LaCarte::$CLASS);
