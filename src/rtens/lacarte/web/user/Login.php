@@ -52,6 +52,13 @@ class Login extends Component {
         return $this->redirect(Url::parse('../order/list.html'));
     }
 
+    public function doLogout() {
+        $this->session->remove('group');
+        $this->session->remove('isAdmin');
+
+        return $this->redirect(Url::parse('login.html'));
+    }
+
     protected function getRenderer() {
         $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
         return parent::getRenderer();

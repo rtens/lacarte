@@ -53,6 +53,15 @@ class LoginTest extends Test {
         $this->then->iShouldBeRedirectedTo('../order/list.html');
     }
 
+    function testLogOut() {
+        $this->given->iAmAlreadyLoggedInForGroup('test');
+
+        $this->when->iLogOut();
+
+        $this->then->iShouldBeRedirectedTo('login.html');
+        $this->then->theSessionShouldNotContain('group');
+        $this->then->theSessionShouldNotContain('isAdmin');
+    }
 }
 
 /**
@@ -89,6 +98,9 @@ class LoginTest_Given extends Test_Given {
         $this->session->__mock()->method('has')->willCall(function ($key) use ($sessionVars) {
             return $sessionVars->has($key);
         });
+        $this->session->__mock()->method('remove')->willCall(function ($key) use ($sessionVars) {
+            return $sessionVars->remove($key);
+        });
     }
 
     public function iEnteredTheCorrectCredentialsForGroup($groupName) {
@@ -107,6 +119,7 @@ class LoginTest_Given extends Test_Given {
         $group = new Group($groupName, '', '');
         $group->id = 1;
         $this->session->set('group', $group->id);
+        $this->session->set('isAdmin', true);
     }
 }
 
@@ -142,6 +155,12 @@ class LoginTest_When extends Test_When {
             $this->test->given->userInteractor,
             $this->test->given->session);
     }
+
+    public function iLogOut() {
+        $component = $this->createComponent();
+        $this->model = $component->doLogout();
+        $this->response = $component->getResponse();
+    }
 }
 
 /**
@@ -172,5 +191,9 @@ class LoginTest_Then extends Test_Then {
 
     public function theModelShouldBe($json) {
         $this->test->assertEquals($json, json_encode($this->test->when->model));
+    }
+
+    public function theSessionShouldNotContain($key) {
+        $this->test->assertFalse($this->test->given->session->has($key));
     }
 }

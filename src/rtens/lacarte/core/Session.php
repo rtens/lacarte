@@ -25,4 +25,8 @@ class Session {
         return array_key_exists($key, $_SESSION);
     }
 
+    public function remove($key) {
+        unset($_SESSION[$key]);
+    }
+
 }
