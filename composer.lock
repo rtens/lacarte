@@ -283,12 +283,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/stepper.git",
-                "reference": "1415aca72c62ff94577811621c41420eac4b58f8"
+                "reference": "59d8de0eaa9472895ce97943ccfc3469d1bb75ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/stepper/zipball/1415aca72c62ff94577811621c41420eac4b58f8",
-                "reference": "1415aca72c62ff94577811621c41420eac4b58f8",
+                "url": "https://api.github.com/repos/watoki/stepper/zipball/59d8de0eaa9472895ce97943ccfc3469d1bb75ba",
+                "reference": "59d8de0eaa9472895ce97943ccfc3469d1bb75ba",
                 "shasum": ""
             },
             "require": {
@@ -323,7 +323,7 @@
                 "migration",
                 "watoki"
             ],
-            "time": "2013-04-13 12:44:45"
+            "time": "2013-04-13 12:56:31"
         },
         {
             "name": "watoki/tempan",
