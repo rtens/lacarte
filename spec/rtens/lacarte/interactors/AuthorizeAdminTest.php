@@ -1,5 +1,5 @@
 <?php
-namespace spec\rtens\lacarte\interactors;
+namespace spec\rtens\lacarte\features;
 
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\model\Group;
@@ -35,7 +35,7 @@ class AuthorizeAdminTest extends Test {
 }
 
 /**
- * @property \spec\rtens\lacarte\interactors\AuthorizeAdminTest test
+ * @property \spec\rtens\lacarte\features\AuthorizeAdminTest test
  */
 class AuthorizeAdminTest_Given extends Test_Given {
 
@@ -55,7 +55,7 @@ class AuthorizeAdminTest_Given extends Test_Given {
 }
 
 /**
- * @property \spec\rtens\lacarte\interactors\AuthorizeAdminTest test
+ * @property \spec\rtens\lacarte\features\AuthorizeAdminTest test
  */
 class AuthorizeAdminTest_When extends Test_When {
 
@@ -80,7 +80,7 @@ class AuthorizeAdminTest_When extends Test_When {
 }
 
 /**
- * @property \spec\rtens\lacarte\interactors\AuthorizeAdminTest test
+ * @property \spec\rtens\lacarte\features\AuthorizeAdminTest test
  */
 class AuthorizeAdminTest_Then extends Test_Then {
 
