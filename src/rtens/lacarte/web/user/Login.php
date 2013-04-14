@@ -61,10 +61,4 @@ class Login extends Component {
         return $this->redirect(Url::parse('login.html'));
     }
 
-    protected function getRenderer() {
-        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
-        return parent::getRenderer();
-    }
-
-
 }

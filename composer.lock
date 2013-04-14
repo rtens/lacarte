@@ -331,12 +331,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/tempan.git",
-                "reference": "670b8760b3623775b4fd72c5e17afdb0aa9d7a1b"
+                "reference": "39692817385dcdce475652eb5766d944ec5ccd7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/tempan/zipball/670b8760b3623775b4fd72c5e17afdb0aa9d7a1b",
-                "reference": "670b8760b3623775b4fd72c5e17afdb0aa9d7a1b",
+                "url": "https://api.github.com/repos/watoki/tempan/zipball/39692817385dcdce475652eb5766d944ec5ccd7e",
+                "reference": "39692817385dcdce475652eb5766d944ec5ccd7e",
                 "shasum": ""
             },
             "require": {
@@ -369,7 +369,7 @@
                 "template animation",
                 "watoki"
             ],
-            "time": "2013-03-26 12:38:32"
+            "time": "2013-04-14 07:58:45"
         }
     ],
     "packages-dev": [
