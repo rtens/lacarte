@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "e90c76df967e096ba4198def878273a53e7cb74d"
+                "reference": "d2d86f1d5d58cfd8cdf7a631db6dd4a32ebdc446"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/e90c76df967e096ba4198def878273a53e7cb74d",
-                "reference": "e90c76df967e096ba4198def878273a53e7cb74d",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/d2d86f1d5d58cfd8cdf7a631db6dd4a32ebdc446",
+                "reference": "d2d86f1d5d58cfd8cdf7a631db6dd4a32ebdc446",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
                 "mvc",
                 "watoki"
             ],
-            "time": "2013-04-13 23:58:22"
+            "time": "2013-04-14 20:28:51"
         },
         {
             "name": "watoki/factory",
