@@ -58,12 +58,10 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
     private function createSteps() {
         foreach (array('given', 'when', 'then') as $steps) {
             $class = get_class($this) . '_' . ucfirst($steps);
-            if (class_exists($class)) {
-                $this->$steps = new $class($this);
-            } else {
-                $class = 'spec\rtens\lacarte_' . ucfirst($steps);
-                $this->$steps = new $class($this);
+            if (!class_exists($class)) {
+                $class = __CLASS__ . '_' . ucfirst($steps);
             }
+            $this->$steps = new $class($this);
         }
     }
 
