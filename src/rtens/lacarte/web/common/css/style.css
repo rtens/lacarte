@@ -1,3 +1,6 @@
+@import "bootstrap.css";
+@import "bootstrap-responsive.css";
+
 body {
 	padding-top: 40px;
 	padding-bottom: 40px;
@@ -26,4 +29,13 @@ a:hover {
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
 	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
 			box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.top {
+     margin-bottom: 10px;
+     margin-right: 10px;
+ }
+
+.top .menu {
+    float: right;
 }

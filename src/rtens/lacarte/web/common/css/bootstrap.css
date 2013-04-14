@@ -1896,6 +1896,10 @@ input.search-query {
     *zoom: 1;
 }
 
+.form-inline .control-group {
+    margin-bottom: 0px;
+}
+
 .form-search .hide,
 .form-inline .hide,
 .form-horizontal .hide {

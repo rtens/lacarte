@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>laCarte &middot; Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../common/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container">
+    <div class="top">
+        <div class="menu" property="menu" data-include="../common/menu.html">
+            -- menu --
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="content">
+
+        <h2>Users</h2>
+
+        <form action="list.html" method="post" class="form-inline">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Key</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text" name="name" placeholder="Name">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text" name="email" placeholder="Email">
+                        </div>
+                    </td>
+                    <td>(is generated)</td>
+                    <td>
+                        <button type="submit" class="btn btn-small btn-success">create new User</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Max Mustermann</td>
+                    <td>max@mustermann.de</td>
+                    <td>f65627783606164dc3fde108b791c</td>
+                    <td>
+                        <a href="#" class="btn btn-mini btn-primary">edit</a>
+                        <a href="#" class="btn btn-mini btn-danger">delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Peter Parker</td>
+                    <td>not@spiderman.com</td>
+                    <td>f656277836061676633fde108b791c</td>
+                    <td>
+                        <a href="#" class="btn btn-mini btn-primary">edit</a>
+                        <a href="#" class="btn btn-mini btn-danger">delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </form>
+
+        <div class="clearfix"></div>
+
+    </div>
+
+    <script property="ignore" src="../common/js/jquery.js"></script>
+    <script property="ignore" src="../common/js/include.js"></script>
+</div>
+
+</body>
+</html>
