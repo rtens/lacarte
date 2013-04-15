@@ -1,7 +1,7 @@
 <?php
 namespace rtens\lacarte\core;
 
-use rtens\lacarte\web\LaCarte;
+use rtens\lacarte\web\LaCarteModule;
 use watoki\collections\Liste;
 use watoki\curir\Path;
 use watoki\curir\Request;

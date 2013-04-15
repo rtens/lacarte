@@ -11,7 +11,7 @@ use watoki\curir\controller\Module;
 use watoki\factory\Factory;
 use watoki\tempan\Renderer;
 
-class Login extends Component {
+class LoginComponent extends Component {
 
     public static $CLASS = __CLASS__;
 

@@ -4,7 +4,7 @@ namespace spec\rtens\lacarte\web;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
-use rtens\lacarte\web\user\Login;
+use rtens\lacarte\web\user\LoginComponent;
 use rtens\mockster\Mock;
 use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\Test_Given;
@@ -148,10 +148,10 @@ class LoginTest_When extends Test_When {
     }
 
     /**
-     * @return Login
+     * @return LoginComponent
      */
     private function createComponent() {
-        return new Login($this->test->factory, new Path(), null,
+        return new LoginComponent($this->test->factory, new Path(), null,
             $this->test->given->userInteractor,
             $this->test->given->session);
     }
