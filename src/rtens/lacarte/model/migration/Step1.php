@@ -16,6 +16,7 @@ class Step1 extends BaseStep {
                     'groupId' INTEGER NOT NULL,
                     'name' TEXT(255),
                     'email' TEXT(255),
+                    'key' TEXT(32),
                     PRIMARY KEY ('id'));");
     }
 

@@ -11,10 +11,13 @@ class User {
 
     private $email;
 
-    function __construct($groupId, $name, $email) {
+    private $key;
+
+    function __construct($groupId, $name, $email, $key) {
         $this->groupId = $groupId;
         $this->name = $name;
         $this->email = $email;
+        $this->key = $key;
     }
 
     public function getName() {
@@ -39,6 +42,10 @@ class User {
 
     public function setGroupId($groupId) {
         $this->groupId = $groupId;
+    }
+
+    public function getKey() {
+        return $this->key;
     }
 
 }

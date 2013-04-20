@@ -35,7 +35,8 @@ class UserInteractor {
     }
 
     public function createUser(Group $group, $name, $email) {
-        $user = new User($group->id, $name, $email);
+        $key = md5($group->getName() . $name . $email . time());
+        $user = new User($group->id, $name, $email, $key);
         $this->userStore->create($user);
         return $user;
     }

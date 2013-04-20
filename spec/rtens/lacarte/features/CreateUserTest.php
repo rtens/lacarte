@@ -27,6 +27,7 @@ class CreateUserTest extends Test {
 
         $this->then->theUserShouldBeCreated();
         $this->then->thereShouldBeAUser('Marina', 'm@gnz.es');
+        $this->then->theUserShouldHaveAKey();
     }
 
     function testNotAdmin() {
@@ -42,6 +43,10 @@ class CreateUserTest extends Test {
     }
 
     function testAlreadyExistingEmail() {
+        $this->markTestIncomplete();
+    }
+
+    function testAlreadyExistingKey() {
         $this->markTestIncomplete();
     }
 
@@ -109,5 +114,9 @@ class CreateUserTest_Then extends Test_Then {
 
     public function theUserShouldBeCreated() {
         $this->test->assertNotNull($this->test->when->user);
+    }
+
+    public function theUserShouldHaveAKey() {
+        $this->test->assertNotNull($this->test->when->user->getKey());
     }
 }

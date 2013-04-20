@@ -24,7 +24,7 @@ class UserStore extends Store {
     }
 
     private function inflate($row) {
-        $user = new User($row['groupId'], $row['name'], $row['email']);
+        $user = new User($row['groupId'], $row['name'], $row['email'], $row['key']);
         $user->id = $row['id'];
         return $user;
     }
