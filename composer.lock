@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d"
+                "reference": "a18e75dc51abe4576f221f46e1f74057e3f2ed64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d",
-                "reference": "a4aeb9fa57cb4e69310311cd2ddb82bc12d2112d",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/a18e75dc51abe4576f221f46e1f74057e3f2ed64",
+                "reference": "a18e75dc51abe4576f221f46e1f74057e3f2ed64",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-04-12 13:15:07"
+            "time": "2013-04-17 05:27:14"
         },
         {
             "name": "watoki/collections",
@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/collections.git",
-                "reference": "fba99c756d3d6c1901d0dc2170da0d56fb203516"
+                "reference": "730ee35376031d3d022761a05db81be5d0e51a15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/collections/zipball/fba99c756d3d6c1901d0dc2170da0d56fb203516",
-                "reference": "fba99c756d3d6c1901d0dc2170da0d56fb203516",
+                "url": "https://api.github.com/repos/watoki/collections/zipball/730ee35376031d3d022761a05db81be5d0e51a15",
+                "reference": "730ee35376031d3d022761a05db81be5d0e51a15",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
                 "data structure",
                 "watoki"
             ],
-            "time": "2013-03-26 08:27:28"
+            "time": "2013-04-19 09:47:59"
         },
         {
             "name": "watoki/curir",
@@ -103,19 +103,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "c14c934bca5036a206db9d8f1ca5e5ae37a1020c"
+                "reference": "4b0906753ed650273289a06a02a068cd55250440"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/c14c934bca5036a206db9d8f1ca5e5ae37a1020c",
-                "reference": "c14c934bca5036a206db9d8f1ca5e5ae37a1020c",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/4b0906753ed650273289a06a02a068cd55250440",
+                "reference": "4b0906753ed650273289a06a02a068cd55250440",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.8",
                 "watoki/collections": "*",
-                "watoki/factory": "*",
-                "watoki/tempan": "*"
+                "watoki/dom": "*",
+                "watoki/factory": "*"
             },
             "type": "library",
             "autoload": {
@@ -143,7 +143,51 @@
                 "mvc",
                 "watoki"
             ],
-            "time": "2013-04-14 22:10:28"
+            "time": "2013-04-19 12:49:14"
+        },
+        {
+            "name": "watoki/dom",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/watoki/dom.git",
+                "reference": "3a45110ea6def05eb0a32e4c6f603e58346e5cd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/watoki/dom/zipball/3a45110ea6def05eb0a32e4c6f603e58346e5cd9",
+                "reference": "3a45110ea6def05eb0a32e4c6f603e58346e5cd9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.8",
+                "watoki/collections": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "watoki\\dom": "src/",
+                    "spec\\watoki\\dom": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Martens",
+                    "email": "Nikolas.M@rtens.org",
+                    "homepage": "http://rtens.org"
+                }
+            ],
+            "description": "A minimal (X)HTML/XML parser for PHP",
+            "homepage": "http://github.com/watoki/dom",
+            "keywords": [
+                "parser",
+                "watoki"
+            ],
+            "time": "2013-04-20 08:50:09"
         },
         {
             "name": "watoki/factory",
@@ -151,12 +195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/factory.git",
-                "reference": "861d9f9948191baf805e01454986b94e3cd60014"
+                "reference": "3c584976a8c6f947e7618e5f12d7fef4268057f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/factory/zipball/861d9f9948191baf805e01454986b94e3cd60014",
-                "reference": "861d9f9948191baf805e01454986b94e3cd60014",
+                "url": "https://api.github.com/repos/watoki/factory/zipball/3c584976a8c6f947e7618e5f12d7fef4268057f9",
+                "reference": "3c584976a8c6f947e7618e5f12d7fef4268057f9",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +213,7 @@
                     "spec\\watoki\\factory": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -181,12 +225,12 @@
                 }
             ],
             "description": "A simple dependency injection container for PHP",
-            "homepage": "http://github.com/watoki/c2",
+            "homepage": "http://github.com/watoki/factory",
             "keywords": [
                 "dependency injection",
                 "watoki"
             ],
-            "time": "2013-04-06 10:31:11"
+            "time": "2013-04-16 10:25:59"
         },
         {
             "name": "watoki/smokey",
@@ -283,12 +327,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/stepper.git",
-                "reference": "59d8de0eaa9472895ce97943ccfc3469d1bb75ba"
+                "reference": "9e0f615e5b081ebb9aae3be19ef10f82086049bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/stepper/zipball/59d8de0eaa9472895ce97943ccfc3469d1bb75ba",
-                "reference": "59d8de0eaa9472895ce97943ccfc3469d1bb75ba",
+                "url": "https://api.github.com/repos/watoki/stepper/zipball/9e0f615e5b081ebb9aae3be19ef10f82086049bd",
+                "reference": "9e0f615e5b081ebb9aae3be19ef10f82086049bd",
                 "shasum": ""
             },
             "require": {
@@ -323,7 +367,7 @@
                 "migration",
                 "watoki"
             ],
-            "time": "2013-04-13 12:56:31"
+            "time": "2013-04-18 14:17:58"
         },
         {
             "name": "watoki/tempan",
@@ -331,17 +375,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/tempan.git",
-                "reference": "39692817385dcdce475652eb5766d944ec5ccd7e"
+                "reference": "6db7e3b912503bb384b0e4218dc4af37d7569e76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/tempan/zipball/39692817385dcdce475652eb5766d944ec5ccd7e",
-                "reference": "39692817385dcdce475652eb5766d944ec5ccd7e",
+                "url": "https://api.github.com/repos/watoki/tempan/zipball/6db7e3b912503bb384b0e4218dc4af37d7569e76",
+                "reference": "6db7e3b912503bb384b0e4218dc4af37d7569e76",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.8",
-                "watoki/collections": "*"
+                "watoki/collections": "*",
+                "watoki/dom": "*"
             },
             "type": "library",
             "autoload": {
@@ -369,7 +414,7 @@
                 "template animation",
                 "watoki"
             ],
-            "time": "2013-04-14 07:58:45"
+            "time": "2013-04-19 12:00:38"
         }
     ],
     "packages-dev": [

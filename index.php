@@ -2,5 +2,10 @@
 
 $factory = require_once 'bootstrap.php';
 
-$app = new \rtens\lacarte\core\WebApplication($_REQUEST['_'], $factory);
-$app->handleRequest($_REQUEST['-'], \rtens\lacarte\web\LaCarteModule::$CLASS);
+$route = $_REQUEST['_'];
+$request = $_REQUEST['-'];
+unset($_REQUEST['_']);
+unset($_REQUEST['-']);
+
+$app = new \rtens\lacarte\core\WebApplication($route, $factory);
+$app->handleRequest($request, \rtens\lacarte\web\LaCarteModule::$CLASS);
