@@ -2,7 +2,10 @@
 namespace rtens\lacarte;
  
 use rtens\lacarte\core\NotFoundException;
+use rtens\lacarte\model\Group;
+use rtens\lacarte\model\User;
 use rtens\lacarte\model\stores\GroupStore;
+use rtens\lacarte\model\stores\UserStore;
 
 class UserInteractor {
 
@@ -11,18 +14,30 @@ class UserInteractor {
     /**
      * @var model\stores\GroupStore
      */
-    private $store;
+    private $groupStore;
 
-    function __construct(GroupStore $store) {
-        $this->store = $store;
+    /**
+     * @var model\stores\UserStore
+     */
+    private $userStore;
+
+    function __construct(GroupStore $groupStore, UserStore $userStore) {
+        $this->groupStore = $groupStore;
+        $this->userStore = $userStore;
     }
 
     public function authorizeAdmin($email, $password) {
         try {
-            return $this->store->readByEmailAndPassword($email, $password);
+            return $this->groupStore->readByEmailAndPassword($email, $password);
         } catch (NotFoundException $e) {
             return null;
         }
+    }
+
+    public function createUser(Group $group, $name, $email) {
+        $user = new User($group->id, $name, $email);
+        $this->userStore->create($user);
+        return $user;
     }
 
 }
