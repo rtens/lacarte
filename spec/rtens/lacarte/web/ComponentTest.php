@@ -65,6 +65,7 @@ class ComponentTest_Given extends Test_Given {
     }
 
     public function iAmAdmin() {
+        $this->iAmLoggedIn();
         $this->session->set('isAdmin', true);
     }
 
@@ -112,6 +113,10 @@ class ComponentTest_Then extends Test_Then {
 
     public function theModelShouldBe($json) {
         $this->test->assertEquals($json, json_encode($this->test->when->model));
+    }
+
+    public function _shouldHaveTheSize($field, $int) {
+        $this->test->assertEquals($int, count($this->getField($field)));
     }
 
 }

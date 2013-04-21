@@ -34,4 +34,12 @@ class UserStore extends Store {
         return $result['count'] != 0;
     }
 
+    public function readAll() {
+        $users = array();
+        foreach ($this->db->readAll("SELECT * FROM users ORDER BY name ASC") as $row) {
+            $users[] = $this->inflate($row);
+        }
+        return $users;
+    }
+
 }

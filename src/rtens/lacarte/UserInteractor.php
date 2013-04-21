@@ -52,4 +52,11 @@ class UserInteractor {
         }
     }
 
+    /**
+     * @return array|User[]
+     */
+    public function readAll() {
+        return $this->userStore->readAll();
+    }
+
 }

@@ -4,6 +4,7 @@ namespace rtens\lacarte\web\user;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
+use rtens\lacarte\model\User;
 use rtens\lacarte\web\DefaultComponent;
 use rtens\lacarte\web\common\MenuComponent;
 use watoki\curir\Path;
@@ -23,15 +24,11 @@ class ListComponent extends DefaultComponent {
         $this->userInteractor = $userInteractor;
     }
 
-    private function assembleModel($model = array()) {
-        return array_merge(array(
-            "menu" => $this->subComponent(MenuComponent::$CLASS),
-            'error' => null,
-            'success' => null
-        ), $model);
-    }
-
     public function doGet() {
+        if (!$this->session->hasAndGet('isAdmin')) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+
         return $this->assembleModel();
     }
 
@@ -58,6 +55,34 @@ class ListComponent extends DefaultComponent {
                 'error' => $e->getMessage()
             ));
         }
+    }
+
+    private function assembleModel($model = array()) {
+        return array_merge(array(
+            'user' => $this->assembleUsers(),
+            'menu' => $this->subComponent(MenuComponent::$CLASS),
+            'error' => null,
+            'success' => null
+        ), $model);
+    }
+
+    private function assembleUsers() {
+        $users = array();
+        foreach ($this->userInteractor->readAll() as $user) {
+            /** @var User $user */
+            $users[] = array(
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'key' => $user->getKey(),
+                'editAction' => array(
+                    'href' => 'list.html?action=edit&id=' . $user->id
+                ),
+                'deleteAction' => array(
+                    'href' => 'list.html?action=delete&id=' . $user->id
+                )
+            );
+        }
+        return $users;
     }
 
 }
