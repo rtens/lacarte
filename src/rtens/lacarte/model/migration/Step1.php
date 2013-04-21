@@ -17,7 +17,9 @@ class Step1 extends BaseStep {
                     'name' TEXT(255),
                     'email' TEXT(255),
                     'key' TEXT(32),
-                    PRIMARY KEY ('id'));");
+                    PRIMARY KEY ('id'),
+                    CONSTRAINT unique_email UNIQUE ('email'),
+                    CONSTRAINT unique_key UNIQUE ('key'));");
     }
 
     public function down() {

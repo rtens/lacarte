@@ -29,4 +29,9 @@ class UserStore extends Store {
         return $user;
     }
 
+    public function isKeyExisting($key) {
+        $result = $this->db->readOne('SELECT count(*) as count FROM users WHERE "key" = ?', array($key));
+        return $result['count'] != 0;
+    }
+
 }
