@@ -32,7 +32,7 @@ class UserInteractor {
         }
     }
 
-    public function createUser(Group $group, $name, $email) {
+    public function createUser($groupId, $name, $email) {
         if (!$name || !$email) {
             throw new \InvalidArgumentException('Please provide name and email.');
         }
@@ -41,7 +41,7 @@ class UserInteractor {
             $key = $this->keyGenerator->generateUnique();
         } while ($this->userStore->isKeyExisting($key));
 
-        $user = new User($group->id, $name, $email, $key);
+        $user = new User($groupId, $name, $email, $key);
 
         try {
             $this->userStore->create($user);

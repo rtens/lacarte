@@ -11,13 +11,17 @@ use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\Test_Given;
 use spec\rtens\lacarte\Test_Then;
 use spec\rtens\lacarte\Test_When;
+use spec\rtens\lacarte\web\ComponentTest;
+use spec\rtens\lacarte\web\ComponentTest_Given;
+use spec\rtens\lacarte\web\ComponentTest_Then;
+use spec\rtens\lacarte\web\ComponentTest_When;
 
 /**
  * @property CreateUserTest_Given given
  * @property CreateUserTest_When when
  * @property CreateUserTest_Then then
  */
-class CreateUserTest extends Test {
+class CreateUserTest extends ComponentTest {
 
     protected function setUp() {
         parent::setUp();
@@ -34,6 +38,32 @@ class CreateUserTest extends Test {
         $this->then->theUserShouldBeCreated();
         $this->then->thereShouldBeAUser('Marina', 'm@gnz.es');
         $this->then->theUserShouldHaveAKey();
+    }
+
+    function testEmptyName() {
+        $this->given->theEmail('some@mail.com');
+
+        $this->when->iTryToCreateANewUserForTheGroup();
+
+        $this->then->anExceptionShouldBeThrownContaining('name');
+    }
+
+    function testEmptyEmail() {
+        $this->given->theName('John');
+
+        $this->when->iTryToCreateANewUserForTheGroup();
+
+        $this->then->anExceptionShouldBeThrownContaining('name');
+    }
+
+    function testAlreadyExistingEmail() {
+        $this->given->theExistingUser('Peter', 'peter@parker.com', 'noKey');
+        $this->given->theName('Spider Man');
+        $this->given->theEmail('peter@parker.com');
+
+        $this->when->iTryToCreateANewUserForTheGroup();
+
+        $this->then->anExceptionShouldBeThrownContaining('exist');
     }
 
     function testAlreadyExistingKey() {
@@ -55,7 +85,7 @@ class CreateUserTest extends Test {
 /**
  * @property CreateUserTest test
  */
-class CreateUserTest_Given extends Test_Given {
+class CreateUserTest_Given extends ComponentTest_Given {
 
     public $name;
 
@@ -111,16 +141,19 @@ class CreateUserTest_When extends Test_When {
      */
     public $user;
 
-    /**
-     * @var null|\Exception
-     */
-    public $caught;
-
     public function iCreateANewUserForTheGroup() {
         /** @var UserInteractor $interactor */
         $interactor = $this->test->factory->getInstance(UserInteractor::$CLASS);
-        $this->user = $interactor->createUser($this->test->given->group,
+        $this->user = $interactor->createUser($this->test->given->group->id,
             $this->test->given->name, $this->test->given->email);
+    }
+
+    public function iTryToCreateANewUserForTheGroup() {
+        try {
+            $this->iCreateANewUserForTheGroup();
+        } catch (\Exception $e) {
+            $this->caught = $e;
+        }
     }
 }
 
@@ -148,5 +181,10 @@ class CreateUserTest_Then extends Test_Then {
 
     public function theUserShouldHaveAKey() {
         $this->test->assertNotNull($this->test->when->user->getKey());
+    }
+
+    public function anExceptionShouldBeThrownContaining($msg) {
+        $this->test->assertNotNull($this->test->when->caught);
+        $this->test->assertContains($msg, $this->test->when->caught->getMessage());
     }
 }

@@ -57,11 +57,16 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
     private function createSteps() {
         foreach (array('given', 'when', 'then') as $steps) {
-            $class = get_class($this) . '_' . ucfirst($steps);
-            if (!class_exists($class)) {
-                $class = __CLASS__ . '_' . ucfirst($steps);
+            $class = get_class($this);
+            while ($class) {
+                $stepClass = $class . '_' . ucfirst($steps);
+                if (class_exists($stepClass)) {
+                    $this->$steps = new $stepClass($this);
+                    break;
+                }
+                $refl = new \ReflectionClass($class);
+                $class = $refl->getParentClass()->getName();
             }
-            $this->$steps = new $class($this);
         }
     }
 
@@ -82,6 +87,11 @@ class Test_Given {
  * @property Test test
  */
 class Test_When {
+
+    /**
+     * @var null|\Exception
+     */
+    public $caught;
 
     function __construct(Test $test) {
         $this->test = $test;

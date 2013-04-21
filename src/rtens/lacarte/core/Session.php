@@ -29,4 +29,8 @@ class Session {
         unset($_SESSION[$key]);
     }
 
+    public function hasAndGet($key) {
+        return $this->has($key) ? $this->get($key) : null;
+    }
+
 }
