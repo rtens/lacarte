@@ -1,5 +1,5 @@
 <?php
-namespace spec\rtens\lacarte\features;
+namespace spec\rtens\lacarte\features\user;
 
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\model\Group;
@@ -34,32 +34,6 @@ class CreateUserTest extends Test {
         $this->then->theUserShouldBeCreated();
         $this->then->thereShouldBeAUser('Marina', 'm@gnz.es');
         $this->then->theUserShouldHaveAKey();
-    }
-
-    function testEmptyName() {
-        $this->given->theEmail('some@mail.com');
-
-        $this->when->iTryToCreateANewUserForTheGroup();
-
-        $this->then->anExceptionShouldBeThrownContaining('name');
-    }
-
-    function testEmptyEmail() {
-        $this->given->theName('John');
-
-        $this->when->iTryToCreateANewUserForTheGroup();
-
-        $this->then->anExceptionShouldBeThrownContaining('name');
-    }
-
-    function testAlreadyExistingEmail() {
-        $this->given->theExistingUser('Peter', 'peter@parker.com', 'noKey');
-        $this->given->theName('Spider Man');
-        $this->given->theEmail('peter@parker.com');
-
-        $this->when->iTryToCreateANewUserForTheGroup();
-
-        $this->then->anExceptionShouldBeThrownContaining('exist');
     }
 
     function testAlreadyExistingKey() {
@@ -148,14 +122,6 @@ class CreateUserTest_When extends Test_When {
         $this->user = $interactor->createUser($this->test->given->group,
             $this->test->given->name, $this->test->given->email);
     }
-
-    public function iTryToCreateANewUserForTheGroup() {
-        try {
-            $this->iCreateANewUserForTheGroup();
-        } catch (\Exception $e) {
-            $this->caught = $e;
-        }
-    }
 }
 
 /**
@@ -182,10 +148,5 @@ class CreateUserTest_Then extends Test_Then {
 
     public function theUserShouldHaveAKey() {
         $this->test->assertNotNull($this->test->when->user->getKey());
-    }
-
-    public function anExceptionShouldBeThrownContaining($msg) {
-        $this->test->assertNotNull($this->test->when->caught);
-        $this->test->assertContains($msg, $this->test->when->caught->getMessage());
     }
 }
