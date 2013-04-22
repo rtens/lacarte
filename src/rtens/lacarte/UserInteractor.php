@@ -32,6 +32,15 @@ class UserInteractor {
         }
     }
 
+    public function authorizeUser($key) {
+        try {
+            $user = $this->userStore->readByKey($key);
+            return $this->groupStore->readById($user->getGroupId());
+        } catch (NotFoundException $e) {
+            return null;
+        }
+    }
+
     public function createUser($groupId, $name, $email) {
         if (!$name || !$email) {
             throw new \InvalidArgumentException('Please provide name and email.');

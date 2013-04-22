@@ -23,6 +23,11 @@ class UserStore extends Store {
             array($email)));
     }
 
+    public function readByKey($key) {
+        return $this->inflate($this->db->readOne("SELECT * FROM users WHERE \"key\" = ?",
+            array($key)));
+    }
+
     private function inflate($row) {
         $user = new User($row['groupId'], $row['name'], $row['email'], $row['key']);
         $user->id = $row['id'];

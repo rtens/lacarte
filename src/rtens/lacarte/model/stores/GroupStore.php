@@ -23,4 +23,9 @@ class GroupStore extends Store {
         return $group;
     }
 
+    public function readById($id) {
+        return $this->inflate($this->db->readOne("SELECT * FROM groups WHERE id = ?",
+            array($id)));
+    }
+
 }
