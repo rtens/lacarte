@@ -57,8 +57,22 @@ class LoginComponent extends Component {
     public function doLogout() {
         $this->session->remove('group');
         $this->session->remove('isAdmin');
+        $this->session->remove('key');
 
         return $this->redirect(Url::parse('login.html'));
+    }
+
+    public function doLogin($key) {
+        $user = $this->interactor->authorizeUser($key);
+        if (!$user) {
+            return array(
+                'error' => 'You entered an invalid key'
+            );
+        }
+
+        $this->session->set('key', $user->getKey());
+
+        return $this->redirectToList();
     }
 
 }

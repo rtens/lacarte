@@ -34,8 +34,7 @@ class UserInteractor {
 
     public function authorizeUser($key) {
         try {
-            $user = $this->userStore->readByKey($key);
-            return $this->groupStore->readById($user->getGroupId());
+            return $this->userStore->readByKey($key);
         } catch (NotFoundException $e) {
             return null;
         }

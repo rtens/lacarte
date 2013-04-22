@@ -56,7 +56,9 @@ class ComponentTest_Given extends Test_Given {
             return $sessionVars->has($key);
         });
         $this->session->__mock()->method('remove')->willCall(function ($key) use ($sessionVars) {
-            return $sessionVars->remove($key);
+            if ($sessionVars->has($key)) {
+                $sessionVars->remove($key);
+            }
         });
     }
 

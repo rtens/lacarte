@@ -4,6 +4,7 @@ namespace spec\rtens\lacarte\web\user;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
+use rtens\lacarte\model\User;
 use rtens\lacarte\web\user\LoginComponent;
 use rtens\mockster\Mock;
 use spec\rtens\lacarte\Test;
@@ -65,6 +66,23 @@ class LoginTest extends ComponentTest {
         $this->then->iShouldBeRedirectedTo('login.html');
         $this->then->theSessionShouldNotContain('group');
         $this->then->theSessionShouldNotContain('isAdmin');
+        $this->then->theSessionShouldNotContain('key');
+    }
+
+    function testLogInWithKey() {
+        $this->given->theUser_WithKey('Mark', 'myKey');
+        $this->given->iHaveEnteredTheCorrectKey();
+
+        $this->when->iLoginAsUser();
+
+        $this->then->theSessionShouldContain_WithValue('key', 'myKey');
+        $this->then->theSessionShouldNotContain('isAdmin');
+    }
+
+    function testWrongKey() {
+        $this->given->iHaveEnteredAnIncorrectKey();
+        $this->when->iLoginAsUser();
+        $this->then->_shouldNotBeEmpty('error');
     }
 }
 
@@ -86,6 +104,9 @@ class LoginTest_Given extends ComponentTest_Given {
      * @var Session|Mock
      */
     public $session;
+
+    /** @var User */
+    public $user;
 
     function __construct(Test $test) {
         parent::__construct($test);
@@ -109,6 +130,18 @@ class LoginTest_Given extends ComponentTest_Given {
         $group->id = 1;
         $this->session->set('group', $group->id);
         $this->session->set('isAdmin', true);
+    }
+
+    public function theUser_WithKey($name, $key) {
+        $this->user = new User(44, $name, "$name@example.com",  $key);
+    }
+
+    public function iHaveEnteredTheCorrectKey() {
+        $this->userInteractor->__mock()->method('authorizeUser')->willReturn($this->user);
+    }
+
+    public function iHaveEnteredAnIncorrectKey() {
+        $this->userInteractor->__mock()->method('authorizeUser')->willReturn(null);
     }
 }
 
@@ -142,6 +175,10 @@ class LoginTest_When extends ComponentTest_When {
 
     public function iLogOut() {
         $this->model = $this->component->doLogout();
+    }
+
+    public function iLoginAsUser() {
+        $this->model = $this->component->doLogin('whatever');
     }
 }
 

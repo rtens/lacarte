@@ -24,7 +24,7 @@ class AuthenticateUserTest extends Test {
 
         $this->when->iAuthenticateWithTheKey('someKey');
 
-        $this->then->iShouldBeLoggedInForTheGroup('test');
+        $this->then->iShouldBeLoggedInAs('John');
     }
 
     function testIncorrectKey() {
@@ -33,7 +33,7 @@ class AuthenticateUserTest extends Test {
 
         $this->when->iAuthenticateWithTheKey('wrongKey');
 
-        $this->then->iShouldNotBeAuthenticated();
+        $this->then->iShouldNotBeLoggedIn();
     }
 
 }
@@ -74,9 +74,9 @@ class AuthenticateUserTest_Given extends Test_Given {
 class AuthenticateUserTest_When extends Test_When {
 
     /**
-     * @var null|Group
+     * @var null|User
      */
-    public $group;
+    public $user;
 
     /**
      * @var UserInteractor
@@ -89,7 +89,7 @@ class AuthenticateUserTest_When extends Test_When {
     }
 
     public function iAuthenticateWithTheKey($key) {
-        $this->group = $this->userInteractor->authorizeUser($key);
+        $this->user = $this->userInteractor->authorizeUser($key);
     }
 }
 
@@ -98,12 +98,12 @@ class AuthenticateUserTest_When extends Test_When {
  */
 class AuthenticateUserTest_Then extends Test_Then {
 
-    public function iShouldBeLoggedInForTheGroup($name) {
-        $this->test->assertNotNull($this->test->when->group, 'No group');
-        $this->test->assertEquals($name, $this->test->when->group->getName());
+    public function iShouldBeLoggedInAs($userName) {
+        $this->test->assertNotNull($this->test->when->user, 'Not logged-in');
+        $this->test->assertEquals($userName, $this->test->when->user->getName());
     }
 
-    public function iShouldNotBeAuthenticated() {
-        $this->test->assertNull($this->test->when->group);
+    public function iShouldNotBeLoggedIn() {
+        $this->test->assertNull($this->test->when->user);
     }
 }
