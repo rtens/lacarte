@@ -71,6 +71,7 @@ class LoginComponent extends Component {
         }
 
         $this->session->set('key', $user->getKey());
+        $this->session->set('group', $user->getGroupId());
 
         return $this->redirectToList();
     }

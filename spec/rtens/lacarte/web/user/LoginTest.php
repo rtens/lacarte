@@ -70,12 +70,13 @@ class LoginTest extends ComponentTest {
     }
 
     function testLogInWithKey() {
-        $this->given->theUser_WithKey('Mark', 'myKey');
+        $this->given->theUser_WithKey_InGroup('Mark', 'myKey', 44);
         $this->given->iHaveEnteredTheCorrectKey();
 
         $this->when->iLoginAsUser();
 
         $this->then->theSessionShouldContain_WithValue('key', 'myKey');
+        $this->then->theSessionShouldContain_WithValue('group', 44);
         $this->then->theSessionShouldNotContain('isAdmin');
     }
 
@@ -129,11 +130,10 @@ class LoginTest_Given extends ComponentTest_Given {
         $group = new Group($groupName, '', '');
         $group->id = 1;
         $this->session->set('group', $group->id);
-        $this->session->set('isAdmin', true);
     }
 
-    public function theUser_WithKey($name, $key) {
-        $this->user = new User(44, $name, "$name@example.com",  $key);
+    public function theUser_WithKey_InGroup($name, $key, $groupId) {
+        $this->user = new User($groupId, $name, "$name@example.com",  $key);
     }
 
     public function iHaveEnteredTheCorrectKey() {
