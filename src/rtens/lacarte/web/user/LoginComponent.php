@@ -3,31 +3,32 @@ namespace rtens\lacarte\web\user;
 
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
-use watoki\collections\Map;
 use watoki\curir\Path;
 use watoki\curir\Url;
 use watoki\curir\controller\Component;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
-use watoki\tempan\Renderer;
 
 class LoginComponent extends Component {
 
     public static $CLASS = __CLASS__;
 
-    private $interactor;
+    /**
+     * @var \rtens\lacarte\core\Session
+     */
+    protected $session;
 
-    private $session;
+    protected $userInteractor;
 
     function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $interactor, Session $session) {
+        UserInteractor $userInteractor, Session $session) {
         parent::__construct($factory, $route, $parent);
-        $this->interactor = $interactor;
+        $this->userInteractor = $userInteractor;
         $this->session = $session;
     }
 
     public function doLoginAdmin($email, $password) {
-        $group = $this->interactor->authorizeAdmin($email, $password);
+        $group = $this->userInteractor->authorizeAdmin($email, $password);
 
         if (!$group) {
             return array(
@@ -63,7 +64,8 @@ class LoginComponent extends Component {
     }
 
     public function doPost($key) {
-        $user = $this->interactor->authorizeUser($key);
+        $user = $this->userInteractor->authorizeUser($key);
+
         if (!$user) {
             return array(
                 'error' => 'You entered an invalid key'

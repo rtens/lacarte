@@ -1,8 +1,12 @@
 <?php
 namespace rtens\lacarte\web;
 
+use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
+use rtens\lacarte\web\common\MenuComponent;
 use watoki\curir\Path;
+use watoki\curir\Request;
+use watoki\curir\Url;
 use watoki\curir\composition\SuperComponent;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
@@ -14,10 +18,58 @@ abstract class DefaultComponent extends SuperComponent {
      */
     protected $session;
 
-    function __construct(Factory $factory, Path $route, Module $parent = null, Session $session) {
-        parent::__construct($factory, $route, $parent);
+    protected $userInteractor;
 
+    function __construct(Factory $factory, Path $route, Module $parent = null,
+        UserInteractor $userInteractor, Session $session) {
+        parent::__construct($factory, $route, $parent);
+        $this->userInteractor = $userInteractor;
         $this->session = $session;
+    }
+
+    public function respond(Request $request) {
+        if (!$this->getLoggedInGroup()) {
+            if ($request->getParameters()->has('key')) {
+                try {
+                    $this->login($request->getParameters()->get('key'));
+                } catch (\Exception $e) {
+                    return $this->redirectToLogin();
+                }
+            } else {
+                return $this->redirectToLogin();
+            }
+        }
+
+        return parent::respond($request);
+    }
+
+    protected function getLoggedInGroup() {
+        return $this->session->hasAndGet('group');
+    }
+
+    private function login($key) {
+        $user = $this->userInteractor->authorizeUser($key);
+
+        if (!$user) {
+            throw new \Exception('Invalid key');
+        }
+
+        $this->session->set('key', $user->getKey());
+        $this->session->set('group', $user->getGroupId());
+    }
+
+    protected function assembleModel($model = array()) {
+        return array_merge(array(
+            'menu' => $this->subComponent(MenuComponent::$CLASS)
+        ), $model);
+    }
+
+    /**
+     * @return \watoki\curir\Response
+     */
+    protected function redirectToLogin() {
+        $this->redirect(Url::parse($this->getRoot()->getRoute()->toString() . '/user/login.html'));
+        return $this->getResponse();
     }
 
 }

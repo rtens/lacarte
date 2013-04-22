@@ -16,14 +16,6 @@ class ListComponent extends DefaultComponent {
 
     public static $CLASS = __CLASS__;
 
-    private $userInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null, Session $session,
-                         UserInteractor $userInteractor) {
-        parent::__construct($factory, $route, $parent, $session);
-        $this->userInteractor = $userInteractor;
-    }
-
     public function doGet() {
         if (!$this->session->hasAndGet('isAdmin')) {
             return $this->redirect(Url::parse('../order/list.html'));
@@ -59,13 +51,12 @@ class ListComponent extends DefaultComponent {
         }
     }
 
-    private function assembleModel($model = array()) {
-        return array_merge(array(
+    protected function assembleModel($model = array()) {
+        return parent::assembleModel(array_merge(array(
             'user' => $this->assembleUsers(),
-            'menu' => $this->subComponent(MenuComponent::$CLASS),
             'error' => null,
             'success' => null
-        ), $model);
+        ), $model));
     }
 
     private function assembleUsers() {
