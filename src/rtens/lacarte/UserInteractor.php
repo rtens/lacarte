@@ -41,7 +41,7 @@ class UserInteractor {
             $key = $this->keyGenerator->generateUnique();
         } while ($this->userStore->isKeyExisting($key));
 
-        $user = new User($groupId, $name, $email, $key);
+        $user = new User($groupId, $name, strtolower($email), $key);
 
         try {
             $this->userStore->create($user);

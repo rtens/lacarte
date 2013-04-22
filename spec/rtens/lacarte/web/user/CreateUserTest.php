@@ -51,10 +51,14 @@ class CreateUserTest extends ComponentTest {
     function testError() {
         $this->given->iAmLoggedIn();
         $this->given->iAmAdmin();
+        $this->given->iEnteredTheName('My Name');
+        $this->given->iEnteredTheEmail('some@Example.com');
         $this->given->anErrorOccurs('Some error');
 
         $this->when->iCreateANewUser();
 
+        $this->then->_shouldBe('name/value', 'My Name');
+        $this->then->_shouldBe('email/value', 'some@Example.com');
         $this->then->thereShouldBeAnError('Some error');
     }
 

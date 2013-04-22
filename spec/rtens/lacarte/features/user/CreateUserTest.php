@@ -31,7 +31,7 @@ class CreateUserTest extends ComponentTest {
 
     function testSuccess() {
         $this->given->theName('Marina');
-        $this->given->theEmail('m@gnz.es');
+        $this->given->theEmail('M@gnz.es');
 
         $this->when->iCreateANewUserForTheGroup();
 
@@ -60,6 +60,16 @@ class CreateUserTest extends ComponentTest {
         $this->given->theExistingUser('Peter', 'peter@parker.com', 'noKey');
         $this->given->theName('Spider Man');
         $this->given->theEmail('peter@parker.com');
+
+        $this->when->iTryToCreateANewUserForTheGroup();
+
+        $this->then->anExceptionShouldBeThrownContaining('exist');
+    }
+
+    function testAlreadyExistingEmailWithDifferentCasing() {
+        $this->given->theExistingUser('Peter', 'peter@parker.com', 'noKey');
+        $this->given->theName('Spider Man');
+        $this->given->theEmail('Peter@Parker.com');
 
         $this->when->iTryToCreateANewUserForTheGroup();
 
@@ -184,7 +194,7 @@ class CreateUserTest_Then extends Test_Then {
     }
 
     public function anExceptionShouldBeThrownContaining($msg) {
-        $this->test->assertNotNull($this->test->when->caught);
+        $this->test->assertNotNull($this->test->when->caught, 'No exception was thrown');
         $this->test->assertContains($msg, $this->test->when->caught->getMessage());
     }
 }

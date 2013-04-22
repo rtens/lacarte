@@ -52,7 +52,9 @@ class ListComponent extends DefaultComponent {
             ));
         } catch (\Exception $e) {
             return $this->assembleModel(array(
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
+                'email' => array('value' => $email),
+                'name' => array('value' => $name)
             ));
         }
     }
