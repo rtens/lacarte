@@ -178,7 +178,7 @@ class LoginTest_When extends ComponentTest_When {
     }
 
     public function iLoginAsUser() {
-        $this->model = $this->component->doLogin('whatever');
+        $this->model = $this->component->doPost('whatever');
     }
 }
 

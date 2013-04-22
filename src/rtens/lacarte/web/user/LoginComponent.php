@@ -62,7 +62,7 @@ class LoginComponent extends Component {
         return $this->redirect(Url::parse('login.html'));
     }
 
-    public function doLogin($key) {
+    public function doPost($key) {
         $user = $this->interactor->authorizeUser($key);
         if (!$user) {
             return array(
