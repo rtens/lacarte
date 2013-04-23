@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>laCarte &middot; Selections</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="../common/css/style.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="top">
+        <div class="menu" property="menu">
+            <a href="../common/menu.html">-- menu --</a>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <h2>Selections for <span property="orderName">My Order</span></h2>
+
+        <p>
+            <a href="edit.html" class="btn btn-default">Edit</a>
+            <a href="#" class="btn btn-primary">Export by dish</a>
+            <a href="#" class="btn btn-primary">Export by user</a>
+        </p>
+
+        <form action="selections.html" method="post">
+
+            <table class="table table-striped span7">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th property="date">Mon</th>
+                    <th property="date">Tue</th>
+                    <th property="date">Wed</th>
+                    <th property="date">Thu</th>
+                    <th property="date">Fri</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr property="user">
+                    <td><a href="selection.html">Max Mustermann</a></td>
+                    <td property="selection"><span title="Some tasty dish" property="selected">&clubs;</span></td>
+                    <td property="selection"><span title="Another dish" property="selected">&diams;</span></td>
+                    <td property="selection"><span title="That dish" property="selected">&hearts;</span></td>
+                    <td property="selection"><span title="Another dish" property="selected">&diams;</span></td>
+                    <td property="selection"><span title="This dish" property="selected">&hearts;</span></td>
+                </tr>
+                <tr property="user">
+                    <td><a href="selection.html">Peter Hausen</a></td>
+                    <td property="selection"><span title="Some tasty dish" property="selected">&clubs;</span></td>
+                    <td property="selection"><span title="Another dish" property="selected">&diams;</span></td>
+                    <td property="selection"></td>
+                    <td property="selection"></td>
+                    <td property="selection"><span title="This dish" property="selected">&hearts;</span></td>
+                </tr>
+                <tr property="user">
+                    <td><a href="selection.html">Noselection Johnson</a></td>
+                    <td property="selection"></td>
+                    <td property="selection"></td>
+                    <td property="selection"></td>
+                    <td property="selection"></td>
+                    <td property="selection"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2>Send Email</h2>
+
+            <div class="well">
+                <label class="radio">
+                    <input type="radio" name="receiver" value="all"/>
+                    to all users
+                </label>
+                <label class="radio">
+                    <input type="radio" name="receiver" value="slackers"/>
+                    only to users without selection
+                </label>
+            </div>
+
+            <span class="help-block">Use <code>{orderUrl}</code> to insert a link to this order.</span>
+
+            <label>
+                <textarea style="width: 100%;" rows="5" class="text"></textarea>
+            </label>
+
+            <div>
+                <button type="submit" class="btn btn-success btn-large">Send Email</button>
+            </div>
+
+        </form>
+
+        <div class="clearfix"></div>
+
+    </div>
+</div>
+
+</body>
+</html>

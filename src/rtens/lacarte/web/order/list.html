@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>laCarte &middot; Orders</title>
@@ -5,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <link href="../common/css/style.css" rel="stylesheet"/>
-    <link href="list-style.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -19,61 +19,70 @@
 
     <div class="content">
 
-        <h2>Open Orders</h2>
+        <h2>Orders</h2>
 
-        <table class="table table-striped span7">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Deadline</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Name of the order</td>
-                <td>17.04.2013</td>
-                <td>
-                    <a href="#" class="btn btn-small btn-primary">Choose!</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Name of another order</td>
-                <td>10.04.2013</td>
-                <td>
-                    <a href="#" class="btn btn-small btn-primary">Choose!</a>
-                </td>
-            </tr>
-        </tbody>
-        </table>
+        <form action="edit.html" method="post" class="form-inline">
 
-        <div class="clearfix"></div>
-
-
-        <h2>Closed Orders</h2>
-
-        <table class="table table-striped span7">
+            <table class="table table-striped span7">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Deadline</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Name of the order</td>
-                <td>
-                    <a href="#" class="btn btn-small">Vote!</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Name of another order</td>
-                <td>
-                    <a href="#" class="btn btn-small">Vote!</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text input-small" name="firstDay" property="firstDay" value="" placeholder="First Day"/>
+                            -
+                            <input type="text" class="text input-small" name="lastDay" property="lastDay" value="" placeholder="Last Day"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text input-small" name="deadline" property="deadline" value="" placeholder="Deadline"/>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-small btn-success">New Order</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="selections.html">Name of the order</a></td>
+                    <td>17.04.2013 14:00</td>
+                    <td>
+                        <a href="selection.html" class="btn btn-small btn-primary">Choose!</a>
+                        <a href="edit.html" class="btn btn-small btn-default">Edit</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a href="#">Name of another order</a></td>
+                    <td>10.04.2013 16:00</td>
+                    <td>
+                        <a href="#" class="btn btn-small btn-primary">Choose!</a>
+                        <a href="#" class="btn btn-small btn-default">Edit</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name of the order</td>
+                    <td></td>
+                    <td>
+                        <a href="#" class="btn btn-small">Vote!</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name of another order</td>
+                    <td></td>
+                    <td>
+                        <a href="#" class="btn btn-small">Vote!</a>
+                    </td>
+                </tr>
             </tbody>
-        </table>
+            </table>
+
+        </form>
 
         <div class="clearfix"></div>
 
