@@ -17,7 +17,7 @@ class ListComponent extends DefaultComponent {
     public static $CLASS = __CLASS__;
 
     public function doGet() {
-        if (!$this->session->hasAndGet('isAdmin')) {
+        if (!$this->isAdmin()) {
             return $this->redirect(Url::parse('../order/list.html'));
         }
 
@@ -25,18 +25,18 @@ class ListComponent extends DefaultComponent {
     }
 
     public function doPost($name, $email) {
-        if (!$this->session->has('group')) {
+        if (!$this->isLoggedIn()) {
             return $this->redirect(Url::parse('login.html'));
         }
 
-        if (!$this->session->hasAndGet('isAdmin')) {
+        if (!$this->isAdmin()) {
             return $this->assembleModel(array(
                 'error' => 'Access denied. Must be administrator.'
             ));
         }
 
         try {
-            $groupId = $this->session->get('group');
+            $groupId = $this->session->get('admin');
             $this->userInteractor->createUser($groupId, $name, $email);
 
             return $this->assembleModel(array(

@@ -31,8 +31,7 @@ class LoginTest extends ComponentTest {
 
         $this->when->iLoginAsAdmin();
 
-        $this->then->theSessionShouldContain_WithValue('group', 1);
-        $this->then->theSessionShouldContain_WithValue('isAdmin', true);
+        $this->then->theSessionShouldContain_WithValue('admin', 1);
         $this->then->iShouldBeRedirectedTo('../order/list.html');
     }
 
@@ -64,8 +63,7 @@ class LoginTest extends ComponentTest {
         $this->when->iLogOut();
 
         $this->then->iShouldBeRedirectedTo('login.html');
-        $this->then->theSessionShouldNotContain('group');
-        $this->then->theSessionShouldNotContain('isAdmin');
+        $this->then->theSessionShouldNotContain('admin');
         $this->then->theSessionShouldNotContain('key');
     }
 
@@ -76,8 +74,7 @@ class LoginTest extends ComponentTest {
         $this->when->iLoginAsUser();
 
         $this->then->theSessionShouldContain_WithValue('key', 'myKey');
-        $this->then->theSessionShouldContain_WithValue('group', 44);
-        $this->then->theSessionShouldNotContain('isAdmin');
+        $this->then->theSessionShouldNotContain('admin');
     }
 
     function testWrongKey() {
@@ -129,7 +126,7 @@ class LoginTest_Given extends ComponentTest_Given {
     public function iAmAlreadyLoggedInForGroup($groupName) {
         $group = new Group($groupName, '', '');
         $group->id = 1;
-        $this->session->set('group', $group->id);
+        $this->session->set('admin', $group->id);
     }
 
     public function theUser_WithKey_InGroup($name, $key, $groupId) {

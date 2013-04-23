@@ -22,7 +22,7 @@ class MenuComponent extends Component {
 
     public function doGet() {
         return array(
-            'isAdmin' => $this->session->has('isAdmin') && $this->session->get('isAdmin')
+            'isAdmin' => $this->session->hasAndGet('admin')
         );
     }
 

@@ -62,13 +62,12 @@ class ComponentTest_Given extends Test_Given {
         });
     }
 
-    public function iAmLoggedIn() {
-        $this->session->set('group', $this->group->id);
+    public function iAmLoggedInAsAdmin() {
+        $this->session->set('admin', $this->group->id);
     }
 
-    public function iAmAdmin() {
-        $this->iAmLoggedIn();
-        $this->session->set('isAdmin', true);
+    public function iAmLoggedInAsUser() {
+        $this->session->set('key', 'something');
     }
 
 }

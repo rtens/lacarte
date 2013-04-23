@@ -1,30 +1,22 @@
 <?php
 namespace rtens\lacarte\web\user;
 
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Session;
+use rtens\lacarte\web\DefaultComponent;
 use watoki\curir\Path;
 use watoki\curir\Url;
-use watoki\curir\controller\Component;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
 
-class LoginComponent extends Component {
+class LoginComponent extends DefaultComponent {
 
     public static $CLASS = __CLASS__;
 
-    /**
-     * @var \rtens\lacarte\core\Session
-     */
-    protected $session;
+    protected function requiresLogin() {
+        return false;
+    }
 
-    protected $userInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-        UserInteractor $userInteractor, Session $session) {
-        parent::__construct($factory, $route, $parent);
-        $this->userInteractor = $userInteractor;
-        $this->session = $session;
+    protected function assembleModel($model = array()) {
+        return array_merge(array(
+            'error' => null
+        ), $model);
     }
 
     public function doLoginAdmin($email, $password) {
@@ -37,18 +29,15 @@ class LoginComponent extends Component {
             );
         }
 
-        $this->session->set('group', $group->id);
-        $this->session->set('isAdmin', true);
+        $this->session->set('admin', $group->id);
         return $this->redirectToList();
     }
 
     public function doGet() {
-        if ($this->session->has('group')) {
+        if ($this->isLoggedIn()) {
             return $this->redirectToList();
         }
-        return array(
-            'error' => null
-        );
+        return $this->assembleModel();
     }
 
     private function redirectToList() {
@@ -56,8 +45,7 @@ class LoginComponent extends Component {
     }
 
     public function doLogout() {
-        $this->session->remove('group');
-        $this->session->remove('isAdmin');
+        $this->session->remove('admin');
         $this->session->remove('key');
 
         return $this->redirect(Url::parse('login.html'));
@@ -66,15 +54,15 @@ class LoginComponent extends Component {
     public function doPost($key) {
         $user = $this->userInteractor->authorizeUser($key);
 
-        if (!$user) {
+        try {
+            $this->login($key);
+        } catch (\Exception $e) {
             return array(
                 'error' => 'You entered an invalid key'
             );
         }
 
         $this->session->set('key', $user->getKey());
-        $this->session->set('group', $user->getGroupId());
-
         return $this->redirectToList();
     }
 

@@ -29,7 +29,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
     protected function setUp() {
         parent::setUp();
 
-        $this->stateFile = __DIR__ . '/migration';
+        $this->stateFile = __DIR__ . '/migration' . uniqid();
 
         $this->mf = new MockFactory();
 

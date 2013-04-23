@@ -16,13 +16,13 @@ use watoki\curir\Path;
 class ListUsersTest extends ComponentTest {
 
     function testZeroUsers() {
-        $this->given->iAmAdmin();
+        $this->given->iAmLoggedInAsAdmin();
         $this->when->iAccessThePage();
         $this->then->_shouldBe('user', array());
     }
 
     function testNonZeroUsers() {
-        $this->given->iAmAdmin();
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->theUser('UserA');
         $this->given->theUser('UserC');
         $this->given->theUser('UserB');

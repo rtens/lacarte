@@ -28,7 +28,7 @@ abstract class DefaultComponent extends SuperComponent {
     }
 
     public function respond(Request $request) {
-        if (!$this->getLoggedInGroup()) {
+        if ($this->requiresLogin() && !$this->isLoggedIn()) {
             if ($request->getParameters()->has('key')) {
                 try {
                     $this->login($request->getParameters()->get('key'));
@@ -43,11 +43,15 @@ abstract class DefaultComponent extends SuperComponent {
         return parent::respond($request);
     }
 
-    protected function getLoggedInGroup() {
-        return $this->session->hasAndGet('group');
+    protected function isLoggedIn() {
+        return $this->isAdmin() || $this->session->hasAndGet('key');
     }
 
-    private function login($key) {
+    protected function isAdmin() {
+        return $this->session->hasAndGet('admin');
+    }
+
+    protected function login($key) {
         $user = $this->userInteractor->authorizeUser($key);
 
         if (!$user) {
@@ -55,7 +59,6 @@ abstract class DefaultComponent extends SuperComponent {
         }
 
         $this->session->set('key', $user->getKey());
-        $this->session->set('group', $user->getGroupId());
     }
 
     protected function assembleModel($model = array()) {
@@ -70,6 +73,10 @@ abstract class DefaultComponent extends SuperComponent {
     protected function redirectToLogin() {
         $this->redirect(Url::parse($this->getRoot()->getRoute()->toString() . '/user/login.html'));
         return $this->getResponse();
+    }
+
+    protected function requiresLogin() {
+        return true;
     }
 
 }

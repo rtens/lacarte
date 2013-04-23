@@ -18,8 +18,7 @@ use watoki\curir\Path;
 class CreateUserTest extends ComponentTest {
 
     function testSuccess() {
-        $this->given->iAmLoggedIn();
-        $this->given->iAmAdmin();
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->iEnteredTheName('A Name');
         $this->given->iEnteredTheEmail('some@example.com');
 
@@ -39,7 +38,7 @@ class CreateUserTest extends ComponentTest {
     }
 
     function testNotAdmin() {
-        $this->given->iAmLoggedIn();
+        $this->given->iAmLoggedInAsUser();
         $this->given->iEnteredTheName('A Name');
         $this->given->iEnteredTheEmail('some@example.com');
 
@@ -49,8 +48,7 @@ class CreateUserTest extends ComponentTest {
     }
 
     function testError() {
-        $this->given->iAmLoggedIn();
-        $this->given->iAmAdmin();
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->iEnteredTheName('My Name');
         $this->given->iEnteredTheEmail('some@Example.com');
         $this->given->anErrorOccurs('Some error');
@@ -130,6 +128,6 @@ class CreateUserTest_Then extends ComponentTest_Then {
         $this->test->assertTrue(
             $this->test->given->userInteractor->__mock()->method('createUser')->wasCalledWith(array(
                 $this->test->given->group->id, $name, $email
-            )));
+            )), 'No user was created');
     }
 }
