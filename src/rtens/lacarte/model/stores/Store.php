@@ -29,7 +29,7 @@ abstract class Store {
                 continue;
             }
             $property->setAccessible(true);
-            $columns[$property->getName()] = $property->getValue($entity);
+            $columns[$property->getName()] = $this->serialize($property->getValue($entity));
         }
 
         $quotedColumns = implode(', ', array_map(function ($item) {
@@ -41,6 +41,14 @@ abstract class Store {
 
         $this->db->execute("INSERT INTO $tableName ($quotedColumns) VALUES ($preparedColumns)", $columns);
         $entity->id = $this->db->getLastInsertedId();
+    }
+
+    protected function serialize($value) {
+        if ($value instanceof \DateTime) {
+            return $value->format('Y-m-d H:i:s');
+        } else {
+            return $value;
+        }
     }
 
 }

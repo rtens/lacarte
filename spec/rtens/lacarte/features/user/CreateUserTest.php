@@ -192,9 +192,4 @@ class CreateUserTest_Then extends Test_Then {
     public function theUserShouldHaveAKey() {
         $this->test->assertNotNull($this->test->when->user->getKey());
     }
-
-    public function anExceptionShouldBeThrownContaining($msg) {
-        $this->test->assertNotNull($this->test->when->caught, 'No exception was thrown');
-        $this->test->assertContains($msg, $this->test->when->caught->getMessage());
-    }
 }

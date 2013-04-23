@@ -118,4 +118,9 @@ class Test_Then {
         return $field;
     }
 
+    public function anExceptionShouldBeThrownContaining($msg) {
+        $this->test->assertNotNull($this->test->when->caught, 'No exception was thrown');
+        $this->test->assertContains($msg, $this->test->when->caught->getMessage());
+    }
+
 }

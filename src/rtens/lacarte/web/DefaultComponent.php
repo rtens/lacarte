@@ -51,6 +51,10 @@ abstract class DefaultComponent extends SuperComponent {
         return $this->session->hasAndGet('admin');
     }
 
+    protected function getAdminGroupId() {
+        return $this->session->get('admin');
+    }
+
     protected function login($key) {
         $user = $this->userInteractor->authorizeUser($key);
 
@@ -63,7 +67,8 @@ abstract class DefaultComponent extends SuperComponent {
 
     protected function assembleModel($model = array()) {
         return array_merge(array(
-            'menu' => $this->subComponent(MenuComponent::$CLASS)
+            'menu' => $this->subComponent(MenuComponent::$CLASS),
+            'isAdmin' => $this->isAdmin()
         ), $model);
     }
 

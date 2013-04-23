@@ -31,6 +31,7 @@ class CreateOrderTest extends ComponentTest {
     }
 
     function testSuccess() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->iHaveEnteredTheFirstDay('2013-04-02');
         $this->given->iHaveEnteredTheLastDay('2013-04-10');
         $this->given->iHaveEnteredTheDeadline('2013-04-01 16:00');
@@ -38,19 +39,27 @@ class CreateOrderTest extends ComponentTest {
 
         $this->when->iCreateANewOrder();
 
-        $this->then->anOrderShouldBeCreatedBetween_And_WithDeadline('2013-04-02', '2013-04-10', '2013-04-01 16:00');
+        $this->then->anOrderShouldBeCreatedForGroup_Between_And_WithDeadline(42, '2013-04-02', '2013-04-10', '2013-04-01 16:00');
         $this->then->iShouldBeRedirectedTo('edit.html?order=42');
     }
 
+    function testNotAdmin() {
+        $this->when->iCreateANewOrder();
+
+        $this->then->_shouldContain('error', 'denied');
+    }
+
     function testWrongFormat() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->iHaveEnteredTheFirstDay('not a date');
 
         $this->when->iCreateANewOrder();
 
-        $this->then->_shouldNotBeEmpty('error');
+        $this->then->_shouldContain('error', 'parse time string');
     }
 
     function testError() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->somethingGoesWrong('Some error');
 
         $this->when->iCreateANewOrder();
@@ -97,7 +106,7 @@ class CreateOrderTest_Given extends ComponentTest_Given {
     }
 
     public function theIdOfTheCreatedOrderIs($id) {
-        $order = new Order();
+        $order = new Order(1, 'bla', new \DateTime());
         $order->id = $id;
         $this->orderInteractor->__mock()->method('createOrder')->willReturn($order);
     }
@@ -140,8 +149,8 @@ class CreateOrderTest_When extends ComponentTest_When {
  */
 class CreateOrderTest_Then extends ComponentTest_Then {
 
-    public function anOrderShouldBeCreatedBetween_And_WithDeadline($first, $last, $deadline) {
+    public function anOrderShouldBeCreatedForGroup_Between_And_WithDeadline($groupId, $first, $last, $deadline) {
         $this->test->assertTrue($this->test->given->orderInteractor->__mock()->method('createOrder')
-                ->wasCalledWith(array(new \DateTime($first), new \DateTime($last), new \DateTime($deadline))));
+                ->wasCalledWith(array($groupId, new \DateTime($first), new \DateTime($last), new \DateTime($deadline))));
     }
 }

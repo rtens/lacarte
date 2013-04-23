@@ -108,6 +108,10 @@ class ComponentTest_Then extends Test_Then {
         $this->test->assertNotEmpty($this->getField($field));
     }
 
+    public function _shouldContain($field, $string) {
+        $this->test->assertContains($string, $this->getField($field));
+    }
+
     protected function getField($field) {
         return $this->getFieldIn($field, $this->test->when->model);
     }

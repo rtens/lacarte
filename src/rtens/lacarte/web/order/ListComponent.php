@@ -41,8 +41,14 @@ class ListComponent extends DefaultComponent {
     }
 
     public function doPost($firstDay, $lastDay, $deadline) {
+        if (!$this->isAdmin()) {
+            return $this->assembleModel(array(
+                'error' => 'Access denied.'
+            ));
+        }
         try {
-            $order = $this->orderInteractor->createOrder(new \DateTime($firstDay), new \DateTime($lastDay), new \DateTime($deadline));
+            $order = $this->orderInteractor->createOrder($this->getAdminGroupId(), new \DateTime($firstDay),
+                new \DateTime($lastDay), new \DateTime($deadline));
             return $this->redirect(Url::parse('edit.html?order=' . $order->id));
         } catch (\Exception $e) {
             return $this->assembleModel(array(
