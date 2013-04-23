@@ -21,7 +21,9 @@
 
         <h2>Orders</h2>
 
-        <form action="edit.html" method="post" class="form-inline">
+        <div property="error" class="alert alert-error">An error occurred.</div>
+
+        <form action="list.html" method="post" class="form-inline">
 
             <table class="table table-striped span7">
             <thead>
@@ -42,7 +44,7 @@
                     </td>
                     <td>
                         <div class="control-group">
-                            <input type="text" class="text input-small" name="deadline" property="deadline" value="" placeholder="Deadline"/>
+                            <input type="text" class="text" name="deadline" property="deadline" value="" placeholder="Deadline"/>
                         </div>
                     </td>
                     <td>

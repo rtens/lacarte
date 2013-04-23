@@ -24,9 +24,9 @@ class CreateOrderTest extends ComponentTest {
         $this->given->itsThe('2013-04-01');
         $this->when->iAccessPage();
 
-        $this->then->_shouldBe('firstDay', '2013-04-08');
-        $this->then->_shouldBe('lastDay', '2013-04-12');
-        $this->then->_shouldBe('deadline', '2013-04-04 18:00');
+        $this->then->_shouldBe('firstDay/value', '2013-04-08');
+        $this->then->_shouldBe('lastDay/value', '2013-04-12');
+        $this->then->_shouldBe('deadline/value', '2013-04-04 18:00');
         $this->then->_shouldBe('error', null);
     }
 

@@ -33,9 +33,9 @@ class ListComponent extends DefaultComponent {
 
     protected function assembleModel($model = array()) {
         return parent::assembleModel(array_merge(array(
-            'firstDay' => $this->time->fromString('monday next week')->format('Y-m-d'),
-            'lastDay' => $this->time->fromString('friday next week')->format('Y-m-d'),
-            'deadline' => $this->time->fromString('thursday this week 18:00')->format('Y-m-d H:i'),
+            'firstDay' => array('value' => $this->time->fromString('monday next week')->format('Y-m-d')),
+            'lastDay' => array('value' => $this->time->fromString('friday next week')->format('Y-m-d')),
+            'deadline' => array('value' => $this->time->fromString('thursday this week 18:00')->format('Y-m-d H:i')),
             'error' => null
         ), $model));
     }
