@@ -48,7 +48,7 @@ abstract class DefaultComponent extends SuperComponent {
     }
 
     protected function isAdmin() {
-        return $this->session->hasAndGet('admin');
+        return $this->session->has('admin');
     }
 
     protected function getAdminGroupId() {
@@ -68,7 +68,7 @@ abstract class DefaultComponent extends SuperComponent {
     protected function assembleModel($model = array()) {
         return array_merge(array(
             'menu' => $this->subComponent(MenuComponent::$CLASS),
-            'isAdmin' => $this->isAdmin()
+            'adminOnly' => $this->isAdmin()
         ), $model);
     }
 
