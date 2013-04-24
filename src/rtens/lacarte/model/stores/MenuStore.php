@@ -17,7 +17,7 @@ class MenuStore extends Store {
         return $menus;
     }
 
-    private function inflate($row) {
+    protected function inflate($row) {
         $menu = new Menu($row['orderId'], new \DateTime($row['date']));
         $menu->id = $row['id'];
         return $menu;

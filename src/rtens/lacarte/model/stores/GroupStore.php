@@ -17,7 +17,7 @@ class GroupStore extends Store {
             array($email, $password)));
     }
 
-    private function inflate($row) {
+    protected function inflate($row) {
         $group = new Group($row['name'], $row['adminEmail'], $row['adminPassword']);
         $group->id = $row['id'];
         return $group;

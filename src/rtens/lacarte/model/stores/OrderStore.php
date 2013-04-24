@@ -20,7 +20,7 @@ class OrderStore extends Store {
         return $orders;
     }
 
-    private function inflate($row) {
+    protected function inflate($row) {
         $order = new Order($row['groupId'],
             $row['name'],
             new \DateTime($row['deadline']));

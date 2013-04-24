@@ -61,7 +61,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
             while ($class) {
                 $stepClass = $class . '_' . ucfirst($steps);
                 if (class_exists($stepClass)) {
-                    $this->$steps = new $stepClass($this);
+                    $this->$steps = $this->factory->getInstance($stepClass, array('test' => $this));
                     break;
                 }
                 $refl = new \ReflectionClass($class);

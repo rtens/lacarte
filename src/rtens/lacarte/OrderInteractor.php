@@ -7,6 +7,7 @@ use rtens\lacarte\model\Order;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
+use watoki\collections\Collection;
 use watoki\collections\Liste;
 use watoki\collections\Set;
 
@@ -84,6 +85,22 @@ class OrderInteractor {
      */
     public function readDishesByMenuId($id) {
         return $this->dishStore->readAllByMenuId($id);
+    }
+
+    public function updateDish(Dish $dish) {
+    }
+
+    /**
+     * @param Collection|Dish[] $dishes
+     */
+    public function updateDishes(Collection $dishes) {
+        foreach ($dishes as $dish) {
+            if (!$dish->getText()) {
+                $this->dishStore->delete($dish);
+            } else {
+                $this->dishStore->update($dish);
+            }
+        }
     }
 
 }
