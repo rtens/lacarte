@@ -10,6 +10,7 @@ use rtens\lacarte\model\Order;
 use rtens\lacarte\web\DefaultComponent;
 use watoki\collections\Set;
 use watoki\curir\Path;
+use watoki\curir\Url;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
 
@@ -28,10 +29,17 @@ class EditComponent extends DefaultComponent {
     }
 
     public function doGet($order) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('list.html'));
+        }
         return $this->assembleMyModel($order);
     }
 
     public function doPost($order, $dish) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('list.html'));
+        }
+
         $dishes = new Set();
         foreach ($dish as $id => $text) {
             $entity = $this->orderInteractor->readDishById($id);

@@ -24,7 +24,24 @@ use watoki\curir\Path;
  */
 class EditOrderTest extends ComponentTest {
 
+    function testNotAdminOnAccess() {
+        $this->given->anOrder_With_MenusEach_Dishes('test', 2, 2);
+
+        $this->when->iAccessThePage();
+
+        $this->then->iShouldBeRedirectedTo('list.html');
+    }
+
+    function testNotAdminOnSave() {
+        $this->given->anOrder_With_MenusEach_Dishes('test2', 2, 3);
+
+        $this->when->iSaveTheDishes();
+
+        $this->then->iShouldBeRedirectedTo('list.html');
+    }
+
     function testLoadDishes() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('test', 2, 2);
         $this->given->dish_OfMenu_Is(1, 1, 'A');
         $this->given->dish_OfMenu_Is(2, 1, 'B');
@@ -55,6 +72,7 @@ class EditOrderTest extends ComponentTest {
     }
 
     function testSaveDishes() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('test2', 2, 3);
         $this->given->iHaveEntered_ForDish_OfMenu('W', 1, 1);
         $this->given->iHaveEntered_ForDish_OfMenu('X', 2, 1);
@@ -71,6 +89,7 @@ class EditOrderTest extends ComponentTest {
     }
 
     function testError() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('error', 1, 1);
         $this->given->anErrorOccurs('Something went wrong');
 
@@ -163,7 +182,8 @@ class EditOrderTest_When extends ComponentTest_When {
         parent::__construct($test);
         $this->component = $test->mf->createTestUnit(EditComponent::$CLASS, array(
             'factory' => $this->test->factory,
-            'path' => new Path(),
+            'route' => new Path(),
+            'session' => $this->test->given->session,
             'orderInteractor' => $this->test->given->orderInteractor
         ));
         $this->component->__mock()->method('subComponent')->setMocked();
