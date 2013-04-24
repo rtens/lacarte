@@ -68,7 +68,8 @@ abstract class DefaultComponent extends SuperComponent {
     protected function assembleModel($model = array()) {
         return array_merge(array(
             'menu' => $this->subComponent(MenuComponent::$CLASS),
-            'adminOnly' => $this->isAdmin()
+            'adminOnly' => $this->isAdmin(),
+            'userOnly' => $this->isLoggedIn() && !$this->isAdmin(),
         ), $model);
     }
 

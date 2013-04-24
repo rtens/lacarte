@@ -13,23 +13,21 @@ class OrderStore extends Store {
     }
 
     public function readAll() {
-        $orders = new Set();
-        foreach ($this->db->readAll('SELECT * FROM orders') as $row) {
-            $orders->put($this->inflate($row));
-        }
-        return $orders;
+        return $this->inflateAll($this->db->readAll('SELECT * FROM orders'));
     }
 
     protected function inflate($row) {
-        $order = new Order($row['groupId'],
-            $row['name'],
-            new \DateTime($row['deadline']));
+        $order = new Order($row['groupId'], $row['name'], new \DateTime($row['deadline']));
         $order->id = $row['id'];
         return $order;
     }
 
     public function readById($id) {
         return $this->inflate($this->db->readOne('SELECT * FROM orders WHERE id = ?', array($id)));
+    }
+
+    public function readAllSortedByDeadline() {
+        return $this->inflateAll($this->db->readAll('SELECT * FROM orders ORDER BY deadline DESC'));
     }
 
 }

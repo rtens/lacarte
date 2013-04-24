@@ -33,6 +33,7 @@ class ListComponent extends DefaultComponent {
 
     protected function assembleModel($model = array()) {
         return parent::assembleModel(array_merge(array(
+            'order' => $this->assembleOrders(),
             'firstDay' => array('value' => $this->time->fromString('monday next week')->format('Y-m-d')),
             'lastDay' => array('value' => $this->time->fromString('friday next week')->format('Y-m-d')),
             'deadline' => array('value' => $this->time->fromString('thursday this week 18:00')->format('Y-m-d H:i')),
@@ -55,6 +56,18 @@ class ListComponent extends DefaultComponent {
                 'error' => $e->getMessage()
             ));
         }
+    }
+
+    private function assembleOrders() {
+        $orders = array();
+        foreach ($this->orderInteractor->readAll() as $order) {
+            $orders[] = array(
+                'name' => $order->getName(),
+                'deadline' => $order->getDeadline()->format('d.m.Y H:i'),
+                'url' => array('href' => ($this->isAdmin() ? 'edit' : 'selection') . '.html?order=' . $order->id)
+            );
+        }
+        return $orders;
     }
 
 }

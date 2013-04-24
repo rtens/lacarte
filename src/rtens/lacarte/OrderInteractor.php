@@ -68,7 +68,7 @@ class OrderInteractor {
      * @return Set|Order[]
      */
     public function readAll() {
-        return $this->orderStore->readAll();
+        return $this->orderStore->readAllSortedByDeadline();
     }
 
     /**

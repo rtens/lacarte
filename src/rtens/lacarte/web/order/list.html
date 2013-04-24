@@ -51,15 +51,19 @@
                         <button type="submit" class="btn btn-small btn-success">New Order</button>
                     </td>
                 </tr>
-                <tr>
-                    <td><a href="selections.html">Name of the order</a></td>
-                    <td>17.04.2013 14:00</td>
+                <tr property="order">
+                    <td><a property="url" href="selections.html"><span property="name">Name of the order</span></a></td>
+                    <td property="deadline">17.04.2013 14:00</td>
                     <td>
-                        <a href="selection.html" class="btn btn-small btn-primary">Choose!</a>
-                        <a href="edit.html?order=1" class="btn btn-small btn-default">Edit</a>
+                        <span property="userOnly">
+                            <a property="url" href="selection.html" class="btn btn-small btn-primary">Choose!</a>
+                        </span>
+                        <span property="adminOnly">
+                            <a property="url" href="edit.html?order=1" class="btn btn-small btn-default">Edit</a>
+                        </span>
                     </td>
                 </tr>
-                <tr>
+                <tr property="order">
                     <td><a href="#">Name of another order</a></td>
                     <td>10.04.2013 16:00</td>
                     <td>
@@ -67,14 +71,14 @@
                         <a href="#" class="btn btn-small btn-default">Edit</a>
                     </td>
                 </tr>
-                <tr>
+                <tr property="order">
                     <td>Name of the order</td>
                     <td></td>
                     <td>
                         <a href="#" class="btn btn-small">Vote!</a>
                     </td>
                 </tr>
-                <tr>
+                <tr property="order">
                     <td>Name of another order</td>
                     <td></td>
                     <td>
