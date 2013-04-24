@@ -20,7 +20,8 @@ class ListComponent extends DefaultComponent {
     private $orderInteractor;
 
     function __construct(Factory $factory, Path $route, Module $parent = null,
-            UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor, TimeService $time) {
+            UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor,
+            TimeService $time) {
 
         parent::__construct($factory, $route, $parent, $userInteractor, $session);
         $this->orderInteractor = $orderInteractor;
@@ -64,6 +65,7 @@ class ListComponent extends DefaultComponent {
             $orders[] = array(
                 'name' => $order->getName(),
                 'deadline' => $order->getDeadline()->format('d.m.Y H:i'),
+                'isOpen' => $order->getDeadline() > $this->time->now(),
                 'url' => array('href' => ($this->isAdmin() ? 'edit' : 'selection') . '.html?order=' . $order->id)
             );
         }
