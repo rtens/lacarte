@@ -87,9 +87,6 @@ class OrderInteractor {
         return $this->dishStore->readAllByMenuId($id);
     }
 
-    public function updateDish(Dish $dish) {
-    }
-
     /**
      * @param Collection|Dish[] $dishes
      */
@@ -101,6 +98,14 @@ class OrderInteractor {
                 $this->dishStore->update($dish);
             }
         }
+    }
+
+    public function readById($id) {
+        return $this->orderStore->readById($id);
+    }
+
+    public function readDishById($id) {
+        return $this->dishStore->readById($id);
     }
 
 }

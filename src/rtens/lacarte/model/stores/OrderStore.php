@@ -28,4 +28,8 @@ class OrderStore extends Store {
         return $order;
     }
 
+    public function readById($id) {
+        return $this->inflate($this->db->readOne('SELECT * FROM orders WHERE id = ?', array($id)));
+    }
+
 }
