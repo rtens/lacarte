@@ -65,7 +65,7 @@ class OrderInteractor {
     }
 
     /**
-     * @return Set|Order[]
+     * @return \watoki\collections\Set|Order[]
      */
     public function readAll() {
         return $this->orderStore->readAllSortedByDeadline();
