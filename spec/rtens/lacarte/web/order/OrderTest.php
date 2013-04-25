@@ -32,7 +32,7 @@ class OrderTest_Given extends ComponentTest_Given {
     /** @var Mock */
     public $orderInteractor;
 
-    /** @var  */
+    /** @var Dish[] */
     public $dishes;
 
     function __construct(Test $test) {

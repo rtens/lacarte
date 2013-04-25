@@ -23,7 +23,7 @@ use spec\rtens\lacarte\web\ComponentTest_When;
  */
 class CreateUserTest extends ComponentTest {
 
-    protected function setUp() {
+    public function setUp() {
         parent::setUp();
         $this->given->theGroup('test');
         $this->given->theNextGeneratedKeyIs('myKey');

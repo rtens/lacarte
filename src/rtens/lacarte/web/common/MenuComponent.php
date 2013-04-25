@@ -6,6 +6,7 @@ use watoki\curir\Path;
 use watoki\curir\controller\Component;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
+use watoki\tempan\Renderer;
 
 class MenuComponent extends Component {
 
@@ -18,6 +19,7 @@ class MenuComponent extends Component {
         parent::__construct($factory, $route, $parent);
 
         $this->session = $session;
+        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
     }
 
     public function doGet() {

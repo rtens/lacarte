@@ -6,22 +6,32 @@ use rtens\lacarte\model\Group;
 use rtens\lacarte\utils\TimeService;
 use rtens\mockster\Mock;
 use rtens\mockster\Mockster;
+use watoki\scrut\ScrutableTest;
 use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\Test_Given;
 use spec\rtens\lacarte\Test_Then;
 use spec\rtens\lacarte\Test_When;
+use watoki\collections\Liste;
 use watoki\collections\Map;
 use watoki\curir\Path;
 use watoki\curir\Response;
 use watoki\curir\controller\Component;
+use watoki\curir\router\FileRouter;
 
 /**
  * @property ComponentTest_Given given
  * @property ComponentTest_When when
  * @property ComponentTest_Then then
  */
-abstract class ComponentTest extends Test {
+abstract class ComponentTest extends Test implements ScrutableTest {
 
+    public function getModel() {
+        return $this->when->model;
+    }
+
+    public function getComponent() {
+        return $this->when->component;
+    }
 }
 
 /**
@@ -104,12 +114,15 @@ class ComponentTest_When extends Test_When {
     public $component;
 
     protected function createDefaultComponent($class, $args = array()) {
+        $classReflection = new \ReflectionClass($class);
+        $templateName = lcfirst(FileRouter::stripControllerName($classReflection->getShortName()));
+
         $this->component = $this->test->mf->createTestUnit($class, array_merge(array(
             'factory' => $this->test->factory,
-            'route' => new Path(),
+            'route' => new Path(new Liste(array($templateName . '.html'))),
             'session' => $this->test->given->session
         ), $args));
-        $this->component->__mock()->method('subComponent')->setMocked();
+        $this->component->__mock()->method('subComponent')->willReturn(null);
     }
 
 }

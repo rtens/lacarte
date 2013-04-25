@@ -9,7 +9,9 @@ use watoki\curir\Request;
 use watoki\curir\Url;
 use watoki\curir\composition\SuperComponent;
 use watoki\curir\controller\Module;
+use watoki\curir\renderer\RendererFactory;
 use watoki\factory\Factory;
+use watoki\tempan\Renderer;
 
 abstract class DefaultComponent extends SuperComponent {
 
@@ -26,6 +28,8 @@ abstract class DefaultComponent extends SuperComponent {
         parent::__construct($factory, $route, $parent);
         $this->userInteractor = $userInteractor;
         $this->session = $session;
+
+        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
     }
 
     public function respond(Request $request) {

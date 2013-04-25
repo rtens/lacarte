@@ -21,13 +21,4 @@ class LaCarteModule extends Module {
         ));
     }
 
-    function __construct(Factory $factory, Path $route, Module $parent = null) {
-        parent::__construct($factory, $route, $parent);
-
-        /** @var $rendererFactory RendererFactory */
-        $rendererFactory = $factory->getInstance(RendererFactory::$CLASS);
-        $rendererFactory->setRenderer('html', Renderer::$CLASS);
-        $factory->setSingleton(RendererFactory::$CLASS, $rendererFactory);
-    }
-
 }

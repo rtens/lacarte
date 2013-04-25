@@ -21,6 +21,7 @@ use watoki\curir\Path;
 class CreateOrderTest extends ComponentTest {
 
     function testFillInputFields() {
+        $this->given->iAmLoggedInAsAdmin();
         $this->given->nowIs('2013-04-01');
         $this->when->iAccessPage();
 

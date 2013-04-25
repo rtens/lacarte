@@ -26,7 +26,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
     private $stateFile;
 
-    protected function setUp() {
+    public function setUp() {
         parent::setUp();
 
         $this->stateFile = __DIR__ . '/migration' . uniqid();
@@ -45,7 +45,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
         $this->createSteps();
     }
 
-    protected function tearDown() {
+    public function tearDown() {
         unlink($this->stateFile);
         parent::tearDown();
     }

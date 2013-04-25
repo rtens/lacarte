@@ -129,7 +129,11 @@ class EditOrderTest_When extends ComponentTest_When {
     }
 
     public function iSaveTheDishes() {
-        $this->model = $this->component->doPost($this->test->given->order->id, $this->test->given->dishes);
+        $dishTexts = array();
+        foreach ($this->test->given->dishes as $id => $dish) {
+            $dishTexts[$id] = $dish->getText();
+        }
+        $this->model = $this->component->doPost($this->test->given->order->id, $dishTexts);
     }
 }
 
