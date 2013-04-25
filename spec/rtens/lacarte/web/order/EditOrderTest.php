@@ -22,7 +22,7 @@ use watoki\curir\Path;
  * @property EditOrderTest_When when
  * @property EditOrderTest_Then then
  */
-class EditOrderTest extends ComponentTest {
+class EditOrderTest extends OrderTest {
 
     function testNotAdminOnAccess() {
         $this->given->anOrder_With_MenusEach_Dishes('test', 2, 2);
@@ -100,68 +100,7 @@ class EditOrderTest extends ComponentTest {
 
 }
 
-class EditOrderTest_Given extends ComponentTest_Given {
-
-    /** @var Order|null */
-    public $order;
-
-    public $dishesOfMenus;
-
-    /** @var Mock */
-    public $orderInteractor;
-
-    public $enteredDishes;
-
-    function __construct(Test $test) {
-        parent::__construct($test);
-        $this->orderInteractor = $this->test->mf->createMock(OrderInteractor::$CLASS);
-        $this->enteredDishes = new Map();
-    }
-
-    public function anOrder_With_MenusEach_Dishes($name, $numMenus, $numDishes) {
-        $this->order = new Order($this->group->id, $name, new \DateTime('2000-01-01'));
-        $this->order->id = 12;
-
-        $menus = array(
-            $this->order->id => new Set()
-        );
-        $dishes = array();
-        $this->dishesOfMenus = array();
-
-        for ($m = 0; $m < $numMenus; $m++) {
-            $menu = new Menu($this->order->id, new \DateTime('2000-01-' . ($m + 3)));
-            $menu->id = $m + 1;
-            $menus[$this->order->id][] = $menu;
-            $dishes[$menu->id] = new Set();
-
-            for ($d = 0; $d < $numDishes; $d++) {
-                $dish = new Dish($menu->id, '');
-                $dish->id = $this->enteredDishes->count() + 1;
-                $this->enteredDishes->set($dish->id, $dish);
-                $dishes[$menu->id][] = $dish;
-
-                $this->dishesOfMenus[$menu->id][] = $dish;
-            }
-        }
-
-        $this->orderInteractor->__mock()->method('readById')->willReturn($this->order);
-        $this->orderInteractor->__mock()->method('readMenusByOrderId')->willCall(function ($id) use ($menus) {
-            return $menus[$id];
-        });
-        $this->orderInteractor->__mock()->method('readDishesByMenuId')->willCall(function ($id) use ($dishes) {
-            return $dishes[$id];
-        });
-        $that = $this;
-        $this->orderInteractor->__mock()->method('readDishById')->willCall(function ($id) use ($that) {
-            return $that->enteredDishes[$id];
-        });
-    }
-
-    public function dish_OfMenu_Is($dishNum, $menuNum, $text) {
-        /** @var Dish $dish */
-        $dish = $this->dishesOfMenus[$menuNum][$dishNum - 1];
-        $dish->setText($text);
-    }
+class EditOrderTest_Given extends OrderTest_Given {
 
     public function iHaveEntered_ForDish_OfMenu($text, $dishNum, $menuNum) {
         $this->dish_OfMenu_Is($dishNum, $menuNum, $text);
@@ -180,13 +119,9 @@ class EditOrderTest_When extends ComponentTest_When {
 
     function __construct(Test $test) {
         parent::__construct($test);
-        $this->component = $test->mf->createTestUnit(EditComponent::$CLASS, array(
-            'factory' => $this->test->factory,
-            'route' => new Path(),
-            'session' => $this->test->given->session,
+        $this->createDefaultComponent(EditComponent::$CLASS, array(
             'orderInteractor' => $this->test->given->orderInteractor
         ));
-        $this->component->__mock()->method('subComponent')->setMocked();
     }
 
     public function iAccessThePage() {
@@ -194,7 +129,7 @@ class EditOrderTest_When extends ComponentTest_When {
     }
 
     public function iSaveTheDishes() {
-        $this->model = $this->component->doPost($this->test->given->order->id, $this->test->given->enteredDishes);
+        $this->model = $this->component->doPost($this->test->given->order->id, $this->test->given->dishes);
     }
 }
 

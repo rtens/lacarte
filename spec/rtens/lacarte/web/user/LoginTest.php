@@ -144,12 +144,15 @@ class LoginTest_Given extends ComponentTest_Given {
 
 /**
  * @property LoginTest test
+ * @property LoginComponent component
  */
 class LoginTest_When extends ComponentTest_When {
 
     function __construct(Test $test) {
         parent::__construct($test);
-        $this->component = $this->createComponent();
+        $this->createDefaultComponent(LoginComponent::$CLASS, array(
+            'userInteractor' => $this->test->given->userInteractor
+        ));
     }
 
     public function iLoginAsAdmin() {
@@ -159,15 +162,6 @@ class LoginTest_When extends ComponentTest_When {
 
     public function iGoToTheLoginPage() {
         $this->model = $this->component->doGet();
-    }
-
-    /**
-     * @return LoginComponent
-     */
-    private function createComponent() {
-        return new LoginComponent($this->test->factory, new Path(), null,
-            $this->test->given->userInteractor,
-            $this->test->given->session);
     }
 
     public function iLogOut() {

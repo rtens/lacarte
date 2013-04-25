@@ -66,7 +66,7 @@ class ListComponent extends DefaultComponent {
                 'name' => $order->getName(),
                 'deadline' => $order->getDeadline()->format('d.m.Y H:i'),
                 'isOpen' => $order->getDeadline() > $this->time->now(),
-                'url' => array('href' => ($this->isAdmin() ? 'edit' : 'selection') . '.html?order=' . $order->id)
+                'url' => array('href' => ($this->isAdmin() ? 'edit' : 'select') . '.html?order=' . $order->id)
             );
         }
         return $orders;

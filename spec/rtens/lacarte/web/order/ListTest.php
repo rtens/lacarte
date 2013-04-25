@@ -24,7 +24,7 @@ class ListTest extends ComponentTest {
     }
 
     function testListAll() {
-        $this->given->its('2013-04-02 19:00');
+        $this->given->nowIs('2013-04-02 19:00');
         $this->given->theOrder_WithDeadline('Test Order 1', '2013-04-04 18:00');
         $this->given->theOrder_WithDeadline('Test Order 2', '2013-04-03 18:00');
         $this->given->theOrder_WithDeadline('Test Order 3', '2013-04-02 18:00');
@@ -35,7 +35,7 @@ class ListTest extends ComponentTest {
         $this->then->_shouldHaveTheSize('order', 4);
         $this->then->_shouldBe('order/0/name', 'Test Order 1');
         $this->then->_shouldBe('order/0/deadline', '04.04.2013 18:00');
-        $this->then->_shouldBe('order/0/url/href', 'selection.html?order=1');
+        $this->then->_shouldBe('order/0/url/href', 'select.html?order=1');
         $this->then->_shouldBe('order/0/isOpen', true);
 
         $this->then->_shouldBe('order/1/name', 'Test Order 2');
@@ -64,7 +64,6 @@ class ListTest_given extends ComponentTest_Given {
         parent::__construct($test);
         $this->orders = new Liste();
 
-        $this->time = $test->mf->createTestUnit(TimeService::$CLASS);
         $this->orderInteractor = $test->mf->createMock(OrderInteractor::$CLASS);
         $this->orderInteractor->__mock()->method('readAll')->willReturn($this->orders);
     }
@@ -73,10 +72,6 @@ class ListTest_given extends ComponentTest_Given {
         $order = new Order($this->group->id, $name, new \DateTime($date));
         $order->id = 1;
         $this->orders->append($order);
-    }
-
-    public function its($date) {
-        $this->time->__mock()->method('now')->willReturn(new \DateTime($date));
     }
 }
 
@@ -88,15 +83,10 @@ class ListTest_When extends ComponentTest_When {
 
     function __construct(Test $test) {
         parent::__construct($test);
-
-        $this->component = $test->mf->createTestUnit(ListComponent::$CLASS, array(
-            'factory' => $this->test->factory,
-            'route' => new Path(),
-            'session' => $this->test->given->session,
+        $this->createDefaultComponent(ListComponent::$CLASS, array(
             'orderInteractor' => $this->test->given->orderInteractor,
             'time' => $this->test->given->time
         ));
-        $this->component->__mock()->method('subComponent')->setMocked();
     }
 
     public function iAccessThePage() {

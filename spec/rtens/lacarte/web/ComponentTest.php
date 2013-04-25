@@ -3,6 +3,7 @@ namespace spec\rtens\lacarte\web;
 
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
+use rtens\lacarte\utils\TimeService;
 use rtens\mockster\Mock;
 use rtens\mockster\Mockster;
 use spec\rtens\lacarte\Test;
@@ -10,6 +11,7 @@ use spec\rtens\lacarte\Test_Given;
 use spec\rtens\lacarte\Test_Then;
 use spec\rtens\lacarte\Test_When;
 use watoki\collections\Map;
+use watoki\curir\Path;
 use watoki\curir\Response;
 use watoki\curir\controller\Component;
 
@@ -27,15 +29,14 @@ abstract class ComponentTest extends Test {
  */
 class ComponentTest_Given extends Test_Given {
 
-    /**
-     * @var Session|Mock
-     */
+    /** @var Session|Mock */
     public $session;
 
-    /**
-     * @var Group
-     */
+    /** @var Group */
     public $group;
+
+    /** @var Mock */
+    public $time;
 
     function __construct(Test $test) {
         parent::__construct($test);
@@ -43,6 +44,25 @@ class ComponentTest_Given extends Test_Given {
         $this->group = new Group('test', '', '');
         $this->group->id = 42;
 
+        $this->mockSession();
+        $this->mockTime();
+    }
+
+    public function iAmLoggedInAsAdmin() {
+        $this->session->set('admin', $this->group->id);
+    }
+
+    public function iAmLoggedInAsUser() {
+        $this->session->set('key', 'something');
+    }
+
+    public function nowIs($date) {
+        $this->time->__mock()->method('now')->willCall(function () use ($date) {
+            return new \DateTime($date);
+        });
+    }
+
+    private function mockSession() {
         $this->session = $this->test->mf->createMock(Session::$CLASS);
         $this->session->__mock()->mockMethods(Mockster::F_NONE);
         $sessionVars = new Map();
@@ -62,12 +82,8 @@ class ComponentTest_Given extends Test_Given {
         });
     }
 
-    public function iAmLoggedInAsAdmin() {
-        $this->session->set('admin', $this->group->id);
-    }
-
-    public function iAmLoggedInAsUser() {
-        $this->session->set('key', 'something');
+    private function mockTime() {
+        $this->time = $this->test->mf->createTestUnit(TimeService::$CLASS);
     }
 
 }
@@ -86,6 +102,15 @@ class ComponentTest_When extends Test_When {
 
     /** @var Component */
     public $component;
+
+    protected function createDefaultComponent($class, $args = array()) {
+        $this->component = $this->test->mf->createTestUnit($class, array_merge(array(
+            'factory' => $this->test->factory,
+            'route' => new Path(),
+            'session' => $this->test->given->session
+        ), $args));
+        $this->component->__mock()->method('subComponent')->setMocked();
+    }
 
 }
 

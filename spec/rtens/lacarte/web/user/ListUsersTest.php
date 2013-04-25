@@ -59,22 +59,15 @@ class ListUsersTest_Given extends ComponentTest_Given {
 
 /**
  * @property ListUsersTest test
+ * @property ListComponent component
  */
 class ListUsersTest_When extends ComponentTest_When {
 
-    /** @var ListComponent */
-    public $component;
-
     function __construct(Test $test) {
         parent::__construct($test);
-
-        $this->component = $this->test->mf->createTestUnit(ListComponent::$CLASS, array(
-            'factory' => $test->factory,
-            'route' => new Path(),
-            'session' => $this->test->given->session,
+        $this->createDefaultComponent(ListComponent::$CLASS, array(
             'userInteractor' => $this->test->given->userInteractor
         ));
-        $this->component->__mock()->method('subComponent')->setMocked();
     }
 
     public function iAccessThePage() {

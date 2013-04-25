@@ -22,6 +22,7 @@ abstract class DefaultComponent extends SuperComponent {
 
     function __construct(Factory $factory, Path $route, Module $parent = null,
         UserInteractor $userInteractor, Session $session) {
+
         parent::__construct($factory, $route, $parent);
         $this->userInteractor = $userInteractor;
         $this->session = $session;

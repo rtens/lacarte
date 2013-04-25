@@ -21,7 +21,7 @@ use watoki\curir\Path;
 class CreateOrderTest extends ComponentTest {
 
     function testFillInputFields() {
-        $this->given->itsThe('2013-04-01');
+        $this->given->nowIs('2013-04-01');
         $this->when->iAccessPage();
 
         $this->then->_shouldBe('firstDay/value', '2013-04-08');
@@ -82,15 +82,8 @@ class CreateOrderTest_Given extends ComponentTest_Given {
 
     function __construct(Test $test) {
         parent::__construct($test);
-        $this->timeService = $test->mf->createTestUnit(TimeService::$CLASS);
         $this->userInteractor = $test->mf->createMock(UserInteractor::$CLASS);
         $this->orderInteractor = $test->mf->createMock(OrderInteractor::$CLASS);
-    }
-
-    public function itsThe($date) {
-        $this->timeService->__mock()->method('now')->willCall(function () use ($date) {
-            return new \DateTime($date);
-        });
     }
 
     public function iHaveEnteredTheFirstDay($date) {
@@ -124,14 +117,11 @@ class CreateOrderTest_When extends ComponentTest_When {
 
     function __construct(Test $test) {
         parent::__construct($test);
-        $this->component = $test->mf->createTestUnit(ListComponent::$CLASS, array(
-            $this->test->factory, new Path(), null,
-            $this->test->given->userInteractor,
-            $this->test->given->session,
-            $this->test->given->orderInteractor,
-            $this->test->given->timeService
+        $this->createDefaultComponent(ListComponent::$CLASS, array(
+            'userInteractor' => $this->test->given->userInteractor,
+            'orderInteractor' => $this->test->given->orderInteractor,
+            'time' => $this->test->given->time
         ));
-        $this->component->__mock()->method('subComponent')->setMocked();
     }
 
     public function iAccessPage() {

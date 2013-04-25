@@ -21,41 +21,44 @@
 
         <h2>Make your Selection</h2>
 
-        <p>You have <code>2d, 24h, 24m</code> left</p>
+        <div property="error" class="alert alert-error">An error occurred.</div>
+        <div property="success" class="alert alert-success">Well done.</div>
 
-        <form action="selection.html" method="post">
+        <p>You have <code property="timeLeft">2d, 24h, 24m</code> left</p>
 
-            <div>
-                <h4>Monday, 24.04.2013</h4>
+        <form action="select.html" method="post">
+
+            <div property="menu">
+                <h4 property="date">Monday, 24.04.2013</h4>
                 <div>
                     <div class="choice">
                         <label class="radio">
-                            <input type="radio" name="date1"/>
+                            <input property="key" type="radio" name="selection[menuId]" value="0"/>
                             <span>No thanks</span>
                         </label>
                     </div>
-                    <div class="choice">
+                    <div class="choice" property="dish">
                         <label class="radio">
-                            <input type="radio" name="date1"/>
-                            <span>Some really tasty stuff you should try it</span>
+                            <input type="radio" name="selection[menuId]" value="1"/>
+                            <span property="text">Some really tasty stuff you should try it</span>
                         </label>
                     </div>
-                    <div class="choice">
+                    <div class="choice" property="dish">
                         <label class="radio">
-                            <input type="radio" name="date1"/>
+                            <input type="radio" name="selection[menuId]" value="2"/>
                             <span>More good stuff give it a try</span>
                         </label>
                     </div>
-                    <div class="choice">
+                    <div class="choice" property="dish">
                         <label class="radio">
-                            <input type="radio" name="date1"/>
+                            <input type="radio" name="selection[menuId]" value="3"/>
                             <span>Or maybe this one</span>
                         </label>
                     </div>
                 </div>
             </div>
 
-            <div>
+            <div property="menu">
                 <h4>Tuesday, 25.04.2013</h4>
                 <div>
                     <div class="choice">
