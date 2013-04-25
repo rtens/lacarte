@@ -24,14 +24,17 @@ class SelectTest extends OrderTest {
 
         $this->then->_shouldBe('error', null);
         $this->then->_shouldBe('success', null);
-        $this->then->_shouldBe('timeLeft', '2d 2h 22m');
-        $this->then->_shouldHaveTheSize('menu', 2);
-        $this->then->_shouldBe('menu/0/date', 'Monday, 3.1.2000');
-        $this->then->_shouldBe('menu/0/key/name', 'selection[1]');
-        $this->then->_shouldHaveTheSize('menu/0/dish', 2);
-        $this->then->_shouldBe('menu/0/dish/0/key/name', 'selection[1]');
-        $this->then->_shouldBe('menu/0/dish/0/key/value', '1');
-        $this->then->_shouldBe('menu/0/dish/0/text', 'A');
+        $this->then->_shouldBe('order/timeLeft', '2d 2h 22m');
+        $this->then->_shouldHaveTheSize('order/menu', 2);
+        $this->then->_shouldBe('order/menu/0/date', 'Monday, 3.1.2000');
+        $this->then->_shouldBe('order/menu/0/key/name', 'selection[1]');
+        $this->then->_shouldHaveTheSize('order/menu/0/dish', 2);
+        $this->then->_shouldBe('order/menu/0/dish/0/key/name', 'selection[1]');
+        $this->then->_shouldBe('order/menu/0/dish/0/key/value', '1');
+        $this->then->_shouldBe('order/menu/0/dish/0/text', 'A');
+
+        $this->then->_shouldBe('order/menu/1/date', 'Tuesday, 4.1.2000');
+        $this->then->_shouldBe('order/menu/1/key/name', 'selection[2]');
     }
 
     function testSaveSelection() {

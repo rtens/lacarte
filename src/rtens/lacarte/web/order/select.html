@@ -24,6 +24,8 @@
         <div property="error" class="alert alert-error">An error occurred.</div>
         <div property="success" class="alert alert-success">Well done.</div>
 
+        <div property="order">
+
         <p>You have <code property="timeLeft">2d, 24h, 24m</code> left</p>
 
         <form action="select.html" method="post">
@@ -39,7 +41,7 @@
                     </div>
                     <div class="choice" property="dish">
                         <label class="radio">
-                            <input type="radio" name="selection[menuId]" value="1"/>
+                            <input property="key" type="radio" name="selection[menuId]" value="1"/>
                             <span property="text">Some really tasty stuff you should try it</span>
                         </label>
                     </div>
@@ -91,6 +93,8 @@
             <button type="submit" class="btn btn-success btn-large">Save</button>
 
         </form>
+
+        </div>
 
         <div class="clearfix"></div>
 

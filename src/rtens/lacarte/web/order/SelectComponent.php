@@ -33,13 +33,19 @@ class SelectComponent extends DefaultComponent {
     }
 
     private function assembleMyModel($orderId, $model = array()) {
-        $order = $this->orderInteractor->readById($orderId);
         return $this->assembleModel(array_merge(array(
             'error' => null,
             'success' => null,
+            'order' => $this->assembleOrder($this->orderInteractor->readById($orderId))
+        ), $model));
+    }
+
+    private function assembleOrder(Order $order) {
+        return array(
             'timeLeft' => $this->time->until($order->getDeadline())->format('%dd %hh %im'),
-            'menu' => $this->assembleMenus($order),
-        ), $model));    }
+            'menu' => $this->assembleMenus($order)
+        );
+    }
 
     private function assembleMenus(Order $order) {
         $menus = array();
