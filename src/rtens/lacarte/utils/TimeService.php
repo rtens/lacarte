@@ -22,4 +22,8 @@ class TimeService {
         return $now;
     }
 
+    public function until(\DateTime $then) {
+        return $this->now()->diff($then);
+    }
+
 }
