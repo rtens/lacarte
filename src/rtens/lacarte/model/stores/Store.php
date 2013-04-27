@@ -70,7 +70,7 @@ abstract class Store {
     protected function inflateAll($rows, $collection = null) {
         $entities = $collection ?: new Set();
         foreach ($rows as $row) {
-            $entities->put($this->inflate($row));
+            $entities[] = $this->inflate($row);
         }
         return $entities;
     }

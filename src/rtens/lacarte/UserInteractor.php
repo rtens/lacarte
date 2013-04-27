@@ -67,6 +67,14 @@ class UserInteractor {
         return $this->userStore->readAll();
     }
 
+    /**
+     * @param Group $group
+     * @return \watoki\collections\Liste|User[]
+     */
+    public function readAllByGroup(Group $group) {
+        return $this->userStore->readAllByGroup($group);
+    }
+
     public function readByKey($key) {
         return $this->userStore->readByKey($key);
     }

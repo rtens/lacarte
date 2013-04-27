@@ -4,6 +4,7 @@ namespace rtens\lacarte\model\stores;
 use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\User;
+use watoki\collections\Liste;
 
 class UserStore extends Store {
 
@@ -40,11 +41,12 @@ class UserStore extends Store {
     }
 
     public function readAll() {
-        $users = array();
-        foreach ($this->db->readAll("SELECT * FROM users ORDER BY name ASC") as $row) {
-            $users[] = $this->inflate($row);
-        }
-        return $users;
+        return $this->inflateAll($this->db->readAll("SELECT * FROM users ORDER BY name ASC"), new Liste());
+    }
+
+    public function readAllByGroup(Group $group) {
+        return $this->inflateAll($this->db->readAll('SELECT * FROM users WHERE groupId = ? ORDER BY name',
+            array($group->id)), new Liste());
     }
 
 }
