@@ -141,6 +141,11 @@ class OrderInteractor {
         return $this->dishStore->readById($id);
     }
 
+    /**
+     * @param int $menuId
+     * @param int $userId
+     * @return Selection
+     */
     public function readSelectionByMenuIdAndUserId($menuId, $userId) {
         return $this->selectionStore->readByMenuIdAndUserId($menuId, $userId);
     }
