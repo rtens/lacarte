@@ -35,7 +35,9 @@ class ListTest extends ComponentTest {
         $this->then->_shouldHaveTheSize('order', 4);
         $this->then->_shouldBe('order/0/name', 'Test Order 1');
         $this->then->_shouldBe('order/0/deadline', '04.04.2013 18:00');
-        $this->then->_shouldBe('order/0/url/href', 'select.html?order=1');
+        $this->then->_shouldBe('order/0/selectLink/href', 'select.html?order=1');
+        $this->then->_shouldBe('order/0/editLink/href', 'edit.html?order=1');
+        $this->then->_shouldBe('order/0/itemLink/href', 'select.html?order=1');
         $this->then->_shouldBe('order/0/isOpen', true);
 
         $this->then->_shouldBe('order/1/name', 'Test Order 2');
@@ -53,7 +55,7 @@ class ListTest extends ComponentTest {
 
         $this->when->iAccessThePage();
 
-        $this->then->_shouldBe('order/0/url/href', 'edit.html?order=1');
+        $this->then->_shouldBe('order/0/itemLink/href', 'selections.html?order=1');
     }
 
 }

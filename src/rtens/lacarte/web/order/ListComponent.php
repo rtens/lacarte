@@ -66,10 +66,18 @@ class ListComponent extends DefaultComponent {
                 'name' => $order->getName(),
                 'deadline' => $order->getDeadline()->format('d.m.Y H:i'),
                 'isOpen' => $order->getDeadline() > $this->time->now(),
-                'url' => array('href' => ($this->isAdmin() ? 'edit' : 'select') . '.html?order=' . $order->id)
+                'itemLink' => $this->makeLink($this->isAdmin() ? 'selections' : 'select', $order),
+                'editLink' => $this->makeLink('edit', $order),
+                'selectLink' => $this->makeLink('select', $order),
             );
         }
         return $orders;
+    }
+
+    private function makeLink($component, $order) {
+        return array(
+            'href' => $component . '.html?order=' . $order->id
+        );
     }
 
 }
