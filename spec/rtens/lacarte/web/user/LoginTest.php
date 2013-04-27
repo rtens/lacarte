@@ -26,6 +26,10 @@ use watoki\curir\Response;
  */
 class LoginTest extends ComponentTest {
 
+    public function getRoute() {
+        return Path::parse('../user/login.html');
+    }
+
     function testSuccess() {
         $this->given->iEnteredTheCorrectCredentialsForGroup('Group One');
 

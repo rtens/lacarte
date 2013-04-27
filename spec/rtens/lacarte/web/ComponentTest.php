@@ -32,6 +32,10 @@ abstract class ComponentTest extends Test implements ScrutableTest {
     public function getComponent() {
         return $this->when->component;
     }
+
+    public function getRoute() {
+        return Path::parse('../test/index.html');
+    }
 }
 
 /**
