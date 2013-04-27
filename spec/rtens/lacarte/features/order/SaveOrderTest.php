@@ -51,6 +51,19 @@ class SaveOrderTest extends Test {
         $this->then->dish_ShouldBe(4, 'D');
     }
 
+    function testEmptyMenu() {
+        $this->given->anOrderWith_MenusAnd_DishesEach(2, 2);
+        $this->given->dish_OfMenu_Is(1, 1, 'A');
+        $this->given->dish_OfMenu_Is(2, 1, 'B');
+        $this->given->dish_OfMenu_Is(1, 2, '');
+        $this->given->dish_OfMenu_Is(2, 2, '');
+
+        $this->when->iSaveTheOrder();
+
+        $this->then->thereShouldBe_Dishes(2);
+        $this->then->thereShouldBe_Menus(1);
+    }
+
 }
 
 class SaveOrderTest_Given extends Test_Given {
@@ -117,9 +130,10 @@ class SaveOrderTest_When extends Test_When {
 
 class SaveOrderTest_Then extends Test_Then {
 
-    function __construct(Test $test, DishStore $dishStore) {
+    function __construct(Test $test, DishStore $dishStore, MenuStore $menuStore) {
         parent::__construct($test);
         $this->dishStore = $dishStore;
+        $this->menuStore = $menuStore;
     }
 
     public function thereShouldBe_Dishes($count) {
@@ -128,5 +142,9 @@ class SaveOrderTest_Then extends Test_Then {
 
     public function dish_ShouldBe($id, $text) {
         $this->test->assertEquals($text, $this->dishStore->readById($id)->getText());
+    }
+
+    public function thereShouldBe_Menus($int) {
+        $this->test->assertEquals($int, $this->menuStore->readAll()->count());
     }
 }

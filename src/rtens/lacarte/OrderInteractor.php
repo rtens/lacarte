@@ -4,6 +4,7 @@ namespace rtens\lacarte;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
+use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
@@ -91,13 +92,34 @@ class OrderInteractor {
      * @param Collection|Dish[] $dishes
      */
     public function updateDishes(Collection $dishes) {
+        $menuHasDish = array();
+        $menus = array();
+
         foreach ($dishes as $dish) {
+            $menus[$dish->getMenuId()] = true;
+
             if (!$dish->getText()) {
                 $this->dishStore->delete($dish);
             } else {
+                $menuHasDish[$dish->getMenuId()] = true;
                 $this->dishStore->update($dish);
             }
         }
+
+        foreach (array_keys($menus) as $menuId) {
+            if (!isset($menuHasDish[$menuId])) {
+                $menu = new Menu(1, new \DateTime());
+                $menu->id = $menuId;
+                $this->menuStore->delete($menu);
+            }
+        }
+    }
+
+    /**
+     * @param Collection|Selection[] $selections
+     */
+    public function saveSelections(Collection $selections) {
+        // TODO Implement
     }
 
     public function readById($id) {
@@ -106,6 +128,19 @@ class OrderInteractor {
 
     public function readDishById($id) {
         return $this->dishStore->readById($id);
+    }
+
+    public function readSelectionByMenuIdAndUserId($menuId, $userId) {
+        // TODO Implement
+        return new Selection($userId, $menuId, 0);
+    }
+
+    /**
+     * @param $menuId
+     * @return Menu
+     */
+    public function readMenuById($menuId) {
+        return $this->menuStore->readById($menuId);
     }
 
 }

@@ -1,8 +1,10 @@
 <?php
 namespace spec\rtens\lacarte\web;
 
+use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
+use rtens\lacarte\model\User;
 use rtens\lacarte\utils\TimeService;
 use rtens\mockster\Mock;
 use rtens\mockster\Mockster;
@@ -52,12 +54,19 @@ class ComponentTest_Given extends Test_Given {
     /** @var Mock */
     public $time;
 
+    /** @var User|null */
+    public $me;
+
+    /** @var Mock */
+    public $userInteractor;
+
     function __construct(Test $test) {
         parent::__construct($test);
 
         $this->group = new Group('test', '', '');
         $this->group->id = 42;
 
+        $this->mockUserInteractor();
         $this->mockSession();
         $this->mockTime();
     }
@@ -68,6 +77,9 @@ class ComponentTest_Given extends Test_Given {
 
     public function iAmLoggedInAsUser() {
         $this->session->set('key', 'something');
+        $this->me = new User($this->group->id, 'Test User', 'test@user', 'something');
+        $this->me->id = 123;
+        $this->userInteractor->__mock()->method('readByKey')->willReturn($this->me)->withArguments('something');
     }
 
     public function nowIs($date) {
@@ -100,6 +112,10 @@ class ComponentTest_Given extends Test_Given {
         $this->time = $this->test->mf->createTestUnit(TimeService::$CLASS);
     }
 
+    private function mockUserInteractor() {
+        $this->userInteractor = $this->test->mf->createMock(UserInteractor::$CLASS);
+    }
+
 }
 
 /**
@@ -124,7 +140,8 @@ class ComponentTest_When extends Test_When {
         $this->component = $this->test->mf->createTestUnit($class, array_merge(array(
             'factory' => $this->test->factory,
             'route' => new Path(new Liste(array($templateName . '.html'))),
-            'session' => $this->test->given->session
+            'session' => $this->test->given->session,
+            'userInteractor' => $this->test->given->userInteractor
         ), $args));
         $this->component->__mock()->method('subComponent')->willReturn(null);
     }

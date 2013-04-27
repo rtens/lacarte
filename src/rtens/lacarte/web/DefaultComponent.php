@@ -60,6 +60,10 @@ abstract class DefaultComponent extends SuperComponent {
         return $this->session->get('admin');
     }
 
+    protected function getLoggedInUser() {
+        return $this->userInteractor->readByKey($this->session->get('key'));
+    }
+
     protected function login($key) {
         $user = $this->userInteractor->authorizeUser($key);
 

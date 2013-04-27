@@ -29,19 +29,21 @@
         <p>You have <code property="timeLeft">2d, 24h, 24m</code> left</p>
 
         <form action="select.html" method="post">
+            <span property="adminOnly"><input property="userId" type="hidden" name="user" value="#userId"/></span>
+            <input property="id" type="hidden" name="order" value=""/>
 
             <div property="menu">
                 <h4 property="date">Monday, 24.04.2013</h4>
                 <div>
-                    <div class="choice">
+                    <div class="choice" property="none">
                         <label class="radio">
-                            <input property="key" type="radio" name="selection[menuId]" value="0"/>
+                            <input property="key" checked="checked" type="radio" name="selection[menuId]" value="0"/>
                             <span>No thanks</span>
                         </label>
                     </div>
                     <div class="choice" property="dish">
                         <label class="radio">
-                            <input property="key" type="radio" name="selection[menuId]" value="1"/>
+                            <input property="key" checked="checked" type="radio" name="selection[menuId]" value="1"/>
                             <span property="text">Some really tasty stuff you should try it</span>
                         </label>
                     </div>

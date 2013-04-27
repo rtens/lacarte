@@ -35,6 +35,9 @@ class OrderTest_Given extends ComponentTest_Given {
     /** @var Dish[] */
     public $dishes;
 
+    /** @var array|Menu[] */
+    public $menus = array();
+
     function __construct(Test $test) {
         parent::__construct($test);
         $this->orderInteractor = $this->test->mf->createMock(OrderInteractor::$CLASS);
@@ -54,6 +57,7 @@ class OrderTest_Given extends ComponentTest_Given {
         for ($m = 0; $m < $numMenus; $m++) {
             $menu = new Menu($this->order->id, new \DateTime('2000-01-' . ($m + 3)));
             $menu->id = $m + 1;
+            $this->menus[$menu->id] = $menu;
             $menus[$this->order->id][] = $menu;
             $dishes[$menu->id] = new Set();
 
@@ -77,6 +81,9 @@ class OrderTest_Given extends ComponentTest_Given {
         $that = $this;
         $this->orderInteractor->__mock()->method('readDishById')->willCall(function ($id) use ($that) {
             return $that->dishes[$id];
+        });
+        $this->orderInteractor->__mock()->method('readMenuById')->willCall(function ($id) use ($that) {
+            return $that->menus[$id];
         });
     }
 

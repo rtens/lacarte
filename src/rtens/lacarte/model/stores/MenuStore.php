@@ -27,4 +27,16 @@ class MenuStore extends Store {
         $this->createEntity($menu, 'menus');
     }
 
+    public function readById($menuId) {
+        return $this->inflate($this->db->readOne('SELECT * FROM menus WHERE id = ?', array($menuId)));
+    }
+
+    public function delete(Menu $menu) {
+        $this->db->execute('DELETE from menus WHERE id = ?', array($menu->id));
+    }
+
+    public function readAll() {
+        return $this->inflateAll($this->db->readAll('SELECT * FROM menus'));
+    }
+
 }

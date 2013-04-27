@@ -67,4 +67,8 @@ class UserInteractor {
         return $this->userStore->readAll();
     }
 
+    public function readByKey($key) {
+        return $this->userStore->readByKey($key);
+    }
+
 }
