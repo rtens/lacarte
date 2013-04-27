@@ -125,7 +125,7 @@ class SelectComponent extends DefaultComponent {
             $menus[] = array(
                 'date' => $menu->getDate()->format('l, j.n.Y'),
                 'none' => array(
-                    'key' => $this->assembleKey($menu, $dishId === 0)
+                    'key' => $this->assembleKey($menu, $dishId !== null && intval($dishId) === 0)
                 ),
                 'dish' => $this->assembleDishes($menu, $dishId)
             );
@@ -158,7 +158,7 @@ class SelectComponent extends DefaultComponent {
         $dishes = array();
         foreach ($this->orderInteractor->readDishesByMenuId($menu->id) as $dish) {
             $dishes[] = array(
-                'key' => $this->assembleKey($menu, $selectedDishId === $dish->id, $dish->id),
+                'key' => $this->assembleKey($menu, intval($selectedDishId) === $dish->id, $dish->id),
                 'text' => $dish->getText()
             );
         }

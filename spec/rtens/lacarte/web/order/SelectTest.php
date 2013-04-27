@@ -194,7 +194,7 @@ class SelectTest_Given extends OrderTest_Given {
     }
 
     public function iHaveSelectedDish_OfMenu($dishId, $menuId) {
-        $this->selected[$menuId] = $dishId;
+        $this->selected[(string)$menuId] = (string) $dishId;
     }
 
     public function theMenu_HasASelectionForNoDish_ByMe($menuId) {
