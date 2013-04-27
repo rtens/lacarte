@@ -8,6 +8,7 @@ use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
+use rtens\lacarte\model\stores\SelectionStore;
 use watoki\collections\Collection;
 use watoki\collections\Liste;
 use watoki\collections\Set;
@@ -18,16 +19,20 @@ class OrderInteractor {
 
     public static $CLASS = __CLASS__;
 
+    private $selectionStore;
+
     private $orderStore;
 
     private $menuStore;
 
     private $dishStore;
 
-    function __construct(OrderStore $orderStore, MenuStore $menuStore, DishStore $dishStore) {
+    function __construct(OrderStore $orderStore, MenuStore $menuStore, DishStore $dishStore,
+                         SelectionStore $selectionStore) {
         $this->orderStore = $orderStore;
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
+        $this->selectionStore = $selectionStore;
     }
 
     /**
@@ -119,7 +124,13 @@ class OrderInteractor {
      * @param Collection|Selection[] $selections
      */
     public function saveSelections(Collection $selections) {
-        // TODO Implement
+        foreach ($selections as $selection) {
+            if ($selection->id) {
+                $this->selectionStore->update($selection);
+            } else {
+                $this->selectionStore->create($selection);
+            }
+        }
     }
 
     public function readById($id) {
@@ -131,8 +142,7 @@ class OrderInteractor {
     }
 
     public function readSelectionByMenuIdAndUserId($menuId, $userId) {
-        // TODO Implement
-        return new Selection($userId, $menuId, 0);
+        return $this->selectionStore->readByMenuIdAndUserId($menuId, $userId);
     }
 
     /**

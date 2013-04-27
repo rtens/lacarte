@@ -39,6 +39,13 @@ class Step1 extends BaseStep {
                     'menuId' INTEGER NOT NULL,
                     'text' TEXT(500),
                     PRIMARY KEY ('id'));");
+
+        $this->db->execute("CREATE TABLE IF NOT EXISTS selections (
+                    'id' INTEGER NOT NULL,
+                    'userId' INTEGER NOT NULL,
+                    'menuId' INTEGER NOT NULL,
+                    'dishId' INTEGER NOT NULL,
+                    PRIMARY KEY ('id'));");
     }
 
     public function down() {
@@ -47,5 +54,6 @@ class Step1 extends BaseStep {
         $this->db->execute("DROP TABLE orders;");
         $this->db->execute("DROP TABLE menus;");
         $this->db->execute("DROP TABLE dishes;");
+        $this->db->execute("DROP TABLE selections;");
     }
 }

@@ -39,7 +39,7 @@ abstract class Store {
             return '"' . $key . '" = :' . $key;
         }, array_keys($columns)));
 
-        $this->db->execute("UPDATE $tableName SET $preparedColumns WHERE id = :id", $columns);
+        $this->db->execute("UPDATE $tableName SET " . $preparedColumns . " WHERE id = :id", $columns);
     }
 
     protected function deleteEntity($entity, $tableName) {
