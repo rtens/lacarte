@@ -19,7 +19,7 @@ class GroupStore extends Store {
 
     protected function inflate($row) {
         $group = new Group($row['name'], $row['adminEmail'], $row['adminPassword']);
-        $group->id = $row['id'];
+        $group->id = intval($row['id']);
         return $group;
     }
 

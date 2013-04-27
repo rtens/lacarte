@@ -19,7 +19,7 @@ class MenuStore extends Store {
 
     protected function inflate($row) {
         $menu = new Menu($row['orderId'], new \DateTime($row['date']));
-        $menu->id = $row['id'];
+        $menu->id = intval($row['id']);
         return $menu;
     }
 

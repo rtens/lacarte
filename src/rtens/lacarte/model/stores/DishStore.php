@@ -22,7 +22,7 @@ class DishStore extends Store {
 
     protected function inflate($row) {
         $dish = new Dish($row['menuId'], $row['text']);
-        $dish->id = $row['id'];
+        $dish->id = intval($row['id']);
         return $dish;
     }
 

@@ -18,7 +18,7 @@ class OrderStore extends Store {
 
     protected function inflate($row) {
         $order = new Order($row['groupId'], $row['name'], new \DateTime($row['deadline']));
-        $order->id = $row['id'];
+        $order->id = intval($row['id']);
         return $order;
     }
 

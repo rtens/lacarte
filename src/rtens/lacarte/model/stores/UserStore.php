@@ -30,7 +30,7 @@ class UserStore extends Store {
 
     protected function inflate($row) {
         $user = new User($row['groupId'], $row['name'], $row['email'], $row['key']);
-        $user->id = $row['id'];
+        $user->id = intval($row['id']);
         return $user;
     }
 
