@@ -2,9 +2,11 @@
 namespace spec\rtens\lacarte\web\order;
 
 use rtens\lacarte\OrderInteractor;
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
+use rtens\lacarte\model\Selection;
 use rtens\mockster\Mock;
 use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\web\ComponentTest;
@@ -38,10 +40,14 @@ class OrderTest_Given extends ComponentTest_Given {
     /** @var array|Menu[] */
     public $menus = array();
 
+    /** @var array|Set[] */
+    public $selections = array();
+
     function __construct(Test $test) {
         parent::__construct($test);
         $this->orderInteractor = $this->test->mf->createMock(OrderInteractor::$CLASS);
         $this->dishes = new Map();
+        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')->willThrow(new NotFoundException());
     }
 
     public function anOrder_With_MenusEach_Dishes($name, $numMenus, $numDishes) {
@@ -95,6 +101,21 @@ class OrderTest_Given extends ComponentTest_Given {
 
     public function theDeadlineOfTheOrderIs($date) {
         $this->order->setDeadline(new \DateTime($date));
+    }
+
+    public function theMenu_HasASelectionForNoDish($menuId) {
+        $this->theMenu_HasASelectionForDish($menuId, 0);
+    }
+
+    public function theMenu_HasASelectionForDish($menuId, $dishId) {
+        $this->selections[$menuId] = new Selection($this->me->id, $menuId, $dishId);
+        $this->selections[$menuId]->id = count($this->selections);
+        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')
+            ->willReturn($this->selections[$menuId])->withArguments($menuId, $this->me->id);
+    }
+
+    public function anErrorOccurs($string) {
+        $this->orderInteractor->__mock()->method('readById')->willThrow(new \Exception($string));
     }
 
 }

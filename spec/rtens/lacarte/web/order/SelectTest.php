@@ -94,8 +94,8 @@ class SelectTest extends OrderTest {
         $this->given->anOrder_With_MenusEach_Dishes('test', 3, 2);
         $this->given->theDeadlineOfTheOrderIs('2000-01-01 00:00');
         $this->given->nowIs('1999-12-29 21:38');
-        $this->given->theMenu_HasASelectionForNoDish_ByMe(1);
-        $this->given->theMenu_HasASelectionForDish_ByMe(2, 3);
+        $this->given->theMenu_HasASelectionForNoDish(1);
+        $this->given->theMenu_HasASelectionForDish(2, 3);
 
         $this->when->iAccessThePageForTheOrder();
 
@@ -124,9 +124,9 @@ class SelectTest extends OrderTest {
         $this->given->anOrder_With_MenusEach_Dishes('test', 3, 2);
         $this->given->theDeadlineOfTheOrderIs('2000-01-01 00:00');
         $this->given->nowIs('1999-12-29 21:38');
-        $this->given->theMenu_HasASelectionForDish_ByMe(1, 2);
-        $this->given->theMenu_HasASelectionForDish_ByMe(2, 3);
-        $this->given->theMenu_HasASelectionForNoDish_ByMe(3);
+        $this->given->theMenu_HasASelectionForDish(1, 2);
+        $this->given->theMenu_HasASelectionForDish(2, 3);
+        $this->given->theMenu_HasASelectionForNoDish(3);
 
         $this->given->iHaveSelectedDish_OfMenu(0, 1);
         $this->given->iHaveSelectedDish_OfMenu(3, 2);
@@ -184,28 +184,13 @@ class SelectTest_Given extends OrderTest_Given {
     /** @var Map */
     public $selected;
 
-    /** @var array|Set[] */
-    public $selections = array();
-
     function __construct(Test $test) {
         parent::__construct($test);
         $this->selected = new Map();
-        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')->willThrow(new NotFoundException());
     }
 
     public function iHaveSelectedDish_OfMenu($dishId, $menuId) {
         $this->selected[(string)$menuId] = (string) $dishId;
-    }
-
-    public function theMenu_HasASelectionForNoDish_ByMe($menuId) {
-        $this->theMenu_HasASelectionForDish_ByMe($menuId, 0);
-    }
-
-    public function theMenu_HasASelectionForDish_ByMe($menuId, $dishId) {
-        $this->selections[$menuId] = new Selection($this->me->id, $menuId, $dishId);
-        $this->selections[$menuId]->id = count($this->selections);
-        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')
-            ->willReturn($this->selections[$menuId])->withArguments($menuId, $this->me->id);
     }
 }
 
