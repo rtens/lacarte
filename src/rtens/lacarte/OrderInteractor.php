@@ -1,14 +1,19 @@
 <?php
 namespace rtens\lacarte;
  
+use rtens\lacarte\core\Configuration;
 use rtens\lacarte\model\Dish;
+use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\stores\DishStore;
+use rtens\lacarte\model\stores\GroupStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
 use rtens\lacarte\model\stores\SelectionStore;
+use rtens\lacarte\model\stores\UserStore;
+use rtens\lacarte\utils\MailService;
 use watoki\collections\Collection;
 use watoki\collections\Liste;
 use watoki\collections\Set;
@@ -19,6 +24,12 @@ class OrderInteractor {
 
     public static $CLASS = __CLASS__;
 
+    private $groupStore;
+
+    private $mailService;
+
+    private $userStore;
+
     private $selectionStore;
 
     private $orderStore;
@@ -27,12 +38,19 @@ class OrderInteractor {
 
     private $dishStore;
 
+    private $configuration;
+
     function __construct(OrderStore $orderStore, MenuStore $menuStore, DishStore $dishStore,
-                         SelectionStore $selectionStore) {
+                         SelectionStore $selectionStore, UserStore $userStore, MailService $mailService,
+                         GroupStore $groupStore, Configuration $configuration) {
         $this->orderStore = $orderStore;
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
         $this->selectionStore = $selectionStore;
+        $this->userStore = $userStore;
+        $this->mailService = $mailService;
+        $this->groupStore = $groupStore;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -156,6 +174,31 @@ class OrderInteractor {
      */
     public function readMenuById($menuId) {
         return $this->menuStore->readById($menuId);
+    }
+
+    public function sendMail(Order $order, $subject, $body) {
+        $group = $this->groupStore->readById($order->getGroupId());
+
+        foreach ($this->userStore->readAllByGroup($group) as $user) {
+            $userName = $user->getName();
+            if (strpos($userName, ' ')) {
+                list($userName, ) = explode(' ', $userName);
+            }
+            $data = array(
+                'name' => $userName,
+                'url' => $this->configuration->getHost()
+                    . '/order/select.html?order='. $order->id . '&key=' . $user->getKey()
+            );
+
+            $replaceSubject = $subject;
+            $replaceBody = $body;
+            foreach ($data as $key => $value) {
+                $replaceSubject = str_replace('{' . $key . '}', $value, $replaceSubject);
+                $replaceBody = str_replace('{' . $key . '}', $value, $replaceBody);
+            }
+
+            $this->mailService->send($group->getAdminEmail(), $user->getEmail(), $replaceSubject, $replaceBody);
+        }
     }
 
 }

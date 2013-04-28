@@ -44,6 +44,10 @@ class UserStore extends Store {
         return $this->inflateAll($this->db->readAll("SELECT * FROM users ORDER BY name ASC"), new Liste());
     }
 
+    /**
+     * @param Group $group
+     * @return array|\watoki\collections\Set|User[]
+     */
     public function readAllByGroup(Group $group) {
         return $this->inflateAll($this->db->readAll('SELECT * FROM users WHERE groupId = ? ORDER BY name',
             array($group->id)), new Liste());

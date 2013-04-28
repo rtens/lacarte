@@ -22,4 +22,9 @@ interface Configuration {
      */
     function getPdoPassword();
 
+    /**
+     * @return string e.g. 'http://my.page.com'
+     */
+    function getHost();
+
 }

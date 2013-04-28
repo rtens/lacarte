@@ -27,81 +27,80 @@
             <a property="exportByUser" href="#" class="btn btn-primary">Export by user</a>
         </p>
 
-        <form action="selections.html" method="post">
+        <table class="table table-striped span7">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th property="date">Mon</th>
+                <th property="date">Tue</th>
+                <th property="date">Wed</th>
+                <th property="date">Thu</th>
+                <th property="date">Fri</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr property="user">
+                <td>
+                    <a property="selectLink" href="select.html">
+                        <span class="" property="name">Max Mustermann</span>
+                    </a>
+                </td>
+                <td property="selection"><span title="Some tasty dish" property="selected">1</span></td>
+                <td property="selection"><span title="Another dish" property="selected">2</span></td>
+                <td property="selection"><span title="That dish" property="selected">3</span></td>
+                <td property="selection"><span title="Another dish" property="selected">2</span></td>
+                <td property="selection"><span title="This dish" property="selected">3</span></td>
+            </tr>
+            <tr property="user">
+                <td><a href="select.html">Peter Hausen</a></td>
+                <td property="selection"><span title="Some tasty dish" property="selected">1</span></td>
+                <td property="selection"><span title="Another dish" property="selected">2</span></td>
+                <td property="selection"></td>
+                <td property="selection"></td>
+                <td property="selection"><span title="This dish" property="selected">3</span></td>
+            </tr>
+            <tr property="user">
+                <td><a href="select.html">Noselection Johnson</a></td>
+                <td property="selection"></td>
+                <td property="selection"></td>
+                <td property="selection"></td>
+                <td property="selection"></td>
+                <td property="selection"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="clearfix"></div>
+
+        <form property="email" action="selections.html" method="post">
             <input property="id" type="hidden" name="order" value="#orderId"/>
 
-            <table class="table table-striped span7">
-                <thead>
-                <tr>
-                    <th>User</th>
-                    <th property="date">Mon</th>
-                    <th property="date">Tue</th>
-                    <th property="date">Wed</th>
-                    <th property="date">Thu</th>
-                    <th property="date">Fri</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr property="user">
-                    <td>
-                        <a property="selectLink" href="select.html">
-                            <span class="" property="name">Max Mustermann</span>
-                        </a>
-                    </td>
-                    <td property="selection"><span title="Some tasty dish" property="selected">1</span></td>
-                    <td property="selection"><span title="Another dish" property="selected">2</span></td>
-                    <td property="selection"><span title="That dish" property="selected">3</span></td>
-                    <td property="selection"><span title="Another dish" property="selected">2</span></td>
-                    <td property="selection"><span title="This dish" property="selected">3</span></td>
-                </tr>
-                <tr property="user">
-                    <td><a href="select.html">Peter Hausen</a></td>
-                    <td property="selection"><span title="Some tasty dish" property="selected">1</span></td>
-                    <td property="selection"><span title="Another dish" property="selected">2</span></td>
-                    <td property="selection"></td>
-                    <td property="selection"></td>
-                    <td property="selection"><span title="This dish" property="selected">3</span></td>
-                </tr>
-                <tr property="user">
-                    <td><a href="select.html">Noselection Johnson</a></td>
-                    <td property="selection"></td>
-                    <td property="selection"></td>
-                    <td property="selection"></td>
-                    <td property="selection"></td>
-                    <td property="selection"></td>
-                </tr>
-                </tbody>
-            </table>
+            <h2>Send Email</h2>
 
-            <div class="clearfix"></div>
+            <span class="help-block">Send an email to all above users. Use <code>{url}</code> to insert a
+                link to this order. <code>{name}</code> will be replaced with the receiver's first name.</span>
 
-            <div property="email">
+            <label>
+                Subject:
+                <input class="text input-xxlarge" type="text" name="subject" value="Place your order!"/>
+            </label>
 
-                <h2>Send Email</h2>
+            <label>
+                <textarea style="width: 100%;" rows="5" class="text">Hi {name},
 
-                <div class="well">
-                    <label class="radio">
-                        <input type="radio" name="receiver" value="all"/>
-                        to all users
-                    </label>
-                    <label class="radio">
-                        <input type="radio" name="receiver" value="slackers"/>
-                        only to users without selection
-                    </label>
-                </div>
+click here to choose your dishes for the next week: {url}</textarea>
+            </label>
 
-                <span class="help-block">Use <code>{orderUrl}</code> to insert a link to this order.</span>
+            <label class="checkbox">
+                <input type="checkbox" name="receiver" value="slackers"/>
+                only to users without selection
+            </label>
 
-                <label>
-                    <textarea style="width: 100%;" rows="5" class="text"></textarea>
-                </label>
-
-                <div>
-                    <button type="submit" class="btn btn-success btn-large">Send Email</button>
-                </div>
-
+            <div>
+                <button type="submit" class="btn btn-success btn-large">Send Email</button>
             </div>
+
 
         </form>
 

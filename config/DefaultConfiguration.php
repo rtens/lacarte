@@ -26,4 +26,11 @@ class DefaultConfiguration implements Configuration {
     function getPdoPassword() {
         return null;
     }
+
+    /**
+     * @return string e.g. 'http://my.page.com'
+     */
+    function getHost() {
+        return 'http://localhost';
+    }
 }

@@ -35,6 +35,7 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
         $config = $this->mf->createMock(Configuration::Configuration);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
+        $config->__mock()->method('getHost')->willReturn('http://lacarte');
 
         $this->factory = new Factory();
         $this->factory->setSingleton(Configuration::Configuration, $config);
