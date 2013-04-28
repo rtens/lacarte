@@ -39,11 +39,51 @@ class SelectionsComponent extends DefaultComponent {
             return $this->redirect(Url::parse('list.html'));
         }
 
-        return $this->assembleModel(array(
-            'actions' => $this->assembleActions($order),
-            'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
-            'email' => null
-        ));
+        return $this->assembleMyModel($order);
+    }
+
+    public function doSendMail($order, $subject, $body, $onlyWithout = false) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('list.html'));
+        }
+
+        $emailModel = array(
+            'subject' => array(
+                'value' => $subject
+            ),
+            'body' => $body,
+            'onlyWithout' => array(
+                'checked' => $onlyWithout ? 'checked' : false
+            )
+        );
+
+        if (!trim($subject) || !trim($body)) {
+            return $this->assembleMyModel($order, array(
+                'error' => 'Please fill out subject and body to send an email',
+                'email' => $emailModel
+            ));
+        }
+
+        try {
+            $this->orderInteractor->sendMail($this->orderInteractor->readById($order), $subject, $body, $onlyWithout);
+            return $this->assembleMyModel($order, array(
+                'success' => 'Email was sent to users' . ($onlyWithout ? ' without selections' : '')
+            ));
+        } catch (\Exception $e) {
+            return $this->assembleMyModel($order, array(
+                'error' => $e->getMessage(),
+                'email' => $emailModel
+            ));
+        }
+    }
+
+    private function assembleMyModel($orderId, $model = array()) {
+        return $this->assembleModel(array_merge(array(
+            'actions' => $this->assembleActions($orderId),
+            'order' => $this->assembleOrder($this->orderInteractor->readById($orderId)),
+            'error' => null,
+            'success' => null
+        ), $model));
     }
 
     private function assembleActions($orderId) {

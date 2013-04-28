@@ -26,6 +26,9 @@ class SelectionsTest extends OrderTest {
 
         $this->when->iAccessThePage();
 
+        $this->then->_shouldBe('success', null);
+        $this->then->_shouldBe('error', null);
+
         $this->then->_shouldHaveTheSize('actions', 3);
         $this->then->_shouldBe('actions/edit/href', 'edit.html?order=12');
         $this->then->_shouldBe('actions/exportByDish', null);

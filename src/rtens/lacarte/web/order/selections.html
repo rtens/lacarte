@@ -19,6 +19,9 @@
 
     <div class="content" property="order">
 
+        <div class="alert alert-error" property="error">Something went wrong</div>
+        <div class="alert alert-success" property="success">All good, have a nice day</div>
+
         <h2>Selections for <span property="name">My Order</span></h2>
 
         <p property="actions">
@@ -74,6 +77,7 @@
         <div class="clearfix"></div>
 
         <form property="email" action="selections.html" method="post">
+            <input type="hidden" name="action" value="sendMail"/>
             <input property="id" type="hidden" name="order" value="#orderId"/>
 
             <h2>Send Email</h2>
@@ -83,17 +87,17 @@
 
             <label>
                 Subject:
-                <input class="text input-xxlarge" type="text" name="subject" value="Place your order!"/>
+                <input property="subject" class="text input-xxlarge" type="text" name="subject" value="Place your order!"/>
             </label>
 
             <label>
-                <textarea style="width: 100%;" rows="5" class="text">Hi {name},
+                <textarea property="body" style="width: 100%;" rows="5" class="text" name="body">Hi {name},
 
 click here to choose your dishes for the next week: {url}</textarea>
             </label>
 
             <label class="checkbox">
-                <input type="checkbox" name="receiver" value="slackers"/>
+                <input property="onlyWithout" type="checkbox" checked="checked" name="onlyWithout" value="slackers"/>
                 only to users without selection
             </label>
 
