@@ -2,6 +2,7 @@
 namespace rtens\lacarte;
  
 use rtens\lacarte\core\Configuration;
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
@@ -176,10 +177,14 @@ class OrderInteractor {
         return $this->menuStore->readById($menuId);
     }
 
-    public function sendMail(Order $order, $subject, $body) {
+    public function sendMail(Order $order, $subject, $body, $onlyWithoutSelection = false) {
         $group = $this->groupStore->readById($order->getGroupId());
 
         foreach ($this->userStore->readAllByGroup($group) as $user) {
+            if ($onlyWithoutSelection && $this->hasUserSelectionForOrder($order, $user)) {
+                continue;
+            }
+
             $userName = $user->getName();
             if (strpos($userName, ' ')) {
                 list($userName, ) = explode(' ', $userName);
@@ -198,6 +203,24 @@ class OrderInteractor {
             }
 
             $this->mailService->send($group->getAdminEmail(), $user->getEmail(), $replaceSubject, $replaceBody);
+        }
+    }
+
+    private function hasUserSelectionForOrder(Order $order, $user) {
+        foreach ($this->menuStore->readAllByOrderId($order->id) as $menu) {
+            if ($this->hasUserSelectionForMenu($menu, $user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function hasUserSelectionForMenu($menu, $user) {
+        try {
+            $this->selectionStore->readByMenuIdAndUserId($menu->id, $user->id);
+            return true;
+        } catch (NotFoundException $e) {
+            return false;
         }
     }
 
