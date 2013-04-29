@@ -53,4 +53,8 @@ class UserStore extends Store {
             array($group->id)), new Liste());
     }
 
+    public function readById($id) {
+        return $this->inflate($this->db->readOne('SELECT * FROM users WHERE id = ?', array($id)));
+    }
+
 }

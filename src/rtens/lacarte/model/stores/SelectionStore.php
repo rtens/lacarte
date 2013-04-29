@@ -28,4 +28,8 @@ class SelectionStore extends Store {
     public function update(Selection $selection) {
         $this->updateEntity($selection, 'selections');
     }
+
+    public function readAllByDishId($dishId) {
+        return $this->inflateAll($this->db->readAll('SELECT * FROM selections WHERE dishId = ?', array($dishId)));
+    }
 }

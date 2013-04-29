@@ -48,6 +48,8 @@ class OrderTest_Given extends ComponentTest_Given {
     /** @var Menu[] */
     public $menusByDate = array();
 
+    public $selectionsByDishId = array();
+
     /** @var array|User[] */
     private $users = array();
 
@@ -139,15 +141,20 @@ class OrderTest_Given extends ComponentTest_Given {
         $user->id = count($this->users) + 41;
         $this->users[$name] = $user;
         $this->userInteractor->__mock()->method('readAllByGroup')->willReturn(new Liste($this->users));
+        $this->userInteractor->__mock()->method('readById')->willReturn($user)->withArguments($user->id);
     }
 
     public function _SelectedDish_ForMenu($user, $dishId, $menuId) {
         $selection = new Selection($this->users[$user]->id, $menuId, $dishId);
         $selection->id = $this->users[$user]->id + 100;
+        $this->selectionsByDishId[$dishId][] = $selection;
 
         $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')
             ->willReturn($selection)
             ->withArguments($menuId, $this->users[$user]->id);
+        $this->orderInteractor->__mock()->method('readAllSelectionsByDishId')
+            ->willReturn(new Set($this->selectionsByDishId[$dishId]))
+            ->withArguments($dishId);
     }
 
 }
