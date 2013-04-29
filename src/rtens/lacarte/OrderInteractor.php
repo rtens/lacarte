@@ -224,4 +224,12 @@ class OrderInteractor {
         }
     }
 
+    /**
+     * @param \DateTime $date
+     * @return Set|Menu[]
+     */
+    public function readAllMenusByDate(\DateTime $date) {
+        return new Set();
+    }
+
 }

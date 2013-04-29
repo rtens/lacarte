@@ -3,6 +3,9 @@ namespace rtens\lacarte\model;
  
 class Dish {
 
+    const LANG_ENGLISH = 'en';
+    const LANG_GERMAN = 'de';
+
     public $id;
 
     private $menuId;
@@ -24,6 +27,14 @@ class Dish {
 
     public function setText($text) {
         $this->text = $text;
+    }
+
+    public function getTextIn($lang) {
+        if (strpos($this->getText(), '/')) {
+            $langs = explode('/', $this->getText());
+            return $lang == self::LANG_GERMAN ? $langs[0] : $langs[1];
+        }
+        return $this->text;
     }
 
 }

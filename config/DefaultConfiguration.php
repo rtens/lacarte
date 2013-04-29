@@ -33,4 +33,11 @@ class DefaultConfiguration implements Configuration {
     function getHost() {
         return 'http://localhost';
     }
+
+    /**
+     * @return string
+     */
+    function getApiToken() {
+        return 'token';
+    }
 }

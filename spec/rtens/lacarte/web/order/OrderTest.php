@@ -7,10 +7,12 @@ use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
+use rtens\lacarte\model\User;
 use rtens\mockster\Mock;
 use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\web\ComponentTest;
 use spec\rtens\lacarte\web\ComponentTest_Given;
+use watoki\collections\Liste;
 use watoki\collections\Map;
 use watoki\collections\Set;
 
@@ -43,11 +45,22 @@ class OrderTest_Given extends ComponentTest_Given {
     /** @var array|Set[] */
     public $selections = array();
 
+    /** @var Menu[] */
+    public $menusByDate = array();
+
+    /** @var array|User[] */
+    private $users = array();
+
     function __construct(Test $test) {
         parent::__construct($test);
         $this->orderInteractor = $this->test->mf->createMock(OrderInteractor::$CLASS);
         $this->dishes = new Map();
         $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')->willThrow(new NotFoundException());
+
+        $that = $this;
+        $this->orderInteractor->__mock()->method('readAllMenusByDate')->willCall(function (\DateTime $date) use ($that) {
+            return isset($that->menusByDate[$date->format('Ymd')]) ? $that->menusByDate[$date->format('Ymd')] : new Set();
+        });
     }
 
     public function anOrder_With_MenusEach_Dishes($name, $numMenus, $numDishes) {
@@ -61,7 +74,10 @@ class OrderTest_Given extends ComponentTest_Given {
         $this->dishesOfMenus = array();
 
         for ($m = 0; $m < $numMenus; $m++) {
-            $menu = new Menu($this->order->id, new \DateTime('2000-01-' . ($m + 3)));
+            $date = new \DateTime('2000-01-' . ($m + 3));
+            $menu = new Menu($this->order->id, $date);
+            $this->menusByDate[$date->format('Ymd')] = new Set(array($menu));
+
             $menu->id = $m + 1;
             $this->menus[$menu->id] = $menu;
             $menus[$this->order->id][] = $menu;
@@ -116,6 +132,22 @@ class OrderTest_Given extends ComponentTest_Given {
 
     public function anErrorOccurs($string) {
         $this->orderInteractor->__mock()->method('readById')->willThrow(new \Exception($string));
+    }
+
+    public function theUser($name) {
+        $user = new User($this->group->id, $name, $name . '@test.com', $name);
+        $user->id = count($this->users) + 41;
+        $this->users[$name] = $user;
+        $this->userInteractor->__mock()->method('readAllByGroup')->willReturn(new Liste($this->users));
+    }
+
+    public function _SelectedDish_ForMenu($user, $dishId, $menuId) {
+        $selection = new Selection($this->users[$user]->id, $menuId, $dishId);
+        $selection->id = $this->users[$user]->id + 100;
+
+        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')
+            ->willReturn($selection)
+            ->withArguments($menuId, $this->users[$user]->id);
     }
 
 }

@@ -9,7 +9,6 @@ use spec\rtens\lacarte\web\ComponentTest_When;
 use watoki\collections\Liste;
 
 /**
- * @property SelectionsTest_Given given
  * @property SelectionsTest_When when
  */
 class SelectionsTest extends OrderTest {
@@ -86,28 +85,6 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('order/user/2/selection/0/selected/_', '-');
     }
 
-}
-
-/**
- * @property SelectionsTest test
- */
-class SelectionsTest_Given extends OrderTest_Given {
-
-    /** @var array|User[] */
-    private $users = array();
-
-    public function theUser($name) {
-        $user = new User($this->group->id, $name, $name . '@test.com', $name);
-        $user->id = count($this->users) + 41;
-        $this->users[$name] = $user;
-        $this->userInteractor->__mock()->method('readAllByGroup')->willReturn(new Liste($this->users));
-    }
-
-    public function _SelectedDish_ForMenu($user, $dishId, $menuId) {
-        $this->orderInteractor->__mock()->method('readSelectionByMenuIdAndUserId')
-            ->willReturn(new Selection($this->users[$user]->id, $menuId, $dishId))
-            ->withArguments($menuId, $this->users[$user]->id);
-    }
 }
 
 /**

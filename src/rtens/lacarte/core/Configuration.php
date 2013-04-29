@@ -27,4 +27,9 @@ interface Configuration {
      */
     function getHost();
 
+    /**
+     * @return string
+     */
+    function getApiToken();
+
 }
