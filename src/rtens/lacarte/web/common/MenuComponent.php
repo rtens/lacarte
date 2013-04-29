@@ -19,7 +19,7 @@ class MenuComponent extends Component {
         parent::__construct($factory, $route, $parent);
 
         $this->session = $session;
-        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
+        $this->rendererFactory->setRenderer('html', Renderer::$CLASS, 'text/html');
     }
 
     public function doGet() {

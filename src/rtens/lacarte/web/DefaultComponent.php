@@ -29,7 +29,7 @@ abstract class DefaultComponent extends SuperComponent {
         $this->userInteractor = $userInteractor;
         $this->session = $session;
 
-        $this->rendererFactory->setRenderer('html', Renderer::$CLASS);
+        $this->rendererFactory->setRenderer('html', Renderer::$CLASS, 'text/html');
     }
 
     public function respond(Request $request) {

@@ -22,7 +22,6 @@
 		"watoki/stepper": "*"
     },
 	"require-dev": {
-        "phpunit/phpunit": "3.7.*",
         "rtens/mockster": "1.1.*",
         "watoki/scrut":"*"
 	},

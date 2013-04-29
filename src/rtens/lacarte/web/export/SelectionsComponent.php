@@ -106,7 +106,7 @@ class SelectionsComponent extends Component {
             try {
                 $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $user->id);
                 $selections[$selection->id] = array(
-                    'dish' => $selection->getDishId(),
+                    'dish' => intval($selection->getDishId()),
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName()
