@@ -4,6 +4,7 @@ namespace rtens\lacarte\web\export;
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Configuration;
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
@@ -102,14 +103,16 @@ class SelectionsComponent extends Component {
         $group->id = $order->getGroupId();
 
         foreach ($this->userInteractor->readAllByGroup($group) as $user) {
-            $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $user->id);
-            $selections[$selection->id] = array(
-                'dish' => $selection->getDishId(),
-                'user' => array(
-                    'id' => $user->id,
-                    'name' => $user->getName()
-                )
-            );
+            try {
+                $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $user->id);
+                $selections[$selection->id] = array(
+                    'dish' => $selection->getDishId(),
+                    'user' => array(
+                        'id' => $user->id,
+                        'name' => $user->getName()
+                    )
+                );
+            } catch (NotFoundException $e) {}
         }
         return $selections;
     }

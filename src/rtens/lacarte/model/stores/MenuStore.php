@@ -39,4 +39,9 @@ class MenuStore extends Store {
         return $this->inflateAll($this->db->readAll('SELECT * FROM menus'));
     }
 
+    public function readAllByDate(\DateTime $date) {
+        return $this->inflateAll($this->db->readAll('SELECT * FROM menus WHERE date = ?',
+            array($this->serialize($date))));
+    }
+
 }

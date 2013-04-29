@@ -229,7 +229,7 @@ class OrderInteractor {
      * @return Set|Menu[]
      */
     public function readAllMenusByDate(\DateTime $date) {
-        return new Set();
+        return $this->menuStore->readAllByDate($date);
     }
 
 }

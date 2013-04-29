@@ -8,7 +8,7 @@ use spec\rtens\lacarte\web\order\OrderTest;
 use watoki\curir\Path;
 
 /**
- * @property TodayTest_When when
+ * @property SelectionsTest_When when
  */
 class SelectionsTest extends OrderTest {
 
@@ -18,7 +18,7 @@ class SelectionsTest extends OrderTest {
     }
 
     function testNoMenu() {
-        $this->when->iRequestTheSelectionsFor_WithTheToke('2013-01-04', 'token');
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2013-01-04', 'token');
 
         $this->then->_shouldHaveTheSize('menu', 0);
         $this->then->_shouldHaveTheSize('selections', 0);
@@ -26,12 +26,12 @@ class SelectionsTest extends OrderTest {
     }
 
     function testWrongDateFormat() {
-        $this->when->iRequestTheSelectionsFor_WithTheToke('not a date', 'token');
+        $this->when->iRequestTheSelectionsFor_WithTheToken('not a date', 'token');
         $this->then->_shouldBe('error', 'Could not parse date.');
     }
 
     function testWrongToken() {
-        $this->when->iRequestTheSelectionsFor_WithTheToke('2013-01-04', 'not the token');
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2013-01-04', 'not the token');
         $this->then->_shouldBe('error', 'Wrong token.');
     }
 
@@ -41,7 +41,7 @@ class SelectionsTest extends OrderTest {
         $this->given->dish_OfMenu_Is(2, 1, 'Only english Text');
         $this->given->dish_OfMenu_Is(3, 1, 'Something Else');
 
-        $this->when->iRequestTheSelectionsFor_WithTheToke('2000-01-03', 'token');
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');
 
         $this->then->_shouldBe('menu/date', '2000-01-03');
         $this->then->_shouldHaveTheSize('menu/dishes', 3);
@@ -67,7 +67,7 @@ class SelectionsTest extends OrderTest {
         $this->given->_SelectedDish_ForMenu('Trick', 2, 1);
         $this->given->_SelectedDish_ForMenu('Track', 0, 1);
 
-        $this->when->iRequestTheSelectionsFor_WithTheToke('2000-01-03', 'token');
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');
 
         $this->then->_shouldHaveTheSize('selections', 3);
         $this->then->_shouldBe('selections/141/dish', 1);
@@ -88,13 +88,27 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('menu/dishes/1/en', 'Something');
     }
 
+    function testNoSelection() {
+        $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
+        $this->given->dish_OfMenu_Is(1, 1, 'Something');
+
+        $this->given->theUser('Tick');
+        $this->given->theUser('Trick');
+
+        $this->given->_SelectedDish_ForMenu('Tick', 1, 1);
+
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');
+
+        $this->then->_shouldHaveTheSize('selections', 1);
+    }
+
 }
 
 /**
  * @property SelectionsTest test
  * @property SelectionsComponent component
  */
-class TodayTest_When extends ComponentTest_When {
+class SelectionsTest_When extends ComponentTest_When {
 
     function __construct(Test $test) {
         parent::__construct($test);
@@ -109,11 +123,11 @@ class TodayTest_When extends ComponentTest_When {
         ));
     }
 
-    public function iRequestTheSelectionsFor_WithTheToke($date, $token) {
+    public function iRequestTheSelectionsFor_WithTheToken($date, $token) {
         $this->model = $this->component->doGet($token, $date);
     }
 
     public function iRequestTheSelectionsForTheDefaultDateWithTheToke($token) {
-        $this->iRequestTheSelectionsFor_WithTheToke(null, $token);
+        $this->iRequestTheSelectionsFor_WithTheToken(null, $token);
     }
 }
