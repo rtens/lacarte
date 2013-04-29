@@ -30,7 +30,7 @@ class SelectionsTest extends OrderTest {
 
         $this->then->_shouldHaveTheSize('actions', 3);
         $this->then->_shouldBe('actions/edit/href', 'edit.html?order=12');
-        $this->then->_shouldBe('actions/exportByDish', null);
+        $this->then->_shouldBe('actions/exportByDish', '../export/dishes.csv?order=12');
         $this->then->_shouldBe('actions/exportByUser', null);
 
         $this->then->_shouldBe('order/name', 'Test Order');

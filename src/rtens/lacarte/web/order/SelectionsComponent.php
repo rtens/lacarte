@@ -88,15 +88,15 @@ class SelectionsComponent extends DefaultComponent {
 
     private function assembleActions($orderId) {
         return array(
-            'edit' => $this->createLink('edit', $orderId),
-            'exportByDish' => null,
+            'edit' => $this->createLink('edit.html', $orderId),
+            'exportByDish' => $this->createLink('../export/dishes.csv', $orderId),
             'exportByUser' => null,
         );
     }
 
     private function createLink($component, $orderId) {
         return array(
-            'href' => $component . '.html?order=' . $orderId
+            'href' => $component . '?order=' . $orderId
         );
     }
 

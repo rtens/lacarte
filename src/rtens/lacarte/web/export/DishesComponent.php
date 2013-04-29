@@ -8,6 +8,7 @@ use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\User;
+use rtens\lacarte\utils\CsvRenderer;
 use rtens\lacarte\web\DefaultComponent;
 use watoki\curir\Path;
 use watoki\curir\Url;
@@ -27,6 +28,8 @@ class DishesComponent extends DefaultComponent {
                          UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor) {
         parent::__construct($factory, $route, $parent, $userInteractor, $session);
         $this->orderInteractor = $orderInteractor;
+
+        $this->rendererFactory->setRenderer('csv', CsvRenderer::$CLASS);
     }
 
     public function doGet($order) {
