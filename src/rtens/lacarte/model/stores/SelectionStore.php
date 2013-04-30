@@ -6,7 +6,6 @@ use rtens\lacarte\model\Selection;
 class SelectionStore extends Store {
 
     public function readByMenuIdAndUserId($menuId, $userId) {
-        $all = $this->readAll();
         return $this->inflate($this->db->readOne('SELECT * FROM selections WHERE menuId = ? AND userId = ?',
             array($menuId, $userId)));
     }
