@@ -15,6 +15,11 @@ if (!file_exists('config/UserConfiguration.php')) {
 	copy('config/UserConfiguration.php.dist', 'config/UserConfiguration.php');
 }
 
+if (!file_exists('.htaccess')) {
+	echo "Copying .htaccess" . PHP_EOL;
+	copy('.htaccess.dist', '.htaccess');
+}
+
 echo "Setting-up database" . PHP_EOL;
 @mkdir('opt');
 echo shell_exec('php vendor/watoki/stepper/bin/stepper.php migrate');

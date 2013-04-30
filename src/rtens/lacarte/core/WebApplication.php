@@ -16,7 +16,8 @@ class WebApplication {
 
     function __construct($route, Factory $factory = null) {
         $this->factory = $factory ?: new Factory();
-        $this->route = new Path(new Liste(array($route)));
+        $nodes = $route ? new Liste(array($route)) : new Liste();
+        $this->route = new Path($nodes);
     }
 
     public function handleRequest($request, $moduleClass) {
