@@ -144,6 +144,11 @@ class OrderTest_Given extends ComponentTest_Given {
         $this->userInteractor->__mock()->method('readById')->willReturn($user)->withArguments($user->id);
     }
 
+    public function _wasDeleted($name) {
+        $this->userInteractor->__mock()->method('readById')->willThrow(new NotFoundException())
+            ->withArguments($this->users[$name]->id);
+    }
+
     public function _SelectedDish_ForMenu($user, $dishId, $menuId) {
         $selection = new Selection($this->users[$user]->id, $menuId, $dishId);
         $selection->id = $this->users[$user]->id + 100;

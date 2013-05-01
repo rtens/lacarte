@@ -14,11 +14,6 @@ class UserStore extends Store {
         $this->createEntity($user, 'users');
     }
 
-    /**
-     * @param string $email
-     * @throws NotFoundException
-     * @return User
-     */
     public function readByEmail($email) {
         return $this->inflate($this->db->readOne("SELECT * FROM users WHERE email = ?",
             array($email)));
@@ -55,6 +50,10 @@ class UserStore extends Store {
 
     public function readById($id) {
         return $this->inflate($this->db->readOne('SELECT * FROM users WHERE id = ?', array($id)));
+    }
+
+    public function delete(User $user) {
+        $this->deleteEntity($user, 'users');
     }
 
 }

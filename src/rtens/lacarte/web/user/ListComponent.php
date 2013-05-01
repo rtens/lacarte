@@ -51,6 +51,20 @@ class ListComponent extends DefaultComponent {
         }
     }
 
+    public function doDelete($user) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+
+        $entity = new User(1, '', '', '');
+        $entity->id = $user;
+        $this->userInteractor->delete($entity);
+
+        return $this->assembleModel(array(
+            'success' => 'The user has been deleted'
+        ));
+    }
+
     protected function assembleModel($model = array()) {
         return parent::assembleModel(array_merge(array(
             'user' => $this->assembleUsers(),
@@ -68,10 +82,10 @@ class ListComponent extends DefaultComponent {
                 'email' => $user->getEmail(),
                 'key' => $user->getKey(),
                 'editAction' => array(
-                    'href' => 'list.html?action=edit&id=' . $user->id
+                    'href' => 'list.html?action=edit&user=' . $user->id
                 ),
                 'deleteAction' => array(
-                    'href' => 'list.html?action=delete&id=' . $user->id
+                    'href' => 'list.html?action=delete&user=' . $user->id
                 )
             );
         }

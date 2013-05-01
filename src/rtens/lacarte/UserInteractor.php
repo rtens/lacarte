@@ -83,4 +83,8 @@ class UserInteractor {
         return $this->userStore->readById($id);
     }
 
+    public function delete(User $user) {
+        $this->userStore->delete($user);
+    }
+
 }

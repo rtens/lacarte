@@ -3,6 +3,7 @@ namespace rtens\lacarte\web\export;
 
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\UserInteractor;
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Order;
@@ -66,7 +67,11 @@ class DishesComponent extends DefaultComponent {
     private function getUserNames($selections) {
         $users = array();
         foreach ($selections as $selection) {
-            $users[] = $this->getUser($selection->getUserId())->getName();
+            try {
+                $users[] = $this->getUser($selection->getUserId())->getName();
+            } catch (NotFoundException $e) {
+                $users[] = 'Deleted';
+            }
         }
         return $users;
     }

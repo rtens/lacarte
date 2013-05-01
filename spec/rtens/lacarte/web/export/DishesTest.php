@@ -64,6 +64,23 @@ class DishesTest extends OrderTest {
         $this->then->_shouldBe('content/1/by', 'Jerry');
     }
 
+    function testSelectionWithDeletedUser() {
+        $this->given->iAmLoggedInAsAdmin();
+        $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
+
+        $this->given->theUser('Tom');
+        $this->given->theUser('Jerry');
+        $this->given->_SelectedDish_ForMenu('Tom', 1, 1);
+        $this->given->_SelectedDish_ForMenu('Jerry', 1, 1);
+
+        $this->given->_wasDeleted('Tom');
+
+        $this->when->iGetAndDishesExportForTheOrder();
+
+        $this->then->_shouldHaveTheSize('content', 1);
+        $this->then->_shouldBe('content/0/by', 'Deleted, Jerry');
+    }
+
 }
 
 /**
