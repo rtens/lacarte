@@ -50,9 +50,6 @@ class OrderTest_Given extends ComponentTest_Given {
 
     public $selectionsByDishId = array();
 
-    /** @var array|User[] */
-    private $users = array();
-
     function __construct(Test $test) {
         parent::__construct($test);
         $this->orderInteractor = $this->test->mf->createMock(OrderInteractor::$CLASS);
@@ -134,14 +131,6 @@ class OrderTest_Given extends ComponentTest_Given {
 
     public function anErrorOccurs($string) {
         $this->orderInteractor->__mock()->method('readById')->willThrow(new \Exception($string));
-    }
-
-    public function theUser($name) {
-        $user = new User($this->group->id, $name, $name . '@test.com', $name);
-        $user->id = count($this->users) + 41;
-        $this->users[$name] = $user;
-        $this->userInteractor->__mock()->method('readAllByGroup')->willReturn(new Liste($this->users));
-        $this->userInteractor->__mock()->method('readById')->willReturn($user)->withArguments($user->id);
     }
 
     public function _wasDeleted($name) {

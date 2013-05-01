@@ -60,6 +60,9 @@ class ComponentTest_Given extends Test_Given {
     /** @var Mock */
     public $userInteractor;
 
+    /** @var array|User[] */
+    public $users = array();
+
     function __construct(Test $test) {
         parent::__construct($test);
 
@@ -86,6 +89,14 @@ class ComponentTest_Given extends Test_Given {
         $this->time->__mock()->method('now')->willCall(function () use ($date) {
             return new \DateTime($date);
         });
+    }
+
+    public function theUser($name) {
+        $user = new User($this->group->id, $name, $name . '@test.com', $name);
+        $user->id = count($this->users) + 41;
+        $this->users[$name] = $user;
+        $this->userInteractor->__mock()->method('readAllByGroup')->willReturn(new Liste($this->users));
+        $this->userInteractor->__mock()->method('readById')->willReturn($user)->withArguments($user->id);
     }
 
     private function mockSession() {
@@ -130,7 +141,7 @@ class ComponentTest_When extends Test_When {
      */
     public $response;
 
-    /** @var Component */
+    /** @var Component|Mock */
     public $component;
 
     protected function createDefaultComponent($class, $args = array()) {

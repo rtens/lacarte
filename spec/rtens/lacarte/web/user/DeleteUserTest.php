@@ -1,69 +1,59 @@
 <?php
 namespace spec\rtens\lacarte\web\user;
 
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\model\User;
-use rtens\lacarte\model\stores\UserStore;
+use rtens\lacarte\web\user\ListComponent;
 use spec\rtens\lacarte\Test;
-use spec\rtens\lacarte\Test_Given;
-use spec\rtens\lacarte\Test_Then;
-use spec\rtens\lacarte\Test_When;
+use spec\rtens\lacarte\web\ComponentTest;
+use spec\rtens\lacarte\web\ComponentTest_Then;
+use spec\rtens\lacarte\web\ComponentTest_When;
 
 /**
- * @property DeleteUserTest_Given given
  * @property DeleteUserTest_When when
  * @property DeleteUserTest_Then then
  */
-class DeleteUserTest extends Test {
+class DeleteUserTest extends ComponentTest {
 
-    function testDeleteUserWithoutRelations() {
-        $this->given->theUser('Test');
-        $this->given->theUser('Mo');
+    function testNotAdmin() {
+        $this->given->theUser('X');
+        $this->when->iDeleteUser('X');
+        $this->then->iShouldBeRedirectedTo('../order/list.html');
+    }
 
-        $this->when->iDeleteTheUser('Test');
+    function testDelete() {
+        $this->given->iAmLoggedInAsAdmin();
+        $this->given->theUser('X');
 
-        $this->then->thereShouldBe_User(1);
+        $this->when->iDeleteUser('X');
+
+        $this->then->theUser_ShouldBeDeleted('X');
     }
 
 }
 
-class DeleteUserTest_Given extends Test_Given {
+/**
+ * @property DeleteUserTest test
+ * @property ListComponent component
+ */
+class DeleteUserTest_When extends ComponentTest_When {
 
-    /** @var array|User[] */
-    public $users = array();
-
-    function __construct(Test $test, UserStore $store) {
+    function __construct(Test $test) {
         parent::__construct($test);
-        $this->store = $store;
+        $this->createDefaultComponent(ListComponent::$CLASS);
     }
 
-    public function theUser($name) {
-        $this->users[$name] = new User(1, $name, "$name@test", "123$name");
-        $this->store->create($this->users[$name]);
+    public function iDeleteUser($name) {
+        $this->component->doDelete($this->test->given->users[$name]->id);
     }
 }
 
 /**
  * @property DeleteUserTest test
  */
-class DeleteUserTest_When extends Test_When {
+class DeleteUserTest_Then extends ComponentTest_Then {
 
-    function __construct(Test $test, UserInteractor $interactor) {
-        parent::__construct($test);
-        $this->interactor = $interactor;
-    }
-
-    public function iDeleteTheUser($name) {
-        $this->interactor->delete($this->test->given->users[$name]);
-    }
-}
-
-/**
- * @property DeleteUserTest test
- */
-class DeleteUserTest_Then extends Test_Then {
-
-    public function thereShouldBe_User($count) {
-        $this->test->assertEquals($count, $this->test->given->store->readAll()->count());
+    public function theUser_ShouldBeDeleted($name) {
+        $method = $this->test->given->userInteractor->__mock()->method('delete');
+        $this->test->assertTrue($method->wasCalled());
+        $this->test->assertEquals($this->test->given->users[$name]->id, $method->getCalledArgumentAt(0, 0)->id);
     }
 }
