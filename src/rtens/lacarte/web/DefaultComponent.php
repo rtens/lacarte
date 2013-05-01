@@ -33,14 +33,14 @@ abstract class DefaultComponent extends SuperComponent {
     }
 
     public function respond(Request $request) {
-        if ($this->requiresLogin() && !$this->isLoggedIn()) {
+        if ($this->requiresLogin()) {
             if ($request->getParameters()->has('key')) {
                 try {
                     $this->login($request->getParameters()->get('key'));
                 } catch (\Exception $e) {
                     return $this->redirectToLogin();
                 }
-            } else {
+            } else if (!$this->isLoggedIn()) {
                 return $this->redirectToLogin();
             }
         }
@@ -49,11 +49,15 @@ abstract class DefaultComponent extends SuperComponent {
     }
 
     protected function isLoggedIn() {
-        return $this->isAdmin() || $this->session->hasAndGet('key');
+        return $this->isAdmin() || $this->isUser();
     }
 
     protected function isAdmin() {
         return $this->session->has('admin');
+    }
+
+    protected function isUser() {
+        return $this->session->has('key');
     }
 
     protected function getAdminGroupId() {
@@ -78,7 +82,7 @@ abstract class DefaultComponent extends SuperComponent {
         return array_merge(array(
             'menu' => $this->subComponent(MenuComponent::$CLASS),
             'adminOnly' => $this->isAdmin(),
-            'userOnly' => $this->isLoggedIn() && !$this->isAdmin(),
+            'userOnly' => $this->isUser(),
         ), $model);
     }
 
