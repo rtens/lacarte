@@ -174,6 +174,16 @@ class SelectTest extends OrderTest {
         $this->then->_shouldBe('order/menu/2/dish/1/key/checked', false);
     }
 
+    function testNothingSelected() {
+        $this->given->iAmLoggedInAsUser();
+        $this->given->anOrder_With_MenusEach_Dishes('test', 3, 2);
+
+        $this->when->iSaveTheSelectionWithoutAnySelection();
+
+        $this->then->_shouldBe('error', 'Please make a selection for every day');
+
+    }
+
 }
 
 /**
@@ -214,6 +224,10 @@ class SelectTest_When extends ComponentTest_When {
 
     public function iSaveTheSelection() {
         $this->model = $this->component->doPost($this->test->given->order->id, $this->test->given->selected);
+    }
+
+    public function iSaveTheSelectionWithoutAnySelection() {
+        $this->model = $this->component->doPost($this->test->given->order->id);
     }
 
     public function iAccessThePageForTheOrderForTheUser($userId) {

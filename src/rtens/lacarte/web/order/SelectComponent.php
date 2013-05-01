@@ -35,22 +35,24 @@ class SelectComponent extends DefaultComponent {
      * @param int|null $user Set if admin is changing the selection
      * @return array|null
      */
-    public function doPost($order, Map $selection, $user = null) {
+    public function doPost($order, Map $selection = null, $user = null) {
         $orderEntity = $this->orderInteractor->readById($order);
         $userId = $this->getUserId($user);
 
-        try {
-            $selections = $this->collectSelections($order, $selection, $user, $userId);
-            $this->orderInteractor->saveSelections($selections);
+        if ($selection) {
+            try {
+                $selections = $this->collectSelections($order, $selection, $user, $userId);
+                $this->orderInteractor->saveSelections($selections);
 
-            return $this->assembleMyModel($orderEntity, $userId, array(
-                'success' => 'Selection saved'
-            ));
-        } catch (\InvalidArgumentException $e) {
-            return $this->assembleMyModel($orderEntity, $userId, array(
-                'error' => 'Please make a selection for every day'
-            ));
+                return $this->assembleMyModel($orderEntity, $userId, array(
+                    'success' => 'Selection saved'
+                ));
+            } catch (\InvalidArgumentException $e) {}
         }
+
+        return $this->assembleMyModel($orderEntity, $userId, array(
+            'error' => 'Please make a selection for every day'
+        ));
     }
     private function collectSelections($order, Map $selection, $user, $userId) {
         $missing = false;
