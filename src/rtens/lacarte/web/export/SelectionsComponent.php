@@ -105,6 +105,11 @@ class SelectionsComponent extends Component {
         foreach ($this->userInteractor->readAllByGroup($group) as $user) {
             try {
                 $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $user->id);
+
+                if (!$selection->hasDish()) {
+                    continue;
+                }
+
                 $selections[$selection->id] = array(
                     'dish' => intval($selection->getDishId()),
                     'user' => array(

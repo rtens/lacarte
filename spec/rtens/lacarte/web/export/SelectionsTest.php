@@ -69,13 +69,15 @@ class SelectionsTest extends OrderTest {
 
         $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');
 
-        $this->then->_shouldHaveTheSize('selections', 3);
-        $this->then->_shouldBe('selections/141/dish', 1);
-        $this->then->_shouldBe('selections/142/dish', 2);
-        $this->then->_shouldBe('selections/143/dish', 0);
+        $this->then->_shouldHaveTheSize('selections', 2);
 
         $this->then->_shouldBe('selections/141/user/id', 41);
         $this->then->_shouldBe('selections/141/user/name', "Tick");
+        $this->then->_shouldBe('selections/141/dish', 1);
+
+        $this->then->_shouldBe('selections/142/user/id', 42);
+        $this->then->_shouldBe('selections/142/user/name', "Trick");
+        $this->then->_shouldBe('selections/142/dish', 2);
     }
 
     function testDefaultDate() {
