@@ -37,8 +37,8 @@ class SelectionsTest extends OrderTest {
 
     function testNoSelections() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 3);
-        $this->given->dish_OfMenu_Is(1, 1, 'German Text/English Text');
-        $this->given->dish_OfMenu_Is(2, 1, 'Only english Text');
+        $this->given->dish_OfMenu_Is(1, 1, 'German Text / English Text');
+        $this->given->dish_OfMenu_Is(2, 1, ' Only english Text');
         $this->given->dish_OfMenu_Is(3, 1, 'Something Else');
 
         $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');

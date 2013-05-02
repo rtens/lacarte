@@ -32,9 +32,9 @@ class Dish {
     public function getTextIn($lang) {
         if (strpos($this->getText(), '/')) {
             $langs = explode('/', $this->getText());
-            return $lang == self::LANG_GERMAN ? $langs[0] : $langs[1];
+            return trim($langs[$lang == self::LANG_GERMAN ? 0 : 1]);
         }
-        return $this->text;
+        return trim($this->text);
     }
 
 }
