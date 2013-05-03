@@ -117,7 +117,7 @@ class SelectionsTest_When extends ComponentTest_When {
 
         $this->component = $this->test->mf->createTestUnit(SelectionsComponent::$CLASS, array(
             'factory' => $this->test->factory,
-            'route' => new Path(),
+            'route' => Path::parse('/export/selections.json'),
             'config' => $this->test->config,
             'time' => $this->test->given->time,
             'orderInteractor' => $this->test->given->orderInteractor,

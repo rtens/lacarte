@@ -11,20 +11,20 @@
             "homepage": "http://rtens.org"
         }
     ],
-	
     "require": {
         "php": ">=5.3.8",
         "watoki/tempan": "*",
         "watoki/collections": "*",
         "watoki/stache": "*",
-		"watoki/factory": "*",
-		"watoki/curir": "*",
-		"watoki/stepper": "*"
+        "watoki/factory": "*",
+        "watoki/curir": "*",
+        "watoki/stepper": "*"
     },
-	"require-dev": {
+    "require-dev": {
         "rtens/mockster": "1.1.*",
-        "watoki/scrut":"*"
-	},
+        "watoki/scrut": "*",
+        "phpunit/phpunit": "3.7.*"
+    },
     "autoload": {
         "psr-0": {
             "rtens\\lacarte": "src/",
