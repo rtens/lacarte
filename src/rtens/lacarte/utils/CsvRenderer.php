@@ -27,15 +27,16 @@ class CsvRenderer implements Renderer {
 
         $file = 'file.csv';
         $fp = fopen($file, 'w');
+        $delimiter = $this->delimiter();
 
-        fputcsv($fp, $headers);
+        fputcsv($fp, $headers, $delimiter);
 
         foreach ($content as $row) {
             $fields = array();
             foreach ($headers as $header) {
                 $fields[] = isset($row[$header]) ? $row[$header] : null;
             }
-            fputcsv($fp, $fields);
+            fputcsv($fp, $fields, $delimiter);
         }
 
         fclose($fp);
@@ -44,5 +45,12 @@ class CsvRenderer implements Renderer {
         @unlink($file);
 
         return $content;
+    }
+
+    /**
+     * @return string
+     */
+    protected function delimiter() {
+        return ';';
     }
 }
