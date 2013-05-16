@@ -1,6 +1,8 @@
 <?php
 namespace rtens\lacarte\web\order;
 
+use rtens\lacarte\model\Menu;
+use rtens\lacarte\model\Selection;
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
@@ -48,34 +50,49 @@ class SelectionComponent extends DefaultComponent {
     private function assembleOrder(Order $order) {
         return array(
             'name' => $order->getName(),
-            'selection' => $this->assembleSelections($order)
+            'selection' => $this->assembleSelections($order),
         );
     }
 
     private function assembleSelections(Order $order) {
         $selections = array();
         foreach ($this->orderInteractor->readMenusByOrderId($order->id) as $menu) {
+            $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $this->getLoggedInUser()->id);
+
             $selections[] = array(
                 'date' => $menu->getDate()->format('l, j.n.Y'),
-                'dish' => $this->getDishText($menu)
+                'dish' => $this->getSelectedDishText($selection),
+                'notSelected' => $this->assembleNotSelectedDishTexts($menu, $selection)
             );
         }
         return $selections;
     }
 
     /**
-     * @param $menu
+     * @param Selection $selection
      * @return string
      */
-    private function getDishText($menu) {
-        $selection = $this->orderInteractor->readSelectionByMenuIdAndUserId($menu->id, $this->getLoggedInUser()->id);
+    private function getSelectedDishText(Selection $selection) {
         if ($selection->hasDish()) {
-            $text = $this->orderInteractor->readDishById($selection->getDishId())->getText();
-            return $text;
+            return $this->orderInteractor->readDishById($selection->getDishId())->getText();
         } else {
-            $text = 'You selected no dish';
-            return $text;
+            return 'You selected no dish';
         }
+    }
+
+    /**
+     * @param Menu $menu
+     * @param Selection $selection
+     * @return array|string[]
+     */
+    private function assembleNotSelectedDishTexts(Menu $menu, Selection $selection) {
+        $notSelected = array();
+        foreach ($this->orderInteractor->readDishesByMenuId($menu->id) as $dish) {
+            if ($dish->id != $selection->getDishId()) {
+                $notSelected[] = $dish->getText();
+            }
+        }
+        return $notSelected;
     }
 
 }

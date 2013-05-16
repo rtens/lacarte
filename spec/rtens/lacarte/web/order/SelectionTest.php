@@ -34,6 +34,14 @@ class SelectionTest extends OrderTest {
         $this->then->_shouldBe('order/selection/1/dish', 'Dish Two B');
         $this->then->_shouldBe('order/selection/2/date', 'Wednesday, 5.1.2000');
         $this->then->_shouldBe('order/selection/2/dish', 'You selected no dish');
+
+        $this->then->_shouldHaveTheSize('order/selection/0/notSelected', 1);
+        $this->then->_shouldBe('order/selection/0/notSelected/0', 'Dish One B');
+        $this->then->_shouldHaveTheSize('order/selection/1/notSelected', 1);
+        $this->then->_shouldBe('order/selection/1/notSelected/0', 'Dish Two A');
+        $this->then->_shouldHaveTheSize('order/selection/2/notSelected', 2);
+        $this->then->_shouldBe('order/selection/2/notSelected/0', 'Dish Three A');
+        $this->then->_shouldBe('order/selection/2/notSelected/1', 'Dish Three B');
     }
 
     function testAsAdmin() {
@@ -60,7 +68,6 @@ class SelectionTest extends OrderTest {
 
 /**
  * @property SelectionTest test
- * @property SelectionComponent component
  * @property SelectionComponent component
  */
 class SelectionTest_When extends ComponentTest_When {
