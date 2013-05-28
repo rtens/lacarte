@@ -114,7 +114,9 @@ class SelectionsComponent extends Component {
                     'dish' => intval($selection->getDishId()),
                     'user' => array(
                         'id' => $user->id,
-                        'name' => $user->getName()
+                        'name' => $user->getName(),
+						'avatar' => $this->configuration->getHost() . '/user/avatars/default.png',
+						'yielded' => false
                     )
                 );
             } catch (NotFoundException $e) {}
