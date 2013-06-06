@@ -20,6 +20,8 @@ class DishesComponent extends DefaultComponent {
 
     static $CLASS = __CLASS__;
 
+    const UTF8_BOM = "\xEF\xBB\xBF";
+
     /** @var array|User[] */
     private $userCache = array();
 
@@ -81,6 +83,10 @@ class DishesComponent extends DefaultComponent {
             $this->userCache[$userId] = $this->userInteractor->readById($userId);
         }
         return $this->userCache[$userId];
+    }
+
+    public function render($model) {
+        return self::UTF8_BOM . parent::render($model);
     }
 
 }
