@@ -10,7 +10,6 @@ use spec\rtens\lacarte\web\order\OrderTest_Given;
 use watoki\curir\Path;
 
 /**
- * @property SelectionsTest_Given given
  * @property SelectionsTest_When when
  */
 class SelectionsTest extends OrderTest {
@@ -125,20 +124,6 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('selections/142/user/avatar', 'http://lacarte/user/avatars/42.jpg');
     }
 
-}
-
-/**
- * @property SelectionsTest test
- */
-class SelectionsTest_Given extends OrderTest_Given {
-
-    public function _HasAnAvatar($userName) {
-        $dir = $this->test->config->getUserFilesDirectory() . '/avatars';
-        @mkdir($dir);
-
-        $file = $dir . '/' . $this->users[$userName]->id . '.jpg';
-        file_put_contents($file, 'n');
-    }
 }
 
 /**

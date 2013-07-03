@@ -1,6 +1,7 @@
 <?php
 namespace rtens\lacarte\web\user;
  
+use rtens\lacarte\core\FileRepository;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Group;
@@ -11,10 +12,19 @@ use watoki\curir\Path;
 use watoki\curir\Url;
 use watoki\curir\controller\Module;
 use watoki\factory\Factory;
+use watoki\tempan\Renderer;
 
 class ListComponent extends DefaultComponent {
 
     public static $CLASS = __CLASS__;
+
+    private $files;
+
+    function __construct(Factory $factory, Path $route, Module $parent = null,
+                         UserInteractor $userInteractor, Session $session, FileRepository $files) {
+        parent::__construct($factory, $route, $parent, $userInteractor, $session);
+        $this->files = $files;
+    }
 
     public function doGet() {
         if (!$this->isAdmin()) {
@@ -86,6 +96,10 @@ class ListComponent extends DefaultComponent {
                 ),
                 'deleteAction' => array(
                     'href' => 'list.html?action=delete&user=' . $user->id
+                ),
+                'avatar' => array(
+                    'src' => $this->files->getUserAvatarUrl($user),
+                    'href' => $this->files->getUserAvatarUrl($user),
                 )
             );
         }

@@ -1,6 +1,6 @@
 <?php
 namespace rtens\lacarte\core;
- 
+
 class FileRepository {
 
     public static $CLASS = __CLASS__;
@@ -17,6 +17,11 @@ class FileRepository {
 
     public function getFullPath($file) {
         return $this->config->getUserFilesDirectory() . '/' . $file;
+    }
+
+    public function getUserAvatarUrl($user) {
+        $file = $this->exists('avatars/' . $user->id . '.jpg') ? $user->id . '.jpg' : 'default.png';
+        return $this->config->getHost() . '/user/avatars/' . $file;
     }
 
 }

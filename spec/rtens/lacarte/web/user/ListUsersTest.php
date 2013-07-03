@@ -1,6 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\web\user;
 
+use rtens\lacarte\core\FileRepository;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\web\user\ListComponent;
 use spec\rtens\lacarte\Test;
@@ -37,6 +38,16 @@ class ListUsersTest extends ComponentTest {
         $this->then->iShouldBeRedirectedTo('../order/list.html');
     }
 
+    function testAvatars() {
+        $this->given->iAmLoggedInAsAdmin();
+        $this->given->theUser('UserA');
+        $this->given->_HasAnAvatar('UserA');
+
+        $this->when->iAccessThePage();
+
+        $this->then->_shouldBe('user/0/avatar/src', 'http://lacarte/user/avatars/1.jpg');
+    }
+
 }
 
 /**
@@ -53,7 +64,7 @@ class ListUsersTest_Given extends ComponentTest_Given {
     }
 
     public function theUser($string) {
-        $this->userInteractor->createUser(1, $string, $string . '@example.com');
+        $this->users[$string] = $this->userInteractor->createUser(1, $string, $string . '@example.com');
     }
 }
 
@@ -66,7 +77,8 @@ class ListUsersTest_When extends ComponentTest_When {
     function __construct(Test $test) {
         parent::__construct($test);
         $this->createDefaultComponent(ListComponent::$CLASS, array(
-            'userInteractor' => $this->test->given->userInteractor
+            'userInteractor' => $this->test->given->userInteractor,
+            'files' => new FileRepository($this->test->config)
         ));
     }
 

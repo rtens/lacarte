@@ -127,6 +127,14 @@ class ComponentTest_Given extends Test_Given {
         $this->userInteractor = $this->test->mf->createMock(UserInteractor::$CLASS);
     }
 
+    public function _HasAnAvatar($userName) {
+        $dir = $this->test->config->getUserFilesDirectory() . '/avatars';
+        @mkdir($dir);
+
+        $file = $dir . '/' . $this->users[$userName]->id . '.jpg';
+        file_put_contents($file, 'n');
+    }
+
 }
 
 /**

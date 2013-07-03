@@ -120,8 +120,7 @@ class SelectionsComponent extends Component {
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->configuration->getHost() . '/user/avatars/'
-                            . ($this->files->exists('avatars/' . $user->id . '.jpg') ? $user->id . '.jpg' : 'default.png'),
+						'avatar' => $this->files->getUserAvatarUrl($user),
 						'yielded' => false
                     )
                 );
