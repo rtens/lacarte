@@ -32,4 +32,9 @@ interface Configuration {
      */
     function getApiToken();
 
+    /**
+     * @return string
+     */
+    function getUserFilesDirectory();
+
 }

@@ -1,6 +1,7 @@
 <?php
 namespace rtens\lacarte\web\export;
  
+use rtens\lacarte\core\FileRepository;
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Configuration;
@@ -26,13 +27,17 @@ class SelectionsComponent extends Component {
 
     private $userInteractor;
 
+    private $files;
+
     function __construct(Factory $factory, Path $route, Module $parent = null, Configuration $config,
-                         TimeService $time, OrderInteractor $orderInteractor, UserInteractor $userInteractor) {
+                         TimeService $time, OrderInteractor $orderInteractor, UserInteractor $userInteractor,
+                         FileRepository $files) {
         parent::__construct($factory, $route, $parent);
         $this->configuration = $config;
         $this->time = $time;
         $this->orderInteractor = $orderInteractor;
         $this->userInteractor = $userInteractor;
+        $this->files = $files;
     }
 
     public function doGet($token, $date = null) {
@@ -115,7 +120,8 @@ class SelectionsComponent extends Component {
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->configuration->getHost() . '/user/avatars/default.png',
+						'avatar' => $this->configuration->getHost() . '/user/avatars/'
+                            . ($this->files->exists('avatars/' . $user->id . '.jpg') ? $user->id . '.jpg' : 'default.png'),
 						'yielded' => false
                     )
                 );

@@ -1,13 +1,16 @@
 <?php
 namespace spec\rtens\lacarte\web\export;
  
+use rtens\lacarte\core\FileRepository;
 use rtens\lacarte\web\export\SelectionsComponent;
 use spec\rtens\lacarte\Test;
 use spec\rtens\lacarte\web\ComponentTest_When;
 use spec\rtens\lacarte\web\order\OrderTest;
+use spec\rtens\lacarte\web\order\OrderTest_Given;
 use watoki\curir\Path;
 
 /**
+ * @property SelectionsTest_Given given
  * @property SelectionsTest_When when
  */
 class SelectionsTest extends OrderTest {
@@ -104,6 +107,38 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldHaveTheSize('selections', 1);
     }
 
+    function testAvatars() {
+        $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
+        $this->given->dish_OfMenu_Is(1, 1, 'Something');
+
+        $this->given->theUser('Anna');
+        $this->given->theUser('Bert');
+
+        $this->given->_SelectedDish_ForMenu('Anna', 1, 1);
+        $this->given->_SelectedDish_ForMenu('Bert', 1, 1);
+
+        $this->given->_HasAnAvatar('Bert');
+
+        $this->when->iRequestTheSelectionsFor_WithTheToken('2000-01-03', 'token');
+
+        $this->then->_shouldBe('selections/141/user/avatar', 'http://lacarte/user/avatars/default.png');
+        $this->then->_shouldBe('selections/142/user/avatar', 'http://lacarte/user/avatars/42.jpg');
+    }
+
+}
+
+/**
+ * @property SelectionsTest test
+ */
+class SelectionsTest_Given extends OrderTest_Given {
+
+    public function _HasAnAvatar($userName) {
+        $dir = $this->test->config->getUserFilesDirectory() . '/avatars';
+        @mkdir($dir);
+
+        $file = $dir . '/' . $this->users[$userName]->id . '.jpg';
+        file_put_contents($file, 'n');
+    }
 }
 
 /**
@@ -121,7 +156,8 @@ class SelectionsTest_When extends ComponentTest_When {
             'config' => $this->test->config,
             'time' => $this->test->given->time,
             'orderInteractor' => $this->test->given->orderInteractor,
-            'userInteractor' => $this->test->given->userInteractor
+            'userInteractor' => $this->test->given->userInteractor,
+            'files' => new FileRepository($this->test->config)
         ));
     }
 

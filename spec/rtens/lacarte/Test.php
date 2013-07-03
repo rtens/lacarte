@@ -25,8 +25,13 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
      */
     public $mf;
 
-    /** @var Mock */
+    /** @var Mock|Configuration */
     public $config;
+
+    /**
+     * @var String
+     */
+    public $userFilesDir;
 
     private $stateFile;
 
@@ -37,9 +42,14 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
         $this->mf = new MockFactory();
 
+        $this->userFilesDir = __DIR__ . '/__userfiles';
+        $this->cleanUp($this->userFilesDir);
+        mkdir($this->userFilesDir);
+
         $this->config = $this->mf->createMock(Configuration::Configuration);
         $this->config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
         $this->config->__mock()->method('getHost')->willReturn('http://lacarte');
+        $this->config->__mock()->method('getUserFilesDirectory')->willReturn($this->userFilesDir);
 
         $this->factory = new Factory();
         $this->factory->setSingleton(Configuration::Configuration, $this->config);
@@ -52,6 +62,9 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
 
     public function tearDown() {
         unlink($this->stateFile);
+
+        $this->cleanUp($this->userFilesDir);
+
         parent::tearDown();
     }
 
@@ -73,6 +86,17 @@ abstract class Test extends \PHPUnit_Framework_TestCase {
                 $class = $refl->getParentClass()->getName();
             }
         }
+    }
+
+    private function cleanUp($dir) {
+        foreach (glob($dir . '/*') as $file) {
+            if (is_dir($file)) {
+                $this->cleanUp($file);
+            } else {
+                @unlink($file);
+            }
+        }
+        @rmdir($dir);
     }
 
 }

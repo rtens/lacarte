@@ -40,4 +40,11 @@ class DefaultConfiguration implements Configuration {
     function getApiToken() {
         return 'token';
     }
+
+    /**
+     * @return string
+     */
+    function getUserFilesDirectory() {
+        return __DIR__ . '/../opt/files';
+    }
 }
