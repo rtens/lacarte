@@ -120,7 +120,7 @@ class SelectionsComponent extends Component {
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->files->getUserAvatarUrl($user),
+						'avatar' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
 						'yielded' => false
                     )
                 );

@@ -98,8 +98,8 @@ class ListComponent extends DefaultComponent {
                     'href' => 'list.html?action=delete&user=' . $user->id
                 ),
                 'avatar' => array(
-                    'src' => $this->files->getUserAvatarUrl($user),
-                    'href' => $this->files->getUserAvatarUrl($user),
+                    'src' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
+                    'href' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
                 )
             );
         }
