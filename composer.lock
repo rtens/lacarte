@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a4a67ea0136fd11811a5ea9159ad364c",
+    "hash": "8c31bce8260d1bab678230f9d961435c",
     "packages": [
         {
             "name": "symfony/console",
@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "63a0dca51a5b1bdd1c073c73961230229d941149"
+                "reference": "5e6e8c98c8e11ee6ce243a7a69535274990400fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/63a0dca51a5b1bdd1c073c73961230229d941149",
-                "reference": "63a0dca51a5b1bdd1c073c73961230229d941149",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/5e6e8c98c8e11ee6ce243a7a69535274990400fd",
+                "reference": "5e6e8c98c8e11ee6ce243a7a69535274990400fd",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +143,7 @@
                 "mvc",
                 "watoki"
             ],
-            "time": "2013-05-03 15:44:43"
+            "time": "2013-08-28 09:40:12"
         },
         {
             "name": "watoki/dom",
@@ -301,7 +301,7 @@
                     "spec\\watoki\\stache": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
