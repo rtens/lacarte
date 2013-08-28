@@ -2286,7 +2286,7 @@ table th[class*="span"],
     *margin-right: .3em;
     line-height: 14px;
     vertical-align: text-top;
-    background-image: url("../img/glyphicons-halflings.png");
+    background-image: url("img/glyphicons-halflings.png");
     background-position: 14px 14px;
     background-repeat: no-repeat;
 }
@@ -2310,7 +2310,7 @@ table th[class*="span"],
 .dropdown-submenu:focus > a > [class^="icon-"],
 .dropdown-submenu:hover > a > [class*=" icon-"],
 .dropdown-submenu:focus > a > [class*=" icon-"] {
-    background-image: url("../img/glyphicons-halflings-white.png");
+    background-image: url("img/glyphicons-halflings-white.png");
 }
 
 .icon-glass {
@@ -3323,6 +3323,11 @@ button.close {
     border-radius: 3px;
 }
 
+.btn-upload {
+    width: 30px;
+    height: 30px;
+}
+
 .btn-block {
     display: block;
     width: 100%;
@@ -3477,6 +3482,10 @@ input[type="button"].btn-block {
     color: #ffffff;
     background-color: #51a351;
     *background-color: #499249;
+}
+
+.btn-doubleWidth {
+    width: 78px;
 }
 
 .btn-success:active,

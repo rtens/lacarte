@@ -60,6 +60,24 @@ class UserInteractor {
         }
     }
 
+
+    public function updateUser($groupId, $name, $email, $userId, $key) {
+        if (!$name || !$email) {
+            throw new \InvalidArgumentException('Please provide name and email.');
+        }
+        if (!$userId|| !$key) {
+            throw new \InvalidArgumentException('Data missing, please try again.');
+        }
+        $user = new User($groupId, $name, strtolower($email), $key);
+        $user->id = $userId;
+
+        try {
+            $this->userStore->update($user);
+        } catch (\PDOException $e) {
+            throw new \InvalidArgumentException('Error while updating user.');
+        }
+    }
+
     /**
      * @return array|User[]
      */

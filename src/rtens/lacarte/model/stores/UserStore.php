@@ -14,6 +14,10 @@ class UserStore extends Store {
         $this->createEntity($user, 'users');
     }
 
+    public function update(User $user) {
+        $this->updateEntity($user, 'users');
+    }
+
     public function readByEmail($email) {
         return $this->inflate($this->db->readOne("SELECT * FROM users WHERE email = ?",
             array($email)));

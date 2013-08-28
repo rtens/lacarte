@@ -30,8 +30,14 @@ class ListComponent extends DefaultComponent {
         if (!$this->isAdmin()) {
             return $this->redirect(Url::parse('../order/list.html'));
         }
-
         return $this->assembleModel();
+    }
+
+    public function doEdit($user) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+        return $this->assembleModel(array(), $user);
     }
 
     public function doPost($name, $email) {
@@ -75,11 +81,41 @@ class ListComponent extends DefaultComponent {
         ));
     }
 
-    protected function assembleModel($model = array()) {
+    public function doSave($name, $email, $userId, $key) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+        $picture = $_FILES['picture']['name'];
+        $pictureTmp = $_FILES['picture']['tmp_name'];
+        if ($picture) {
+            if ('jpg' != substr($picture, strrpos($picture, '.') + 1)) {
+                return $this->assembleModel(array(
+                    'error' => 'Only jpg-files allowed.'
+                ));
+            };
+
+            $avatarPath = $this->files->getUserFilesDirectory(). '/avatars/' . $userId . '.jpg';
+            if(!move_uploaded_file($pictureTmp, $avatarPath)) {
+                return $this->assembleModel(array(
+                    'error' => 'There was an error uploading the file, please try again!'
+                ));
+            }
+        }
+        $groupId = $this->session->get('admin');
+        $this->userInteractor->updateUser($groupId, $name, $email, $userId, $key);
+        return $this->assembleModel(array(
+            'success' => 'The user has been updated'
+        ));
+    }
+
+    protected function assembleModel($model = array(), $userId = null) {
+        $editing = $this->assembleEditing($userId);
         return parent::assembleModel(array_merge(array(
             'user' => $this->assembleUsers(),
             'error' => null,
-            'success' => null
+            'success' => null,
+            'notEditing' => !$editing,
+            'editing' => $editing
         ), $model));
     }
 
@@ -104,6 +140,27 @@ class ListComponent extends DefaultComponent {
             );
         }
         return $users;
+    }
+
+    private function assembleEditing($userId) {
+        if (!$userId) {
+            return null;
+        }
+        $user = $this->userInteractor->readById($userId);
+        return array(
+            'name' => array(
+                'value' => $user->getName()
+            ),
+            'email' => array(
+                'value' => $user->getEmail(),
+            ),
+            'key' => array(
+                'value' => $user->getKey(),
+            ),
+            'userId' => array(
+                'value' => $userId,
+            ),
+        );
     }
 
 }
