@@ -66,7 +66,6 @@ class ListTest extends ComponentTest {
     }
 
     function testShowTodaysSelection() {
-        $this->markTestIncomplete();
 
         $this->given->iAmLoggedInAsUser();
         $this->given->nowIs('2013-04-04 18:00');
@@ -81,7 +80,6 @@ class ListTest extends ComponentTest {
     }
 
     function testNoTodaysSelectionIfNotUser() {
-        $this->markTestIncomplete();
 
         $this->given->iAmLoggedInAsAdmin();
         $this->given->nowIs('2013-04-04 18:00');
@@ -96,7 +94,6 @@ class ListTest extends ComponentTest {
 
     function testNoTodaysSelectionIfNothingSelected() {
         $this->markTestIncomplete();
-
         $this->given->iAmLoggedInAsUser();
         $this->given->nowIs('2013-04-04 18:00');
         $this->given->theOrder_WithDeadline('order1', '2013-04-03 18:00');
@@ -109,7 +106,6 @@ class ListTest extends ComponentTest {
     }
 
     function testTodaysSelectionWhenSelectedNoDish() {
-        $this->markTestIncomplete();
         
         $this->given->iAmLoggedInAsUser();
         $this->given->nowIs('2013-04-04 18:00');
