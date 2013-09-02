@@ -109,8 +109,7 @@ class ListComponent extends DefaultComponent {
         if (!$this->isUser()) {
             return;
         }
-
-        $menus = $this->orderInteractor->readAllMenusByDate($this->time->now());
+        $menus = $this->orderInteractor->readAllMenusByDate($this->time->fromString('today'));
         if (count($menus) < 1) {
             return;
         }
