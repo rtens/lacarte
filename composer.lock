@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8c31bce8260d1bab678230f9d961435c",
+    "hash": "a4a67ea0136fd11811a5ea9159ad364c",
     "packages": [
         {
             "name": "symfony/console",
@@ -301,7 +301,7 @@
                     "spec\\watoki\\stache": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],

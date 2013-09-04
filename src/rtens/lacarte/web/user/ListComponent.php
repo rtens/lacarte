@@ -81,7 +81,7 @@ class ListComponent extends DefaultComponent {
         ));
     }
 
-    public function doSave($name, $email, $userId, $key) {
+    public function doSave($name, $email, $userId) {
         if (!$this->isAdmin()) {
             return $this->redirect(Url::parse('../order/list.html'));
         }
@@ -101,11 +101,26 @@ class ListComponent extends DefaultComponent {
                 ));
             }
         }
-        $groupId = $this->session->get('admin');
-        $this->userInteractor->updateUser($groupId, $name, $email, $userId, $key);
-        return $this->assembleModel(array(
-            'success' => 'The user has been updated'
-        ));
+        $user = $this->userInteractor->readById($userId);
+        if(!$email || !$name) {
+            return $this->assembleModel(array(
+                'error' => 'Could not update user. Missing data.'
+            ));
+        }
+        $user->setEmail($email);
+        $user->setName($name);
+        try {
+            $this->userInteractor->updateUser($user);
+            return $this->assembleModel(array(
+                'success' => 'The user has been updated'
+            ));
+        } catch (\Exception $e) {
+            return $this->assembleModel(array(
+                'error' => $e->getMessage(),
+                'email' => array('value' => $email),
+                'name' => array('value' => $name)
+            ));
+        }
     }
 
     protected function assembleModel($model = array(), $userId = null) {
