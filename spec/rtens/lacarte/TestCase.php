@@ -37,6 +37,11 @@ class TestCase extends \PHPUnit_Framework_TestCase {
         if (file_exists($stateFile))
             unlink($stateFile);
 
+        $this->undos[] = function () use ($stateFile, $userFilesDir) {
+            unlink($stateFile);
+            $this->cleanUp($userFilesDir);
+        };
+
         $this->migrate($stateFile);
     }
 
