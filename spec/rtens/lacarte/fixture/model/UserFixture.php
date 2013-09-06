@@ -65,7 +65,15 @@ class UserFixture extends Fixture {
                 return;
             }
         }
-        var_dump($this->store->readAll());
+        $this->test->fail('User does not exist');
+    }
+
+    public function thenThereShouldBeAUserWithTheTheName($name) {
+        foreach ($this->store->readAll() as $user) {
+            if ($user->getName() == $name) {
+                return;
+            }
+        }
         $this->test->fail('User does not exist');
     }
 

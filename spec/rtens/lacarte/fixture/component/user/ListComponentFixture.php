@@ -1,15 +1,16 @@
 <?php
-namespace spec\rtens\lacarte\fixture\component;
+namespace spec\rtens\lacarte\fixture\component\user;
 
 use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\user\ListComponent;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\Fixture;
+use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\curir\Response;
 use watoki\factory\Factory;
 
-class UserComponentFixture extends Fixture {
+class ListComponentFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
@@ -22,8 +23,9 @@ class UserComponentFixture extends Fixture {
 
     private $model;
 
-    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
+    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root) {
         parent::__construct($test, $factory);
+        $this->user = $user;
 
         $this->component = $factory->getInstance(ListComponent::$CLASS, array(
             'parent' => $root
@@ -40,6 +42,10 @@ class UserComponentFixture extends Fixture {
 
     public function whenICreateANewUser() {
         $this->model = $this->component->doPost($this->newName, $this->newEmail);
+    }
+
+    public function whenIDeleteTheUser($name) {
+        $this->model = $this->component->doDelete($this->user->getUser($name)->id);
     }
 
     public function thenTheSuccessMessageShouldBe($string) {

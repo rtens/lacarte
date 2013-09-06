@@ -1,7 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\user;
 
-use spec\rtens\lacarte\fixture\component\UserComponentFixture;
+use spec\rtens\lacarte\fixture\component\user\ListComponentFixture;
 use spec\rtens\lacarte\fixture\model\KeyGeneratorFixture;
 use spec\rtens\lacarte\fixture\model\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
@@ -15,7 +15,7 @@ class CreateUserTest extends TestCase {
     /** @var SessionFixture */
     public $session;
 
-    /** @var UserComponentFixture */
+    /** @var ListComponentFixture */
     public $component;
 
     /** @var KeyGeneratorFixture */
@@ -108,7 +108,7 @@ class CreateUserTest extends TestCase {
 
         $this->key = $this->useFixture(KeyGeneratorFixture::$CLASS);
         $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->component = $this->useFixture(UserComponentFixture::$CLASS);
+        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
         $this->user = $this->useFixture(UserFixture::$CLASS);
     }
 
