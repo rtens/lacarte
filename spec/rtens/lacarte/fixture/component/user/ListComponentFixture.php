@@ -3,6 +3,7 @@ namespace spec\rtens\lacarte\fixture\component\user;
 
 use rtens\lacarte\web\user\ListComponent;
 use rtens\mockster\MockFactory;
+use spec\rtens\lacarte\fixture\component\ComponentFixture;
 
 /**
  * @property ListComponent $component

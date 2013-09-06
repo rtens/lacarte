@@ -1,8 +1,9 @@
 <?php
-namespace spec\rtens\lacarte\fixture\component\user;
+namespace spec\rtens\lacarte\fixture\component;
 
 use rtens\lacarte\web\LaCarteModule;
 use spec\rtens\lacarte\fixture\Fixture;
+use spec\rtens\lacarte\fixture\model\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\curir\Response;
@@ -16,7 +17,7 @@ abstract class ComponentFixture extends Fixture {
 
     abstract protected function getComponentClass();
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root) {
+    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root, SessionFixture $session) {
         parent::__construct($test, $factory);
         $this->user = $user;
 

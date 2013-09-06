@@ -2,6 +2,7 @@
 namespace spec\rtens\lacarte\fixture\component\user;
 
 use rtens\lacarte\web\user\LoginComponent;
+use spec\rtens\lacarte\fixture\component\ComponentFixture;
 
 /**
  * @property LoginComponent $component
