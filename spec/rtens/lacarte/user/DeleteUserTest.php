@@ -1,15 +1,13 @@
 <?php
 namespace spec\rtens\lacarte\user;
 
-use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\user\ListComponentFixture;
 use spec\rtens\lacarte\fixture\model\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 
-class DeleteUser extends TestCase {
+class DeleteUserTest extends TestCase {
 
     /** @var UserFixture */
     public $user;
