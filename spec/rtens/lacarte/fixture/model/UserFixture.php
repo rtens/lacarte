@@ -27,9 +27,18 @@ class UserFixture extends Fixture {
         parent::__construct($test, $factory);
 
         $this->store = $store;
+        $this->groupStore = $groupStore;
 
         $this->group = new Group('Test', '', '');
-        $groupStore->create($this->group);
+        $this->groupStore->create($this->group);
+    }
+
+    public function givenTheGroup_WithTheAdminEmail_AndPassword($name, $email, $password) {
+        $this->group->setName($name);
+        $this->group->setAdminEmail($email);
+        $this->group->setAdminPassword($password);
+
+        $this->groupStore->update($this->group);
     }
 
     public function thenThereShouldBe_Users($count) {

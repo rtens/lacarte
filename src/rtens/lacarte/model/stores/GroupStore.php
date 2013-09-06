@@ -28,4 +28,8 @@ class GroupStore extends Store {
             array($id)));
     }
 
+    public function update(Group $group) {
+        $this->updateEntity($group, 'groups');
+    }
+
 }

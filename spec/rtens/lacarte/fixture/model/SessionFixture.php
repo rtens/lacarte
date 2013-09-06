@@ -2,7 +2,6 @@
 namespace spec\rtens\lacarte\fixture\model;
 
 use rtens\lacarte\core\Session;
-use rtens\lacarte\model\Group;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
 use rtens\mockster\Mockster;
@@ -40,5 +39,30 @@ class SessionFixture extends Fixture {
 
         $this->session->__mock()->method('get')->willReturn($user->getKey())->withArguments('key');
         $this->session->__mock()->method('has')->willReturn(true)->withArguments('key');
+    }
+
+    public function thenIShouldBeLoggedInAsAdmin() {
+        $this->test->assertTrue($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'admin')));
+    }
+
+    public function thenIShouldNotBeLoggedInAsUser() {
+        $this->test->assertFalse($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'key')));
+    }
+
+    public function thenIShouldNotBeLoggedInAsAdmin() {
+        $this->test->assertFalse($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'admin')));
+    }
+
+    public function thenIShouldBeLoggedInAs($userName) {
+        $this->test->assertTrue($this->session->__mock()->method('set')->wasCalledWith(array(
+            'key' => 'key',
+            'value' => $this->user->getUser($userName)->getKey()
+        )));
+    }
+
+    public function thenIShouldBeLoggedOut() {
+        $remove = $this->session->__mock()->method('remove');
+        $this->test->assertTrue($remove->wasCalledWith(array('key' => 'admin')));
+        $this->test->assertTrue($remove->wasCalledWith(array('key' => 'key')));
     }
 }
