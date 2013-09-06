@@ -44,6 +44,10 @@ class ListComponentFixture extends Fixture {
         $this->model = $this->component->doPost($this->newName, $this->newEmail);
     }
 
+    public function whenIAccessTheUserList() {
+        $this->model = $this->component->doGet();
+    }
+
     public function whenIDeleteTheUser($name) {
         $this->model = $this->component->doDelete($this->user->getUser($name)->id);
     }
@@ -80,5 +84,18 @@ class ListComponentFixture extends Fixture {
             $field = $field[$key];
         }
         return $field;
+    }
+
+    public function thenTheUserListShouldBeEmpty() {
+        $this->test->assertCount(0, $this->getFieldIn('user', $this->model));
+    }
+
+    public function thenThereShouldBe_Users($count) {
+        $this->test->assertCount($count, $this->getFieldIn('user', $this->model));
+    }
+
+    public function thenTheAvatarOfUserAtPosition_ShouldBe($position, $imgSrc) {
+        $i = $position - 1;
+        $this->test->assertEquals($imgSrc, $this->getFieldIn("user/$i/avatar/src", $this->model));
     }
 }
