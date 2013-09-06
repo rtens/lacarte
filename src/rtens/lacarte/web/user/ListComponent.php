@@ -47,7 +47,9 @@ class ListComponent extends DefaultComponent {
 
         if (!$this->isAdmin()) {
             return $this->assembleModel(array(
-                'error' => 'Access denied. Must be administrator.'
+                'error' => 'Access denied. Must be administrator.',
+                'email' => array('value' => $email),
+                'name' => array('value' => $name)
             ));
         }
 

@@ -6,7 +6,9 @@ use rtens\mockster\MockFactory;
 use watoki\factory\Factory;
 use watoki\stepper\Migrater;
 
-class TestCase extends \PHPUnit_Framework_TestCase {
+abstract class TestCase extends \PHPUnit_Framework_TestCase {
+
+    public static $CLASS = __CLASS__;
 
     /** @var Factory */
     private $factory;
@@ -17,6 +19,7 @@ class TestCase extends \PHPUnit_Framework_TestCase {
         parent::setUp();
 
         $this->factory = new Factory();
+        $this->factory->setSingleton(TestCase::$CLASS, $this);
 
         $stateFile = __DIR__ . '/migration' . uniqid();
 
@@ -31,7 +34,6 @@ class TestCase extends \PHPUnit_Framework_TestCase {
         $config->__mock()->method('getHost')->willReturn('http://lacarte');
         $config->__mock()->method('getUserFilesDirectory')->willReturn($userFilesDir);
 
-        $this->factory = new Factory();
         $this->factory->setSingleton(Configuration::Configuration, $config);
 
         if (file_exists($stateFile))
@@ -69,14 +71,7 @@ class TestCase extends \PHPUnit_Framework_TestCase {
     }
 
     protected function useFixture($class) {
-        $fixture = $this->factory->getInstance($class, array('test' => $this));
-        $this->factory->setSingleton($class, $fixture);
-
-        $fixture->setUp();
-        $this->undos[] = function () use ($fixture) {
-            $fixture->tearDown();
-        };
-        return $fixture;
+        return $this->factory->getInstance($class);
     }
 
 }

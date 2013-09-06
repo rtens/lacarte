@@ -7,20 +7,14 @@ use watoki\factory\Factory;
 
 class Fixture {
 
-    /** @var Factory */
-    protected $factory;
-
     /** @var TestCase */
     protected $test;
 
     public function __construct(TestCase $test, Factory $factory) {
+        $factory->setSingleton(get_class($this), $this);
+
         $this->test = $test;
-        $this->factory = $factory;
         $this->mockFactory = new MockFactory();
     }
-
-    public function setUp() {}
-
-    public function tearDown() {}
 
 }

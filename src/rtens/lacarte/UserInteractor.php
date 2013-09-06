@@ -55,8 +55,7 @@ class UserInteractor {
             $this->userStore->create($user);
             return $user;
         } catch (\PDOException $e) {
-            throw new \InvalidArgumentException('Error while creating user. The email probably already exists: '
-                . $e->getMessage());
+            throw new \InvalidArgumentException('Error while creating user. The email probably already exists.');
         }
     }
 
