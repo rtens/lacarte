@@ -6,11 +6,16 @@ use spec\rtens\lacarte\fixture\component\ComponentFixture;
 
 /**
  * @property ListComponent $component
- * @property ListComponent $component
  */
 class ListComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
+
+    private $firstDay;
+
+    private $lastDay;
+
+    private $deadline;
 
     public function whenIOpenThePage() {
         $this->model = $this->component->doGet();
@@ -48,12 +53,56 @@ class ListComponentFixture extends ComponentFixture {
         $this->then_OfOrder_ShouldBe('isOpen', $int, false);
     }
 
+    public function thenTheFirstDayFieldShouldContain($string) {
+        $this->then_ShouldBe('firstDay/value', $string);
+    }
+
+    public function thenTheLastDayFieldShouldContain($string) {
+        $this->then_ShouldBe('lastDay/value', $string);
+    }
+
+    public function thenTheDeadlineFieldShouldContain($string) {
+        $this->then_ShouldBe('deadline/value', $string);
+    }
+
+    public function thenThereShouldBeNoErrorMessage() {
+        $this->then_ShouldBe('error', null);
+    }
+
+    public function givenIHaveEnteredTheFirstDay($string) {
+        $this->firstDay = $string;
+    }
+
+    public function givenIHaveEnteredTheLastDay($string) {
+        $this->lastDay = $string;
+    }
+
+    public function givenIHaveEnteredTheDeadline($string) {
+        $this->deadline = $string;
+    }
+
+    public function whenICreateANewOrder() {
+        $this->model = $this->component->doPost($this->firstDay, $this->lastDay, $this->deadline);
+    }
+
+    public function thenTheErrorMessageShouldBe($string) {
+        $this->test->assertEquals($string, $this->getField('error'));
+    }
+
+    public function thenTheErrorMessageShouldContain($string) {
+        $this->test->assertContains($string, $this->getField('error'));
+    }
+
     protected function getComponentClass() {
         return ListComponent::$CLASS;
     }
 
     private function then_OfOrder_ShouldBe($field, $i, $string) {
         $i--;
-        $this->test->assertEquals($string, $this->getField("order/$i/$field"));
+        $this->then_ShouldBe("order/$i/$field", $string);
+    }
+
+    private function then_ShouldBe($field, $value) {
+        $this->test->assertEquals($value, $this->getField($field));
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace spec\rtens\lacarte\order;
 
-use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;

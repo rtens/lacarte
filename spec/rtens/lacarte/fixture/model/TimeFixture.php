@@ -14,7 +14,7 @@ class TimeFixture extends Fixture {
     public function __construct(TestCase $test, Factory $factory, MockFactory $mf) {
         parent::__construct($test, $factory);
 
-        $this->time = $mf->createMock(TimeService::$CLASS);
+        $this->time = $mf->createTestUnit(TimeService::$CLASS);
         $factory->setSingleton(TimeService::$CLASS, $this->time);
     }
 
