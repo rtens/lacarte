@@ -1,11 +1,12 @@
 <?php
-namespace spec\rtens\lacarte\fixture\model;
+namespace spec\rtens\lacarte\fixture\service;
 
 use rtens\lacarte\core\Session;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
 use rtens\mockster\Mockster;
 use spec\rtens\lacarte\fixture\Fixture;
+use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
 

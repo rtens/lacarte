@@ -58,7 +58,7 @@ class UserFixture extends Fixture {
     }
 
     public function givenTheUser_WithTheEmail($name, $email) {
-        $this->givenTheUser_WithTheEmail_AndKey($name, $email, 'key_' . $email);
+        $this->givenTheUser_WithTheEmail_AndKey($name, $email, 'key_' . str_replace(' ', '_', $name));
     }
 
     public function givenTheUser_WithTheEmail_AndKey($name, $email, $key) {

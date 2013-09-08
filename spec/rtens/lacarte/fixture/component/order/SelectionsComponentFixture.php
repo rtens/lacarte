@@ -1,11 +1,12 @@
 <?php
 namespace spec\rtens\lacarte\fixture\component\order;
 
+use rtens\lacarte\model\Order;
 use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\order\SelectionsComponent;
 use spec\rtens\lacarte\fixture\component\ComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
@@ -16,6 +17,15 @@ use watoki\factory\Factory;
 class SelectionsComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
+
+    private $onlyWithoutSelection = false;
+
+    /** @var null|Order */
+    private $currentOrder;
+
+    private $subject;
+
+    private $body;
 
     public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root,
                                 SessionFixture $session, OrderFixture $order) {
@@ -91,6 +101,43 @@ class SelectionsComponentFixture extends ComponentFixture {
         $userNum--;
         $this->test->assertEquals($title, $this->getField("order/user/$userNum/selection/0/selected/title"));
         $this->test->assertEquals($text, $this->getField("order/user/$userNum/selection/0/selected/_"));
+    }
+
+    public function givenIHaveEnteredTheSubject($string) {
+        $this->subject = $string;
+    }
+
+    public function givenIHaveEnteredTheBody($string) {
+        $this->body = $string;
+    }
+
+    public function whenISendTheMail() {
+        $this->model = $this->component->doSendMail($this->currentOrder->id, $this->subject,
+            $this->body, $this->onlyWithoutSelection);
+    }
+
+    public function givenIOpenThePageForOrder($string) {
+        $this->currentOrder = $this->order->getOrder($string);
+    }
+
+    public function givenIHaveSelectedToSendTheEmailOnlyToUsersWithoutSelection() {
+        $this->onlyWithoutSelection = true;
+    }
+
+    public function thenTheSubjectFieldShouldContain($string) {
+        $this->test->assertEquals($string, $this->getField('email/subject/value'));
+    }
+
+    public function thenTheCheckboxToSendOnlyToUsersWithoutSelectionShouldBeChecked() {
+        $this->test->assertEquals('checked', $this->getField('email/onlyWithout/checked'));
+    }
+
+    public function thenTheBodyFieldShouldContain($string) {
+        $this->test->assertEquals($string, $this->getField('email/body'));
+    }
+
+    public function thenTheCheckboxToSendOnlyToUsersWithoutSelectionShouldNotBeChecked() {
+        $this->test->assertEquals(false, $this->getField('email/onlyWithout/checked'));
     }
 
     protected function getComponentClass() {

@@ -3,7 +3,7 @@ namespace spec\rtens\lacarte\user;
 
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\user\ListComponentFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
@@ -15,7 +15,7 @@ class DeleteUserTest extends TestCase {
     /** @var ListComponentFixture */
     public $component;
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     public $session;
 
     function testDeleteAUser() {

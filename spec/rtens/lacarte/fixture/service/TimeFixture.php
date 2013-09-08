@@ -1,5 +1,5 @@
 <?php
-namespace spec\rtens\lacarte\fixture\model;
+namespace spec\rtens\lacarte\fixture\service;
 
 use rtens\lacarte\utils\TimeService;
 use rtens\mockster\MockFactory;

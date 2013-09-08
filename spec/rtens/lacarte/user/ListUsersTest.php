@@ -3,14 +3,14 @@ namespace spec\rtens\lacarte\user;
 
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\user\ListComponentFixture;
-use spec\rtens\lacarte\fixture\model\FileFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\FileFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
 class ListUsersTest extends TestCase {
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     public $session;
 
     /** @var UserFixture */

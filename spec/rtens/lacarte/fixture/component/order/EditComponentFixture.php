@@ -8,7 +8,7 @@ use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\order\EditComponent;
 use spec\rtens\lacarte\fixture\component\ComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;

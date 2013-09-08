@@ -4,7 +4,7 @@ namespace spec\rtens\lacarte\order;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\SelectionsComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
@@ -13,7 +13,7 @@ class ShowAllSelectionsTest extends TestCase {
     /** @var UserFixture */
     private $user;
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     private $session;
 
     /** @var SelectionsComponentFixture */

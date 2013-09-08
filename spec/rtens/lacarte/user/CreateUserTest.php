@@ -2,8 +2,8 @@
 namespace spec\rtens\lacarte\user;
 
 use spec\rtens\lacarte\fixture\component\user\ListComponentFixture;
-use spec\rtens\lacarte\fixture\model\KeyGeneratorFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\KeyGeneratorFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
@@ -12,13 +12,13 @@ class CreateUserTest extends TestCase {
     /** @var UserFixture */
     public $user;
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     public $session;
 
     /** @var ListComponentFixture */
     public $component;
 
-    /** @var KeyGeneratorFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\KeyGeneratorFixture */
     public $key;
 
     function testCreateUserSuccessfully() {

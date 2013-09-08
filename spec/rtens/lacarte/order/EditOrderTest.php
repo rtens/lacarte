@@ -4,7 +4,7 @@ namespace spec\rtens\lacarte\order;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\EditComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
 
 class EditOrderTest extends TestCase {

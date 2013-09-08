@@ -168,5 +168,9 @@ class OrderFixture extends Fixture {
         $selection = new Selection($this->user->getUser($userName)->id, $menu->id, 0);
         $this->selectionStore->create($selection);
     }
+
+    public function givenTheOrder($string) {
+        $this->givenTheOrder_WithDeadline($string, 'tomorrow');
+    }
 }
 

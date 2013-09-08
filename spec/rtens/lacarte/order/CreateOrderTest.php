@@ -5,14 +5,14 @@ use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
-use spec\rtens\lacarte\fixture\model\TimeFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
+use spec\rtens\lacarte\fixture\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
 
 class CreateOrderTest extends TestCase {
 
-    /** @var TimeFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\TimeFixture */
     public $time;
 
     /** @var ListComponentFixture */
@@ -21,7 +21,7 @@ class CreateOrderTest extends TestCase {
     /** @var OrderFixture */
     public $order;
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     private $session;
 
     protected function setUp() {

@@ -5,8 +5,8 @@ use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\SelectComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
 use spec\rtens\lacarte\fixture\model\SelectionFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
-use spec\rtens\lacarte\fixture\model\TimeFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
+use spec\rtens\lacarte\fixture\service\TimeFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
@@ -27,7 +27,7 @@ class MakeSelectionTest extends TestCase {
     /** @var OrderFixture */
     private $order;
 
-    /** @var TimeFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\TimeFixture */
     private $time;
 
     protected function setUp() {

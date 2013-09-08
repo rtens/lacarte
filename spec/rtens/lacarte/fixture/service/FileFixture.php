@@ -1,9 +1,10 @@
 <?php
-namespace spec\rtens\lacarte\fixture\model;
+namespace spec\rtens\lacarte\fixture\service;
 
 use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\Fixture;
+use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
 

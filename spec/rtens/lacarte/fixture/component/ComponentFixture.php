@@ -3,7 +3,7 @@ namespace spec\rtens\lacarte\fixture\component;
 
 use rtens\lacarte\web\LaCarteModule;
 use spec\rtens\lacarte\fixture\Fixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\curir\Response;

@@ -4,8 +4,8 @@ namespace spec\rtens\lacarte\order;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixture\model\OrderFixture;
-use spec\rtens\lacarte\fixture\model\SessionFixture;
-use spec\rtens\lacarte\fixture\model\TimeFixture;
+use spec\rtens\lacarte\fixture\service\SessionFixture;
+use spec\rtens\lacarte\fixture\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
 
 class ListOrdersTest extends TestCase {
@@ -13,13 +13,13 @@ class ListOrdersTest extends TestCase {
     /** @var ListComponentFixture */
     public $component;
 
-    /** @var TimeFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\TimeFixture */
     public $time;
 
     /** @var OrderFixture */
     public $order;
 
-    /** @var SessionFixture */
+    /** @var \spec\rtens\lacarte\fixture\service\SessionFixture */
     public $session;
 
     public function testEmptyList() {
