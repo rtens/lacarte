@@ -4,9 +4,11 @@ namespace spec\rtens\lacarte\fixture\model;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
+use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
+use rtens\lacarte\model\stores\SelectionStore;
 use rtens\lacarte\OrderInteractor;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixture\Fixture;
@@ -16,6 +18,9 @@ use watoki\factory\Factory;
 class OrderFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
+
+    /** @var SelectionStore */
+    private $selectionStore;
 
     /** @var null|Order */
     private $currentOrder;
@@ -27,12 +32,13 @@ class OrderFixture extends Fixture {
     private $orders = array();
 
     public function __construct(TestCase $test, Factory $factory, OrderStore $store, UserFixture $user,
-                                MenuStore $menuStore, DishStore $dishStore) {
+                                MenuStore $menuStore, DishStore $dishStore, SelectionStore $selectionStore) {
         parent::__construct($test, $factory);
         $this->orderStore = $store;
         $this->user = $user;
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
+        $this->selectionStore = $selectionStore;
     }
 
     public function givenTheOrder_WithDeadline($name, $deadline) {
@@ -136,6 +142,23 @@ class OrderFixture extends Fixture {
 
     public function thereShouldBe_Menus($int) {
         $this->test->assertCount($int, $this->menuStore->readAll());
+    }
+
+    public function given_SelectedDish_ForMenu_OfOrder($userName, $dishName, $menuNum, $orderName) {
+        $menus = $this->menuStore->readAllByOrderId($this->orders[$orderName]->id);
+        $menu = $menus[$menuNum - 1];
+        $dish = $this->dishes[$dishName];
+
+        $selection = new Selection($this->user->getUser($userName)->id, $menu->id, $dish->id);
+        $this->selectionStore->create($selection);
+    }
+
+    public function given_SelectedNoDishForMenu_OfOrder($userName, $menuNum, $orderName) {
+        $menus = $this->menuStore->readAllByOrderId($this->orders[$orderName]->id);
+        $menu = $menus[$menuNum - 1];
+
+        $selection = new Selection($this->user->getUser($userName)->id, $menu->id, 0);
+        $this->selectionStore->create($selection);
     }
 }
 
