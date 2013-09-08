@@ -8,10 +8,17 @@ class DishStore extends Store {
 
     public static $CLASS = __CLASS__;
 
+    /**
+     * @param $id
+     * @return Set|Dish[]
+     */
     public function readAllByMenuId($id) {
         return $this->inflateAll($this->db->readAll('SELECT * FROM dishes WHERE menuId = ?', array($id)));
     }
 
+    /**
+     * @return Set|Dish[]
+     */
     public function readAll() {
         return $this->inflateAll($this->db->readAll('SELECT * FROM dishes'));
     }
