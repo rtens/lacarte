@@ -14,7 +14,7 @@ class SessionFixture extends Fixture {
     public static $CLASS = __CLASS__;
 
     /** @var UserFixture */
-    public $user;
+    private $user;
 
     /** @var Mock */
     private $session;

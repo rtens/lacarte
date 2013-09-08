@@ -8,7 +8,7 @@ use spec\rtens\lacarte\fixture\model\SessionFixture;
 use spec\rtens\lacarte\fixture\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
-class ShowSelectionsTest extends TestCase {
+class ShowAllSelectionsTest extends TestCase {
 
     /** @var UserFixture */
     private $user;
