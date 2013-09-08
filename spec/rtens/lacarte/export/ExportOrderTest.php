@@ -1,17 +1,11 @@
 <?php
-namespace spec\rtens\lacarte\web\export;
+namespace spec\rtens\lacarte\export;
 
-use rtens\lacarte\web\export\DishesComponent;
-use spec\rtens\lacarte\Test;
-use spec\rtens\lacarte\web\ComponentTest_When;
-use spec\rtens\lacarte\web\order\OrderTest;
+use spec\rtens\lacarte\TestCase;
 
-/**
- * @property DishesTest_When when
- */
-class DishesTest extends OrderTest {
+class ExportOrderTest extends TestCase {
 
-    function testNotAdmin() {
+    function _testNotAdmin() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 3, 2);
 
         $this->when->iGetAndDishesExportForTheOrder();
@@ -19,7 +13,7 @@ class DishesTest extends OrderTest {
         $this->then->iShouldBeRedirectedTo('../order/list.html');
     }
 
-    function testNoSelections() {
+    function _testNoSelections() {
         $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('Test', 3, 2);
         $this->given->dish_OfMenu_Is(1, 1, '1A');
@@ -37,7 +31,7 @@ class DishesTest extends OrderTest {
         $this->then->_shouldBe('content/0/sum', '0');
     }
 
-    function testSelections() {
+    function _testSelections() {
         $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 2);
         $this->given->dish_OfMenu_Is(1, 1, '1A');
@@ -64,7 +58,7 @@ class DishesTest extends OrderTest {
         $this->then->_shouldBe('content/1/by', 'Jerry');
     }
 
-    function testSelectionWithDeletedUser() {
+    function _testSelectionWithDeletedUser() {
         $this->given->iAmLoggedInAsAdmin();
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
 
@@ -80,25 +74,5 @@ class DishesTest extends OrderTest {
         $this->then->_shouldHaveTheSize('content', 1);
         $this->then->_shouldBe('content/0/by', 'Deleted, Jerry');
     }
-
-}
-
-/**
- * @property DishesTest test
- * @property DishesComponent component
- */
-class DishesTest_When extends ComponentTest_When {
-
-    function __construct(Test $test) {
-        parent::__construct($test);
-        $this->createDefaultComponent(DishesComponent::$CLASS, array(
-            'orderInteractor' => $this->test->given->orderInteractor
-        ));
-    }
-
-    public function iGetAndDishesExportForTheOrder() {
-        $this->model = $this->component->doGet($this->test->given->order->id);
-    }
-
 
 }

@@ -1,25 +1,16 @@
 <?php
-namespace spec\rtens\lacarte\web\export;
- 
-use rtens\lacarte\core\FileRepository;
-use rtens\lacarte\web\export\SelectionsComponent;
-use spec\rtens\lacarte\Test;
-use spec\rtens\lacarte\web\ComponentTest_When;
-use spec\rtens\lacarte\web\order\OrderTest;
-use spec\rtens\lacarte\web\order\OrderTest_Given;
-use watoki\curir\Path;
+namespace spec\rtens\lacarte\export;
 
-/**
- * @property SelectionsTest_When when
- */
-class SelectionsTest extends OrderTest {
+use spec\rtens\lacarte\TestCase;
+
+class SelectionsOfDayTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
         $this->config->__mock()->method('getApiToken')->willReturn('token');
     }
 
-    function testNoMenu() {
+    function _testNoMenu() {
         $this->when->iRequestTheSelectionsFor_WithTheToken('2013-01-04', 'token');
 
         $this->then->_shouldHaveTheSize('menu', 0);
@@ -27,17 +18,17 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('error', 'No menu found for given date.');
     }
 
-    function testWrongDateFormat() {
+    function _testWrongDateFormat() {
         $this->when->iRequestTheSelectionsFor_WithTheToken('not a date', 'token');
         $this->then->_shouldBe('error', 'Could not parse date.');
     }
 
-    function testWrongToken() {
+    function _testWrongToken() {
         $this->when->iRequestTheSelectionsFor_WithTheToken('2013-01-04', 'not the token');
         $this->then->_shouldBe('error', 'Wrong token.');
     }
 
-    function testNoSelections() {
+    function _testNoSelections() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 3);
         $this->given->dish_OfMenu_Is(1, 1, 'German Text / English Text');
         $this->given->dish_OfMenu_Is(2, 1, ' Only english Text');
@@ -55,7 +46,7 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldHaveTheSize('selections', 0);
     }
 
-    function testAllSelections() {
+    function _testAllSelections() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 3);
         $this->given->dish_OfMenu_Is(1, 1, 'German Text/English Text');
         $this->given->dish_OfMenu_Is(2, 1, 'Only english Text');
@@ -82,7 +73,7 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('selections/142/dish', 2);
     }
 
-    function testDefaultDate() {
+    function _testDefaultDate() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
         $this->given->dish_OfMenu_Is(1, 1, 'Something');
         $this->given->nowIs('2000-01-03');
@@ -92,7 +83,7 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('menu/dishes/1/en', 'Something');
     }
 
-    function testNoSelection() {
+    function _testNoSelection() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
         $this->given->dish_OfMenu_Is(1, 1, 'Something');
 
@@ -106,7 +97,7 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldHaveTheSize('selections', 1);
     }
 
-    function testAvatars() {
+    function _testAvatars() {
         $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
         $this->given->dish_OfMenu_Is(1, 1, 'Something');
 
@@ -124,33 +115,4 @@ class SelectionsTest extends OrderTest {
         $this->then->_shouldBe('selections/142/user/avatar', 'http://lacarte/user/avatars/42.jpg');
     }
 
-}
-
-/**
- * @property SelectionsTest test
- * @property SelectionsComponent component
- */
-class SelectionsTest_When extends ComponentTest_When {
-
-    function __construct(Test $test) {
-        parent::__construct($test);
-
-        $this->component = $this->test->mf->createTestUnit(SelectionsComponent::$CLASS, array(
-            'factory' => $this->test->factory,
-            'route' => Path::parse('/export/selections.json'),
-            'config' => $this->test->config,
-            'time' => $this->test->given->time,
-            'orderInteractor' => $this->test->given->orderInteractor,
-            'userInteractor' => $this->test->given->userInteractor,
-            'files' => new FileRepository($this->test->config)
-        ));
-    }
-
-    public function iRequestTheSelectionsFor_WithTheToken($date, $token) {
-        $this->model = $this->component->doGet($token, $date);
-    }
-
-    public function iRequestTheSelectionsForTheDefaultDateWithTheToke($token) {
-        $this->iRequestTheSelectionsFor_WithTheToken(null, $token);
-    }
 }
