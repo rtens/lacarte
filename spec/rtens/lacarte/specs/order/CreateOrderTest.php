@@ -1,14 +1,12 @@
 <?php
 namespace spec\rtens\lacarte\specs\order;
 
-use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 
 class CreateOrderTest extends TestCase {
 
