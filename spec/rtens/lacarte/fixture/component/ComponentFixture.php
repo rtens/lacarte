@@ -32,7 +32,7 @@ abstract class ComponentFixture extends Fixture {
             $this->component->getResponse()->getHeaders()->get(Response::HEADER_LOCATION));
     }
 
-    private function getFieldIn($string, $field) {
+    protected function getFieldIn($string, $field) {
         $this->test->assertNotNull($field, $string . ' is null');
 
         foreach (explode('/', $string) as $key) {

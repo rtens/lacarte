@@ -53,9 +53,17 @@ class OrderFixture extends Fixture {
     }
 
     public function givenAnOrder_With_MenusEach_DishesStartingOn($name, $numMenus, $numDishes, $firstDay) {
+        $this->givenAnOrder_With_MenusEach_DishesStartingOnWithDeadline($name, $numMenus, $numDishes, $firstDay, 'now');
+    }
+
+    public function givenAnOrder_WithDeadlineAnd_MenusEach_DishesStartingOn($name, $deadline, $numMenus, $numDishes, $firstDay) {
+        $this->givenAnOrder_With_MenusEach_DishesStartingOnWithDeadline($name, $numMenus, $numDishes, $firstDay, $deadline);
+    }
+
+    public function givenAnOrder_With_MenusEach_DishesStartingOnWithDeadline($name, $numMenus, $numDishes, $firstDay, $deadline) {
         $day = new \DateTime($firstDay);
 
-        $this->givenTheOrder_WithDeadline($name, 'now');
+        $this->givenTheOrder_WithDeadline($name, $deadline);
         for ($i = 0; $i < $numMenus; $i++ ) {
             $menu = new Menu($this->orders[$name]->id, clone $day);
             $day->add(new \DateInterval('P1D'));
