@@ -1,78 +1,109 @@
 <?php
 namespace spec\rtens\lacarte\specs\export;
 
+use rtens\lacarte\core\Configuration;
+use rtens\lacarte\web\export\DishesComponent;
+use rtens\mockster\MockFactory;
+use spec\rtens\lacarte\fixtures\component\export\DishesComponentFixture;
+use spec\rtens\lacarte\fixtures\model\OrderFixture;
+use spec\rtens\lacarte\fixtures\model\UserFixture;
+use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
+use watoki\factory\Factory;
 
 class ExportOrderTest extends TestCase {
 
-    function _testNotAdmin() {
-        $this->given->anOrder_With_MenusEach_Dishes('Test', 3, 2);
+    /** @var OrderFixture */
+    public $order;
 
-        $this->when->iGetAndDishesExportForTheOrder();
+    /** @var DishesComponentFixture */
+    public $component;
 
-        $this->then->iShouldBeRedirectedTo('../order/list.html');
+    /** @var SessionFixture */
+    public $session;
+
+    /** @var UserFixture */
+    public $user;
+
+    protected function setUp() {
+        parent::setUp();
+
+        $this->order = $this->useFixture(OrderFixture::$CLASS);
+        $this->session = $this->useFixture(SessionFixture::$CLASS);
+        $this->user = $this->useFixture(UserFixture::$CLASS);
+        $this->component = $this->useFixture(DishesComponentFixture::$CLASS);
     }
 
-    function _testNoSelections() {
-        $this->given->iAmLoggedInAsAdmin();
-        $this->given->anOrder_With_MenusEach_Dishes('Test', 3, 2);
-        $this->given->dish_OfMenu_Is(1, 1, '1A');
-        $this->given->dish_OfMenu_Is(2, 1, '1B');
-        $this->given->dish_OfMenu_Is(1, 2, '2A');
-        $this->given->dish_OfMenu_Is(2, 2, '2B');
-        $this->given->dish_OfMenu_Is(1, 3, '3A');
-        $this->given->dish_OfMenu_Is(2, 3, '3B');
+    function testNotAdmin() {
+        $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 3, 2);
 
-        $this->when->iGetAndDishesExportForTheOrder();
+        $this->component->whenIExportTheOrder('Test Order');
 
-        $this->then->_shouldHaveTheSize('content', 6);
-        $this->then->_shouldBe('content/0/date', '2000-01-03');
-        $this->then->_shouldBe('content/0/dish', '1A');
-        $this->then->_shouldBe('content/0/sum', '0');
+        $this->component->thenIShouldBeRedirectedTo('../order/list.html');
     }
 
-    function _testSelections() {
-        $this->given->iAmLoggedInAsAdmin();
-        $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 2);
-        $this->given->dish_OfMenu_Is(1, 1, '1A');
-        $this->given->dish_OfMenu_Is(2, 1, '1B');
+    function testNoSelections() {
+        $this->session->givenIAmLoggedInAsAdmin();
+        $this->order->givenAnOrder_With_MenusEach_DishesStartingOn('Test Order', 3, 2, '2000-01-03');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 1, '1A');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(2, 1, '1B');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 2, '2A');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(2, 2, '2B');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 3, '3A');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(2, 3, '3B');
 
-        $this->given->theUser('Tom');
-        $this->given->theUser('Jerry');
-        $this->given->theUser('Max');
-        $this->given->theUser('Moritz');
+        $this->component->whenIExportTheOrder('Test Order');
 
-        $this->given->_SelectedDish_ForMenu('Tom', 1, 1);
-        $this->given->_SelectedDish_ForMenu('Jerry', 2, 1);
-        $this->given->_SelectedDish_ForMenu('Max', 1, 1);
-        $this->given->_SelectedDish_ForMenu('Moritz', 0, 1);
-
-        $this->when->iGetAndDishesExportForTheOrder();
-
-        $this->then->_shouldHaveTheSize('content', 2);
-        $this->then->_shouldBe('content/0/dish', '1A');
-        $this->then->_shouldBe('content/0/sum', 2);
-        $this->then->_shouldBe('content/0/by', 'Tom, Max');
-        $this->then->_shouldBe('content/1/dish', '1B');
-        $this->then->_shouldBe('content/1/sum', 1);
-        $this->then->_shouldBe('content/1/by', 'Jerry');
+        $this->component->thenThereShouldBe_Rows(6);
+        $this->component->thenTheDateOfRow_ShouldBe(1, '2000-01-03');
+        $this->component->thenTheDishOfRow_ShouldBe(1, '1A');
+        $this->component->thenTheSumOfRow_ShouldBe(1, 0);
     }
 
-    function _testSelectionWithDeletedUser() {
-        $this->given->iAmLoggedInAsAdmin();
-        $this->given->anOrder_With_MenusEach_Dishes('Test', 1, 1);
+    function testSelections() {
+        $this->session->givenIAmLoggedInAsAdmin();
+        $this->order->givenAnOrder_With_MenusEach_DishesStartingOn('Test Order', 1, 2, '2000-01-03');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 1, 'A');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(2, 1, 'B');
 
-        $this->given->theUser('Tom');
-        $this->given->theUser('Jerry');
-        $this->given->_SelectedDish_ForMenu('Tom', 1, 1);
-        $this->given->_SelectedDish_ForMenu('Jerry', 1, 1);
+        $this->user->givenTheUser('Bart');
+        $this->user->givenTheUser('Lisa');
+        $this->user->givenTheUser('Marge');
+        $this->user->givenTheUser('Homer');
 
-        $this->given->_wasDeleted('Tom');
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Bart', 'A', 1, 'Test Order');
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Lisa', 'B', 1, 'Test Order');
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Marge', 'A', 1, 'Test Order');
+        $this->order->given_SelectedNoDishForMenu_OfOrder('Homer', 1, 'Test Order');
 
-        $this->when->iGetAndDishesExportForTheOrder();
+        $this->component->whenIExportTheOrder('Test Order');
 
-        $this->then->_shouldHaveTheSize('content', 1);
-        $this->then->_shouldBe('content/0/by', 'Deleted, Jerry');
+        $this->component->thenThereShouldBe_Rows(2);
+        $this->component->thenTheDishOfRow_ShouldBe(1, 'A');
+        $this->component->thenTheSumOfRow_ShouldBe(1, 2);
+        $this->component->thenTheChoosersOfRow_ShouldBe(1, 'Bart, Marge');
+        $this->component->thenTheDishOfRow_ShouldBe(2, 'B');
+        $this->component->thenTheSumOfRow_ShouldBe(2, 1);
+        $this->component->thenTheChoosersOfRow_ShouldBe(2, 'Lisa');
+    }
+
+    function testSelectionWithDeletedUser() {
+        $this->session->givenIAmLoggedInAsAdmin();
+        $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 1, 1);
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 1, 'A');
+
+        $this->user->givenTheUser('Bart');
+        $this->user->givenTheUser('Lisa');
+
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Bart', 'A', 1, 'Test Order');
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Lisa', 'A', 1, 'Test Order');
+
+        $this->user->given_WasDeleted('Bart');
+
+        $this->component->whenIExportTheOrder('Test Order');
+
+        $this->component->thenThereShouldBe_Rows(1);
+        $this->component->thenTheChoosersOfRow_ShouldBe(1, 'Deleted, Lisa');
     }
 
 }

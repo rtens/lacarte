@@ -86,4 +86,8 @@ class UserFixture extends Fixture {
         $this->test->fail('User does not exist');
     }
 
+    public function given_WasDeleted($string) {
+        $this->store->delete($this->getUser($string));
+    }
+
 }
