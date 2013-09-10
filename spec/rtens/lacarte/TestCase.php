@@ -39,9 +39,10 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
         if (file_exists($stateFile))
             unlink($stateFile);
 
-        $this->undos[] = function () use ($stateFile, $userFilesDir) {
+        $that = $this;
+        $this->undos[] = function () use ($that, $stateFile, $userFilesDir) {
             unlink($stateFile);
-            $this->cleanUp($userFilesDir);
+            $that->cleanUp($userFilesDir);
         };
 
         $this->migrate($stateFile);
@@ -52,7 +53,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
         $migrater->migrate();
     }
 
-    private function cleanUp($dir) {
+    public function cleanUp($dir) {
         foreach (glob($dir . '/*') as $file) {
             if (is_dir($file)) {
                 $this->cleanUp($file);
