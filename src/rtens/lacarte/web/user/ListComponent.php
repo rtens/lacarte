@@ -87,27 +87,37 @@ class ListComponent extends DefaultComponent {
         if (!$this->isAdmin()) {
             return $this->redirect(Url::parse('../order/list.html'));
         }
-        $picture = $_FILES['picture']['name'];
-        $pictureTmp = $_FILES['picture']['tmp_name'];
-        if ($picture) {
-            if ('jpg' != substr($picture, strrpos($picture, '.') + 1)) {
+
+        if (isset($_FILES['picture']) && $_FILES['picture']['name']) {
+            $picture = $_FILES['picture']['name'];
+            $pictureTmp = $_FILES['picture']['tmp_name'];
+
+            if ('jpg' != strtolower(substr($picture, strrpos($picture, '.') + 1))) {
                 return $this->assembleModel(array(
-                    'error' => 'Only jpg-files allowed.'
+                    'error' => 'Only jpg-files allowed.',
+                    'notEditing' => null,
+                    'editing' => $this->assembleEditingUser($userId, $name, $email)
                 ));
             };
 
-            $avatarPath = $this->files->getUserFilesDirectory(). '/avatars/' . $userId . '.jpg';
-            if(!move_uploaded_file($pictureTmp, $avatarPath)) {
+            $avatarDir = $this->files->getUserFilesDirectory() . '/avatars';
+            $avatarPath = $avatarDir . '/' . $userId . '.jpg';
+
+            @mkdir($avatarDir, 0777, true);
+            if(!$this->files->moveUploadedFile($pictureTmp, $avatarPath)) {
                 return $this->assembleModel(array(
                     'error' => 'There was an error uploading the file, please try again!'
                 ));
             }
         }
+
         $user = $this->userInteractor->readById($userId);
         if(!$email || !$name) {
             return $this->assembleModel(array(
-                'error' => 'Could not update user. Missing data.'
-            ));
+                'error' => 'Could not update user. Missing data.',
+                'notEditing' => null,
+                'editing' => $this->assembleEditingUser($userId, $name, $email)
+            ), $userId);
         }
         $user->setEmail($email);
         $user->setName($name);
@@ -118,9 +128,7 @@ class ListComponent extends DefaultComponent {
             ));
         } catch (\Exception $e) {
             return $this->assembleModel(array(
-                'error' => $e->getMessage(),
-                'email' => array('value' => $email),
-                'name' => array('value' => $name)
+                'error' => $e->getMessage()
             ));
         }
     }
@@ -164,17 +172,18 @@ class ListComponent extends DefaultComponent {
             return null;
         }
         $user = $this->userInteractor->readById($userId);
+        return $this->assembleEditingUser($userId, $user->getName(), $user->getEmail());
+    }
+
+    private function assembleEditingUser($userId, $name, $email) {
         return array(
             'name' => array(
-                'value' => $user->getName()
+                'value' => $name
             ),
             'email' => array(
-                'value' => $user->getEmail(),
+                'value' => $email,
             ),
-            'key' => array(
-                'value' => $user->getKey(),
-            ),
-            'userId' => array(
+            'id' => array(
                 'value' => $userId,
             ),
         );

@@ -30,4 +30,8 @@ class FileRepository {
         return $this->config->getHost(). $root->getRoute()->toString() . '/user/avatars/' . $file;
     }
 
+    public function moveUploadedFile($from, $to) {
+        return move_uploaded_file($from, $to);
+    }
+
 }

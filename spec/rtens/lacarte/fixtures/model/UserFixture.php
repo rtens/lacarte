@@ -77,6 +77,15 @@ class UserFixture extends Fixture {
         $this->test->fail('User does not exist');
     }
 
+    public function thenThereShouldBeAUserWithTheName_TheEmail($name, $email) {
+        foreach ($this->store->readAll() as $user) {
+            if ($user->getName() == $name && $user->getEmail() == $email) {
+                return;
+            }
+        }
+        $this->test->fail("User with name [$name] and email [$email] does not exist");
+    }
+
     public function thenThereShouldBeAUserWithTheTheName($name) {
         foreach ($this->store->readAll() as $user) {
             if ($user->getName() == $name) {

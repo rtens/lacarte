@@ -21,13 +21,13 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
         $this->factory = new Factory();
         $this->factory->setSingleton(TestCase::$CLASS, $this);
 
-        $stateFile = __DIR__ . '/migration' . uniqid();
-
         $mf = new MockFactory();
 
         $userFilesDir = __DIR__ . '/__userfiles';
         $this->cleanUp($userFilesDir);
         mkdir($userFilesDir);
+
+        $stateFile = $userFilesDir . '/migration' . uniqid();
 
         $config = $mf->createMock(Configuration::Configuration);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');

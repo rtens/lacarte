@@ -33,7 +33,7 @@ abstract class ComponentFixture extends Fixture {
     }
 
     protected function getFieldIn($string, $field) {
-        $this->test->assertNotNull($field, $string . ' is null');
+        $this->test->assertTrue(is_array($field), $string . ' is not an array');
 
         foreach (explode('/', $string) as $key) {
             if (!array_key_exists($key, $field)) {
