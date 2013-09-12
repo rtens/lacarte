@@ -1,7 +1,6 @@
 <?php
 namespace spec\rtens\lacarte\specs\export;
 
-use rtens\lacarte\core\Configuration;
 use rtens\lacarte\web\export\DishesComponent;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\export\DishesComponentFixture;
@@ -9,30 +8,14 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 
+/**
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property UserFixture user
+ * @property DishesComponentFixture component
+ */
 class ExportOrderTest extends TestCase {
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var DishesComponentFixture */
-    public $component;
-
-    /** @var SessionFixture */
-    public $session;
-
-    /** @var UserFixture */
-    public $user;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->component = $this->useFixture(DishesComponentFixture::$CLASS);
-    }
 
     function testNotAdmin() {
         $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 3, 2);

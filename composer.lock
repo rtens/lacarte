@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a4a67ea0136fd11811a5ea9159ad364c",
+    "hash": "c4a63b2a49eeb402b7d51056534b1a89",
     "packages": [
         {
             "name": "symfony/console",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "b9ed9d61ff84296c9ace5ac333c15e6f35062eeb"
+                "reference": "bcad0c271065f6deb00014893dba80c849880b7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/b9ed9d61ff84296c9ace5ac333c15e6f35062eeb",
-                "reference": "b9ed9d61ff84296c9ace5ac333c15e6f35062eeb",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/bcad0c271065f6deb00014893dba80c849880b7b",
+                "reference": "bcad0c271065f6deb00014893dba80c849880b7b",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-17 16:29:09"
+            "time": "2013-09-05 13:35:47"
         },
         {
             "name": "watoki/collections",
@@ -301,7 +301,7 @@
                     "spec\\watoki\\stache": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -419,17 +419,61 @@
     ],
     "packages-dev": [
         {
+            "name": "nikic/php-parser",
+            "version": "v0.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPParser": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2013-08-25 17:11:40"
+        },
+        {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "906a767726f5bd451fbbe1d300ed46600d6c0934"
+                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/906a767726f5bd451fbbe1d300ed46600d6c0934",
-                "reference": "906a767726f5bd451fbbe1d300ed46600d6c0934",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
                 "shasum": ""
             },
             "require": {
@@ -477,7 +521,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-08-13 01:20:13"
+            "time": "2013-09-10 08:14:32"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -668,12 +712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "780cdb1d5f693e2c8a9b7ce30b790ecb3e8194e1"
+                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/780cdb1d5f693e2c8a9b7ce30b790ecb3e8194e1",
-                "reference": "780cdb1d5f693e2c8a9b7ce30b790ecb3e8194e1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/162da5b9efbf2d483d4ee93dc54b7266d30beae2",
+                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +778,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-08-26 13:31:34"
+            "time": "2013-09-10 08:23:58"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -796,19 +840,20 @@
         },
         {
             "name": "rtens/mockster",
-            "version": "1.1.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rtens/mockster.git",
-                "reference": "1303167621ac7225de33e478271681b3d445526a"
+                "reference": "8540fdd101cfed59d444ea150a507e21d3c03dfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rtens/mockster/zipball/1303167621ac7225de33e478271681b3d445526a",
-                "reference": "1303167621ac7225de33e478271681b3d445526a",
+                "url": "https://api.github.com/repos/rtens/mockster/zipball/8540fdd101cfed59d444ea150a507e21d3c03dfc",
+                "reference": "8540fdd101cfed59d444ea150a507e21d3c03dfc",
                 "shasum": ""
             },
             "require": {
+                "nikic/php-parser": "0.9.4",
                 "php": ">=5.3.2"
             },
             "type": "library",
@@ -837,7 +882,7 @@
                 "mocking",
                 "unit testing"
             ],
-            "time": "2013-06-04 12:52:52"
+            "time": "2013-09-12 14:16:05"
         },
         {
             "name": "symfony/yaml",
@@ -846,12 +891,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "d717edb3fedd370baa5e2237641680d611d1c6a9"
+                "reference": "6286e95889e326311ff90ae4f96ddc15d6db2c39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/d717edb3fedd370baa5e2237641680d611d1c6a9",
-                "reference": "d717edb3fedd370baa5e2237641680d611d1c6a9",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6286e95889e326311ff90ae4f96ddc15d6db2c39",
+                "reference": "6286e95889e326311ff90ae4f96ddc15d6db2c39",
                 "shasum": ""
             },
             "require": {
@@ -884,7 +929,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-08-23 15:14:52"
+            "time": "2013-08-29 06:54:01"
         },
         {
             "name": "watoki/scrut",
@@ -892,23 +937,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/scrut.git",
-                "reference": "055dac5b6df51316b9cf005ecc6df6dfcd5e54e7"
+                "reference": "75951704ac83eff84c3404e87fec6b1814a30a85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/scrut/zipball/055dac5b6df51316b9cf005ecc6df6dfcd5e54e7",
-                "reference": "055dac5b6df51316b9cf005ecc6df6dfcd5e54e7",
+                "url": "https://api.github.com/repos/watoki/scrut/zipball/75951704ac83eff84c3404e87fec6b1814a30a85",
+                "reference": "75951704ac83eff84c3404e87fec6b1814a30a85",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.8",
+                "phpunit/phpunit": "3.7.*",
+                "rtens/mockster": "*",
                 "watoki/curir": "*",
                 "watoki/factory": "*",
                 "watoki/stache": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "rtens/mockster": "1.*"
             },
             "type": "library",
             "autoload": {
@@ -928,13 +971,15 @@
                     "homepage": "http://rtens.org"
                 }
             ],
-            "description": "Testing framework based on curir.",
+            "description": "Live documentation web application for PHP.",
             "homepage": "http://github.com/watoki/scrut",
             "keywords": [
+                "SbE",
+                "living documentation",
                 "test",
                 "watoki"
             ],
-            "time": "2013-07-24 07:44:28"
+            "time": "2013-09-12 15:33:47"
         }
     ],
     "aliases": [

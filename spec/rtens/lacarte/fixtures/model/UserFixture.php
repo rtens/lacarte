@@ -6,9 +6,9 @@ use rtens\lacarte\model\stores\GroupStore;
 use rtens\lacarte\model\stores\UserStore;
 use rtens\lacarte\model\User;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class UserFixture extends Fixture {
 

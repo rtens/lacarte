@@ -10,36 +10,15 @@ use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property TimeFixture time
+ * @property SelectionFixture selection
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property UserFixture user
+ * @property SelectComponentFixture component
+ */
 class MakeSelectionTest extends TestCase {
-
-    /** @var SelectComponentFixture */
-    public $component;
-
-    /** @var SessionFixture */
-    public $session;
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var SelectionFixture */
-    public $selection;
-
-    /** @var OrderFixture */
-    private $order;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\TimeFixture */
-    private $time;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->time = $this->useFixture(TimeFixture::$CLASS);
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->selection = $this->useFixture(SelectionFixture::$CLASS);
-        $this->component = $this->useFixture(SelectComponentFixture::$CLASS);
-    }
 
     function testAfterDeadline() {
         $this->time->givenNowIs('2000-01-01 18:00:01');

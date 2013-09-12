@@ -28,10 +28,9 @@ class SelectComponentFixture extends ComponentFixture {
     /** @var OrderFixture */
     private $order;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root,
-                                SessionFixture $session, OrderFixture $order) {
-        parent::__construct($test, $factory, $user, $root, $session);
-        $this->order = $order;
+    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
+        parent::__construct($test, $factory, $root);
+        $this->order = $test->useFixture(OrderFixture::$CLASS);
     }
 
     public function whenIOpenThePageForOrder($string) {

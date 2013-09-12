@@ -7,16 +7,12 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property UserFixture user
+ * @property SessionFixture session
+ * @property LoginComponentFixture component
+ */
 class LoginTest extends TestCase {
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var LoginComponentFixture */
-    public $component;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
 
     public function background() {
         $this->user->givenTheGroup_WithTheAdminEmail_AndPassword('Group', 'admin@example.com', 'password');
@@ -91,16 +87,6 @@ class LoginTest extends TestCase {
         $this->component->whenILogInAsUser();
 
         $this->component->thenTheErrorMessageShouldBe('You entered an invalid key');
-    }
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->component = $this->useFixture(LoginComponentFixture::$CLASS);
-
-        $this->background();
     }
 
 

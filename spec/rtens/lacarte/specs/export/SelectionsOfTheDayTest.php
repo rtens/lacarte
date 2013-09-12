@@ -9,38 +9,15 @@ use spec\rtens\lacarte\fixtures\service\FileFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property ConfigFixture config
+ * @property OrderFixture order
+ * @property UserFixture user
+ * @property TimeFixture time
+ * @property FileFixture file
+ * @property SelectionsComponentFixture component
+ */
 class SelectionsOfTheDayTest extends TestCase {
-
-    /** @var ConfigFixture */
-    public $config;
-
-    /** @var SelectionsComponentFixture */
-    public $component;
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var TimeFixture */
-    public $time;
-
-    /** @var FileFixture */
-    public $file;
-
-    public function setUp() {
-        parent::setUp();
-
-        $this->config = $this->useFixture(ConfigFixture::$CLASS);
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->time = $this->useFixture(TimeFixture::$CLASS);
-        $this->file = $this->useFixture(FileFixture::$CLASS);
-        $this->component = $this->useFixture(SelectionsComponentFixture::$CLASS);
-
-        $this->background();
-    }
 
     public function background() {
         $this->config->givenTheApiTokenIs('token');

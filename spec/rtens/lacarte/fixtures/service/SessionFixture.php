@@ -5,10 +5,10 @@ use rtens\lacarte\core\Session;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
 use rtens\mockster\Mockster;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class SessionFixture extends Fixture {
 
@@ -20,12 +20,12 @@ class SessionFixture extends Fixture {
     /** @var Mock */
     private $session;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user) {
+    public function __construct(TestCase $test, Factory $factory) {
         parent::__construct($test, $factory);
 
-        $this->user = $user;
+        $this->user = $test->useFixture(UserFixture::$CLASS);
 
-        $this->session = $this->mockFactory->createMock(Session::$CLASS);
+        $this->session = $test->mockFactory->createMock(Session::$CLASS);
         $factory->setSingleton(Session::$CLASS, $this->session);
     }
 

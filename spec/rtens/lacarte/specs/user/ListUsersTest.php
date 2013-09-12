@@ -8,19 +8,13 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property SessionFixture session
+ * @property UserFixture user
+ * @property FileFixture file
+ * @property ListComponentFixture component
+ */
 class ListUsersTest extends TestCase {
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var FileFixture */
-    public $file;
 
     function testZeroUsers() {
         $this->session->givenIAmLoggedInAsAdmin();
@@ -52,15 +46,6 @@ class ListUsersTest extends TestCase {
         $this->component->whenIAccessTheUserList();
 
         $this->component->thenTheAvatarOfUserAtPosition_ShouldBe(1, 'http://lacarte/user/avatars/1.jpg');
-    }
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-        $this->file = $this->useFixture(FileFixture::$CLASS);
     }
 
 

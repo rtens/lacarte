@@ -29,11 +29,9 @@ class UpdateUserTest extends TestCase {
         $this->session = $this->useFixture(SessionFixture::$CLASS);
         $this->files = $this->useFixture(FileFixture::$CLASS);
         $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-
-        $this->background();
     }
 
-    private function background() {
+    protected function background() {
         $this->session->givenIAmLoggedInAsAdmin();
     }
 

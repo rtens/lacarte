@@ -3,18 +3,18 @@ namespace spec\rtens\lacarte\fixtures\service;
 
 use rtens\lacarte\utils\TimeService;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class TimeFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
-    public function __construct(TestCase $test, Factory $factory, MockFactory $mf) {
+    public function __construct(TestCase $test, Factory $factory) {
         parent::__construct($test, $factory);
 
-        $this->time = $mf->createTestUnit(TimeService::$CLASS);
+        $this->time = $test->mockFactory->createTestUnit(TimeService::$CLASS);
         $factory->setSingleton(TimeService::$CLASS, $this->time);
     }
 

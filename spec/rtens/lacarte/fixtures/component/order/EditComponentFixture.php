@@ -20,6 +20,9 @@ class EditComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var OrderFixture */
+    private $order;
+
     /** @var array|string[] */
     private $dishTexts = array();
 
@@ -32,10 +35,10 @@ class EditComponentFixture extends ComponentFixture {
     /** @var MenuStore */
     private $menuStore;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root,
-                                SessionFixture $session, OrderFixture $order, MenuStore $menuStore, DishStore $dishStore) {
-        parent::__construct($test, $factory, $user, $root, $session);
-        $this->order = $order;
+    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root, MenuStore $menuStore,
+                                DishStore $dishStore) {
+        parent::__construct($test, $factory, $root);
+        $this->order = $test->useFixture(OrderFixture::$CLASS);
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
     }

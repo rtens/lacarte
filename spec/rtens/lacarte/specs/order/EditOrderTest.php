@@ -7,24 +7,12 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property EditComponentFixture component
+ */
 class EditOrderTest extends TestCase {
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var EditComponentFixture */
-    public $component;
-
-    /** @var SessionFixture */
-    public $session;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->component = $this->useFixture(EditComponentFixture::$CLASS);
-    }
 
     function testNotAdminWhenOpeningThePage() {
         $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 2, 2);

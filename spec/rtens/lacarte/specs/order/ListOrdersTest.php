@@ -8,24 +8,13 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property TimeFixture time
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property ListComponentFixture component
+ */
 class ListOrdersTest extends TestCase {
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\TimeFixture */
-    public $time;
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
-
-    public function testEmptyList() {
-        $this->component->whenIOpenThePage();
-        $this->component->thenThereShouldBe_OrdersListed(0);
-    }
 
     function testFourOrders() {
         $this->time->givenNowIs('2013-04-02 19:00');
@@ -61,14 +50,5 @@ class ListOrdersTest extends TestCase {
         $this->component->whenIOpenThePage();
 
         $this->component->thenTheItemLinkOfOrder_ShouldBe(1, 'selections.html?order=1');
-    }
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->time = $this->useFixture(TimeFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
     }
 }

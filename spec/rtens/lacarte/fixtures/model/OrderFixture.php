@@ -11,13 +11,16 @@ use rtens\lacarte\model\stores\OrderStore;
 use rtens\lacarte\model\stores\SelectionStore;
 use rtens\lacarte\OrderInteractor;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class OrderFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
+
+    /** @var UserFixture */
+    private $user;
 
     /** @var SelectionStore */
     private $selectionStore;
@@ -31,11 +34,12 @@ class OrderFixture extends Fixture {
     /** @var array|Order[] */
     private $orders = array();
 
-    public function __construct(TestCase $test, Factory $factory, OrderStore $store, UserFixture $user,
-                                MenuStore $menuStore, DishStore $dishStore, SelectionStore $selectionStore) {
+    public function __construct(TestCase $test, Factory $factory, OrderStore $store, MenuStore $menuStore,
+                                DishStore $dishStore, SelectionStore $selectionStore) {
         parent::__construct($test, $factory);
+
+        $this->user = $test->useFixture(UserFixture::$CLASS);
         $this->orderStore = $store;
-        $this->user = $user;
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
         $this->selectionStore = $selectionStore;

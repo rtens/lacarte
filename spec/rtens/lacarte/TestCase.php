@@ -2,38 +2,34 @@
 namespace spec\rtens\lacarte;
 
 use rtens\lacarte\core\Configuration;
+use rtens\mockster\ClassResolver;
 use rtens\mockster\MockFactory;
-use watoki\factory\Factory;
 use watoki\stepper\Migrater;
 
-abstract class TestCase extends \PHPUnit_Framework_TestCase {
+abstract class TestCase extends \watoki\scrut\TestCase {
 
     public static $CLASS = __CLASS__;
 
-    /** @var Factory */
-    private $factory;
-
-    private $undos = array();
+    /** @var MockFactory */
+    public $mockFactory;
 
     protected function setUp() {
+        $this->mockFactory = new MockFactory();
         parent::setUp();
+    }
 
-        $this->factory = new Factory();
-        $this->factory->setSingleton(TestCase::$CLASS, $this);
-
-        $mf = new MockFactory();
+    protected function loadDependencies() {
 
         $userFilesDir = __DIR__ . '/__userfiles';
         $this->cleanUp($userFilesDir);
-        mkdir($userFilesDir);
+        @mkdir($userFilesDir);
 
         $stateFile = $userFilesDir . '/migration' . uniqid();
 
-        $config = $mf->createMock(Configuration::Configuration);
+        $config = $this->mockFactory->createMock(Configuration::Configuration);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
         $config->__mock()->method('getHost')->willReturn('http://lacarte');
         $config->__mock()->method('getUserFilesDirectory')->willReturn($userFilesDir);
-
         $this->factory->setSingleton(Configuration::Configuration, $config);
 
         if (file_exists($stateFile))
@@ -46,6 +42,8 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
         };
 
         $this->migrate($stateFile);
+
+        parent::loadDependencies();
     }
 
     private function migrate($stateFile) {
@@ -62,17 +60,6 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
             }
         }
         @rmdir($dir);
-    }
-
-    protected function tearDown() {
-        foreach ($this->undos as $undo) {
-            $undo();
-        }
-        parent::tearDown();
-    }
-
-    protected function useFixture($class) {
-        return $this->factory->getInstance($class);
     }
 
 }

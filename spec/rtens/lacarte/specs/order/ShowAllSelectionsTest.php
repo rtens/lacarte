@@ -8,28 +8,13 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property UserFixture user
+ * @property SelectionsComponentFixture component
+ */
 class ShowAllSelectionsTest extends TestCase {
-
-    /** @var UserFixture */
-    private $user;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    private $session;
-
-    /** @var SelectionsComponentFixture */
-    private $component;
-
-    /** @var OrderFixture */
-    private $order;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->component = $this->useFixture(SelectionsComponentFixture::$CLASS);
-    }
 
     function testNotAdmin() {
         $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 0, 0);

@@ -7,24 +7,12 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property SessionFixture session
+ * @property OrderFixture order
+ * @property SelectionComponentFixture component
+ */
 class ShowSelectionTest extends TestCase {
-
-    /** @var SelectionComponentFixture */
-    public $component;
-
-    /** @var OrderFixture */
-    private $order;
-
-    /** @var SessionFixture */
-    private $session;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->component = $this->useFixture(SelectionComponentFixture::$CLASS);
-    }
 
     function testNoSelection() {
         $this->session->givenIAmLoggedAsTheUser('Bart');

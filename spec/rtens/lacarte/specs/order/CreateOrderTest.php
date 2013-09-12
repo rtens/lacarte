@@ -8,27 +8,13 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property SessionFixture session
+ * @property TimeFixture time
+ * @property OrderFixture order
+ * @property ListComponentFixture component
+ */
 class CreateOrderTest extends TestCase {
-
-    /** @var \spec\rtens\lacarte\fixtures\service\TimeFixture */
-    public $time;
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    private $session;
-
-    protected function setUp() {
-        parent::setUp();
-        $this->time = $this->useFixture(TimeFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-    }
 
     function testAutoFillFields() {
         $this->session->givenIAmLoggedInAsAdmin();

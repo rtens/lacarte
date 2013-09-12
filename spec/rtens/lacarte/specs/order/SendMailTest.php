@@ -9,32 +9,14 @@ use spec\rtens\lacarte\fixtures\service\MailFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property OrderFixture order
+ * @property SessionFixture session
+ * @property UserFixture user
+ * @property MailFixture mail
+ * @property SelectionsComponentFixture component
+ */
 class SendMailTest extends TestCase {
-
-    /** @var OrderFixture */
-    public $order;
-
-    /** @var SelectionsComponentFixture */
-    public $component;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
-
-    /** @var MailFixture */
-    public $mail;
-
-    /** @var UserFixture */
-    public $user;
-
-    protected function setUp() {
-        parent::setUp();
-        $this->order = $this->useFixture(OrderFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->mail = $this->useFixture(MailFixture::$CLASS);
-
-        $this->component = $this->useFixture(SelectionsComponentFixture::$CLASS);
-    }
 
     function testNotAdmin() {
         $this->order->givenTheOrder('Test Order');

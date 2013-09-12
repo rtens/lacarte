@@ -5,24 +5,27 @@ use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\FileRepository;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class FileFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var UserFixture */
+    private $user;
+
     /** @var FileRepository|Mock */
     private $file;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, Configuration $config) {
+    public function __construct(TestCase $test, Factory $factory, Configuration $config) {
         parent::__construct($test, $factory);
-        $this->user = $user;
+        $this->user = $test->useFixture(UserFixture::$CLASS);
         $this->config = $config;
 
-        $this->file = $this->mockFactory->createTestUnit(FileRepository::$CLASS, array(
+        $this->file = $test->mockFactory->createTestUnit(FileRepository::$CLASS, array(
             'config' => $config
         ));
         $factory->setSingleton(FileRepository::$CLASS, $this->file);

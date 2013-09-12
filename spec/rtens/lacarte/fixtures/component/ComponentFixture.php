@@ -9,7 +9,10 @@ use spec\rtens\lacarte\TestCase;
 use watoki\curir\Response;
 use watoki\factory\Factory;
 
-abstract class ComponentFixture extends Fixture {
+abstract class ComponentFixture extends \watoki\scrut\Fixture {
+
+    /** @var UserFixture */
+    protected $user;
 
     protected $model;
 
@@ -17,9 +20,10 @@ abstract class ComponentFixture extends Fixture {
 
     abstract protected function getComponentClass();
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root, SessionFixture $session) {
+    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
         parent::__construct($test, $factory);
-        $this->user = $user;
+        $this->user = $test->useFixture(UserFixture::$CLASS);
+        $test->useFixture(SessionFixture::$CLASS);
 
         $this->component = $factory->getInstance($this->getComponentClass(), array(
             'parent' => $root

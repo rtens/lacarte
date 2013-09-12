@@ -7,19 +7,13 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property SessionFixture session
+ * @property KeyGeneratorFixture key
+ * @property UserFixture user
+ * @property ListComponentFixture component
+ */
 class CreateUserTest extends TestCase {
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\KeyGeneratorFixture */
-    public $key;
 
     function testCreateUserSuccessfully() {
         $this->session->givenIAmLoggedInAsAdmin();
@@ -101,15 +95,6 @@ class CreateUserTest extends TestCase {
 
         $this->user->thenThereShouldBe_Users(2);
         $this->user->thenThereShouldBeAUserWithTheName_TheEmailAndTheKey('Lisa Simpson', 'lisa@simpson.com', 'def');
-    }
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->key = $this->useFixture(KeyGeneratorFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
     }
 
 }

@@ -4,29 +4,30 @@ namespace spec\rtens\lacarte\fixtures\model;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\SelectionStore;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class SelectionFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var UserFixture */
     private $user;
 
     private $menuStore;
 
     private $store;
 
+    /** @var OrderFixture */
     private $order;
 
-    public function __construct(TestCase $test, Factory $factory, SelectionStore $store, MenuStore $menuStore,
-                                OrderFixture $order, UserFixture $user) {
+    public function __construct(TestCase $test, Factory $factory, SelectionStore $store, MenuStore $menuStore) {
         parent::__construct($test, $factory);
         $this->store = $store;
         $this->menuStore = $menuStore;
-        $this->order = $order;
-        $this->user = $user;
+        $this->order = $test->useFixture(OrderFixture::$CLASS);
+        $this->user = $test->useFixture(UserFixture::$CLASS);
     }
 
     public function thenThereShouldBe_Selections($int) {

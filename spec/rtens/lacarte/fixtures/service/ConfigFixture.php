@@ -4,9 +4,9 @@ namespace spec\rtens\lacarte\fixtures\service;
 use rtens\lacarte\core\Configuration;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class ConfigFixture extends Fixture {
 

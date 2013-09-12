@@ -25,10 +25,9 @@ class ListComponentFixture extends ComponentFixture {
 
     private $newEmail;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root,
-                                SessionFixture $session, FileFixture $files) {
-        parent::__construct($test, $factory, $user, $root, $session);
-        $this->files = $files;
+    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
+        parent::__construct($test, $factory, $root);
+        $this->files = $test->useFixture(FileFixture::$CLASS);
     }
 
     public function givenIHaveEnteredTheName($string) {

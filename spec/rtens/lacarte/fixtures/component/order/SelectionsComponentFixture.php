@@ -18,6 +18,9 @@ class SelectionsComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var OrderFixture */
+    private $order;
+
     private $onlyWithoutSelection = false;
 
     /** @var null|Order */
@@ -27,11 +30,10 @@ class SelectionsComponentFixture extends ComponentFixture {
 
     private $body;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user, LaCarteModule $root,
-                                SessionFixture $session, OrderFixture $order) {
-        parent::__construct($test, $factory, $user, $root, $session);
+    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
+        parent::__construct($test, $factory, $root);
 
-        $this->order = $order;
+        $this->order = $test->useFixture(OrderFixture::$CLASS);
     }
 
     public function whenIOpenThePageForOrder($name) {

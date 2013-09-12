@@ -3,9 +3,9 @@ namespace spec\rtens\lacarte\fixtures\service;
 
 use rtens\lacarte\utils\KeyGenerator;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class KeyGeneratorFixture extends Fixture {
 

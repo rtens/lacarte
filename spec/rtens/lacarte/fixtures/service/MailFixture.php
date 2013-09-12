@@ -4,23 +4,27 @@ namespace spec\rtens\lacarte\fixtures\service;
 use rtens\lacarte\utils\MailService;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\Fixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
 class MailFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var UserFixture */
+    private $user;
+
     /** @var Mock */
     private $service;
 
-    public function __construct(TestCase $test, Factory $factory, UserFixture $user) {
+    public function __construct(TestCase $test, Factory $factory) {
         parent::__construct($test, $factory);
-        $this->service = $this->mockFactory->createMock(MailService::$CLASS);
+
+        $this->service = $test->mockFactory->createMock(MailService::$CLASS);
         $factory->setSingleton(MailService::$CLASS, $this->service);
-        $this->user = $user;
+        $this->user = $test->useFixture(UserFixture::$CLASS);
     }
 
     public function thenAMailShouldBeSentTo_WithTheSubject_AndTheBody($userName, $subject, $body) {

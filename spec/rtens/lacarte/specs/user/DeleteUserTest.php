@@ -7,16 +7,12 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\TestCase;
 
+/**
+ * @property UserFixture user
+ * @property SessionFixture session
+ * @property ListComponentFixture component
+ */
 class DeleteUserTest extends TestCase {
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var \spec\rtens\lacarte\fixtures\service\SessionFixture */
-    public $session;
 
     function testDeleteAUser() {
         $this->user->givenTheUser('Bart Simpson');
@@ -36,14 +32,5 @@ class DeleteUserTest extends TestCase {
 
         $this->component->thenIShouldBeRedirectedTo('../order/list.html');
     }
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-    }
-
 
 }
