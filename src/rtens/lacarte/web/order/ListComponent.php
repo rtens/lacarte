@@ -107,11 +107,10 @@ class ListComponent extends DefaultComponent {
 
     private function getTodaysOrder() {
         if (!$this->isUser()) {
-            return NULL;
+            return null;
         }
 
         $menus = $this->orderInteractor->readAllMenusByDate($this->time->fromString('today'));
-
         foreach ($menus as $menu) {
             try {
                 $selections = $this->orderInteractor->readSelectionByMenuIdAndUserId(
@@ -119,7 +118,7 @@ class ListComponent extends DefaultComponent {
                     $this->getLoggedInUser()->id
                 );
             } catch (NotFoundException $e) {
-                return NULL;
+                return null;
             }
 
             if ($selections->getDishId() == 0) {
@@ -129,7 +128,7 @@ class ListComponent extends DefaultComponent {
             $dish = $this->orderInteractor->readDishById($selections->getDishId())->getText();
             return array('dish' => $dish);
         }
-        return NULL;
+        return null;
     }
 
 }
