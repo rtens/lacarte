@@ -30,8 +30,14 @@ class ListComponent extends DefaultComponent {
         if (!$this->isAdmin()) {
             return $this->redirect(Url::parse('../order/list.html'));
         }
-
         return $this->assembleModel();
+    }
+
+    public function doEdit($user) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+        return $this->assembleModel(array(), $user);
     }
 
     public function doPost($name, $email) {
@@ -41,7 +47,9 @@ class ListComponent extends DefaultComponent {
 
         if (!$this->isAdmin()) {
             return $this->assembleModel(array(
-                'error' => 'Access denied. Must be administrator.'
+                'error' => 'Access denied. Must be administrator.',
+                'email' => array('value' => $email),
+                'name' => array('value' => $name)
             ));
         }
 
@@ -75,11 +83,64 @@ class ListComponent extends DefaultComponent {
         ));
     }
 
-    protected function assembleModel($model = array()) {
+    public function doSave($name, $email, $userId) {
+        if (!$this->isAdmin()) {
+            return $this->redirect(Url::parse('../order/list.html'));
+        }
+
+        if (isset($_FILES['picture']) && $_FILES['picture']['name']) {
+            $picture = $_FILES['picture']['name'];
+            $pictureTmp = $_FILES['picture']['tmp_name'];
+
+            if ('jpg' != strtolower(substr($picture, strrpos($picture, '.') + 1))) {
+                return $this->assembleModel(array(
+                    'error' => 'Only jpg-files allowed.',
+                    'notEditing' => null,
+                    'editing' => $this->assembleEditingUser($userId, $name, $email)
+                ));
+            };
+
+            $avatarDir = $this->files->getUserFilesDirectory() . '/avatars';
+            $avatarPath = $avatarDir . '/' . $userId . '.jpg';
+
+            @mkdir($avatarDir, 0777, true);
+            if(!$this->files->moveUploadedFile($pictureTmp, $avatarPath)) {
+                return $this->assembleModel(array(
+                    'error' => 'There was an error uploading the file, please try again!'
+                ));
+            }
+        }
+
+        $user = $this->userInteractor->readById($userId);
+        if(!$email || !$name) {
+            return $this->assembleModel(array(
+                'error' => 'Could not update user. Missing data.',
+                'notEditing' => null,
+                'editing' => $this->assembleEditingUser($userId, $name, $email)
+            ), $userId);
+        }
+        $user->setEmail($email);
+        $user->setName($name);
+        try {
+            $this->userInteractor->updateUser($user);
+            return $this->assembleModel(array(
+                'success' => 'The user has been updated'
+            ));
+        } catch (\Exception $e) {
+            return $this->assembleModel(array(
+                'error' => $e->getMessage()
+            ));
+        }
+    }
+
+    protected function assembleModel($model = array(), $userId = null) {
+        $editing = $this->assembleEditing($userId);
         return parent::assembleModel(array_merge(array(
             'user' => $this->assembleUsers(),
             'error' => null,
-            'success' => null
+            'success' => null,
+            'notEditing' => !$editing,
+            'editing' => $editing
         ), $model));
     }
 
@@ -104,6 +165,28 @@ class ListComponent extends DefaultComponent {
             );
         }
         return $users;
+    }
+
+    private function assembleEditing($userId) {
+        if (!$userId) {
+            return null;
+        }
+        $user = $this->userInteractor->readById($userId);
+        return $this->assembleEditingUser($userId, $user->getName(), $user->getEmail());
+    }
+
+    private function assembleEditingUser($userId, $name, $email) {
+        return array(
+            'name' => array(
+                'value' => $name
+            ),
+            'email' => array(
+                'value' => $email,
+            ),
+            'id' => array(
+                'value' => $userId,
+            ),
+        );
     }
 
 }

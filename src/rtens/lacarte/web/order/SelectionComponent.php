@@ -1,6 +1,7 @@
 <?php
 namespace rtens\lacarte\web\order;
 
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Selection;
 use rtens\lacarte\OrderInteractor;
@@ -38,6 +39,11 @@ class SelectionComponent extends DefaultComponent {
             return $this->assembleModel(array(
                 'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
                 'error' => null
+            ));
+        } catch (NotFoundException $nfe) {
+            return $this->assembleModel(array(
+                'order' => null,
+                'error' => 'You seem to have no selections for this order.'
             ));
         } catch (\Exception $e) {
             return $this->assembleModel(array(

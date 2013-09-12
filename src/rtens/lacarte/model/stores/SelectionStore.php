@@ -2,6 +2,7 @@
 namespace rtens\lacarte\model\stores;
 
 use rtens\lacarte\model\Selection;
+use watoki\collections\Set;
 
 class SelectionStore extends Store {
 
@@ -16,6 +17,9 @@ class SelectionStore extends Store {
         return $selection;
     }
 
+    /**
+     * @return Set|Selection[]
+     */
     public function readAll() {
         return $this->inflateAll($this->db->readAll('SELECT * FROM selections'));
     }

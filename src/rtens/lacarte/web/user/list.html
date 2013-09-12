@@ -23,7 +23,7 @@
         <div property="error" class="alert alert-error">An error occurred.</div>
         <div property="success" class="alert alert-success">An error occurred.</div>
 
-        <form action="list.html" method="post" class="form-inline">
+        <form action="list.html" method="post" class="form-inline" enctype="multipart/form-data">
 
             <table class="table table-striped">
                 <thead>
@@ -36,8 +36,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
+                <tr property="notEditing">
+                    <td>
+                    </td>
                     <td>
                         <div class="control-group">
                             <input type="text" class="text" name="name" property="name" value="" placeholder="Name"/>
@@ -50,7 +51,29 @@
                     </td>
                     <td>will be generated</td>
                     <td>
-                        <button type="submit" class="btn btn-small btn-success">New User</button>
+                        <button type="submit" class="btn btn-small btn-success btn-doubleWidth">New User</button>
+                    </td>
+                </tr>
+                <tr property="editing">
+                    <td>
+                        <input type="file" class="file" name="picture" property="picture"/>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text" name="name" property="name" value="" placeholder="Name"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <input type="text" class="text" name="email" property="email" value="" placeholder="Email"/>
+                        </div>
+                    </td>
+                    <td>
+                        <input type="hidden" class="text" name="userId" property="id" value=""/>
+                        can't be edited
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-small btn-success btn-doubleWidth" name="action" value="save">Save</button>
                     </td>
                 </tr>
                 <tr property="user">
@@ -63,6 +86,7 @@
                     <td property="email">max@mustermann.de</td>
                     <td property="key">f65627783606164dc3fde108b791c</td>
                     <td>
+                        <a property="editAction" href="#" class="btn btn-mini btn-primary">edit</a>
                         <a property="deleteAction" href="#" class="btn btn-mini btn-danger" onclick="return confirm('Are you sure?');">delete</a>
                     </td>
                 </tr>

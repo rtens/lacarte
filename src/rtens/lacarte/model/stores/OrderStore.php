@@ -12,6 +12,9 @@ class OrderStore extends Store {
         $this->createEntity($order, 'orders');
     }
 
+    /**
+     * @return Set|Order[]
+     */
     public function readAll() {
         return $this->inflateAll($this->db->readAll('SELECT * FROM orders'));
     }
