@@ -93,6 +93,14 @@ class ListComponentFixture extends ComponentFixture {
         $this->test->assertContains($string, $this->getField('error'));
     }
 
+    public function thenItShouldDisplayTodaysOrder($string) {
+        $this->test->assertEquals($string, $this->getField('today/dish'));
+    }
+
+    public function thenThereShouldBeNoTodaysOrder() {
+        $this->test->assertEquals(NULL, $this->getField('today'));
+    }
+
     protected function getComponentClass() {
         return ListComponent::$CLASS;
     }

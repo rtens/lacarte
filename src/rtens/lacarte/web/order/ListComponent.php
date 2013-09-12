@@ -1,12 +1,12 @@
 <?php
 namespace rtens\lacarte\web\order;
 
+use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\Session;
 use rtens\lacarte\utils\TimeService;
 use rtens\lacarte\web\DefaultComponent;
-use watoki\collections\Set;
 use watoki\curir\Path;
 use watoki\curir\Url;
 use watoki\curir\controller\Module;
@@ -107,25 +107,29 @@ class ListComponent extends DefaultComponent {
 
     private function getTodaysOrder() {
         if (!$this->isUser()) {
-            return;
-        }
-        $menus = $this->orderInteractor->readAllMenusByDate($this->time->fromString('today'));
-        if (count($menus) < 1) {
-            return;
-        }
-        foreach ($menus as $menu) {
-            if (!$menu->id) {}
-            $selections = $this->orderInteractor->readSelectionByMenuIdAndUserId(
-                $menu->id,
-                $this->getLoggedInUser()->id
-            );
-            if (count($this->orderInteractor->readDishById($selections->getDishId())) < 1) {
-                return array('dish' => 'Nothing for you today');
-            }
-            $dish = $this->orderInteractor->readDishById($selections->getDishId())->getText();
+            return NULL;
         }
 
-        return array('dish' => $dish);
+        $menus = $this->orderInteractor->readAllMenusByDate($this->time->fromString('today'));
+
+        foreach ($menus as $menu) {
+            try {
+                $selections = $this->orderInteractor->readSelectionByMenuIdAndUserId(
+                    $menu->id,
+                    $this->getLoggedInUser()->id
+                );
+            } catch (NotFoundException $e) {
+                return NULL;
+            }
+
+            if ($selections->getDishId() == 0) {
+                return array('dish' => 'Nothing for you today.');
+            }
+
+            $dish = $this->orderInteractor->readDishById($selections->getDishId())->getText();
+            return array('dish' => $dish);
+        }
+        return NULL;
     }
 
 }
