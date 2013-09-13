@@ -11,7 +11,7 @@ use rtens\lacarte\model\stores\OrderStore;
 use rtens\lacarte\model\stores\SelectionStore;
 use rtens\lacarte\OrderInteractor;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
@@ -34,11 +34,11 @@ class OrderFixture extends Fixture {
     /** @var array|Order[] */
     private $orders = array();
 
-    public function __construct(TestCase $test, Factory $factory, OrderStore $store, MenuStore $menuStore,
+    public function __construct(Specification $spec, Factory $factory, OrderStore $store, MenuStore $menuStore,
                                 DishStore $dishStore, SelectionStore $selectionStore) {
-        parent::__construct($test, $factory);
+        parent::__construct($spec, $factory);
 
-        $this->user = $test->useFixture(UserFixture::$CLASS);
+        $this->user = $spec->useFixture(UserFixture::$CLASS);
         $this->orderStore = $store;
         $this->menuStore = $menuStore;
         $this->dishStore = $dishStore;
@@ -81,7 +81,7 @@ class OrderFixture extends Fixture {
     }
 
     public function thenThereShouldBe_Orders($int) {
-        $this->test->assertCount($int, $this->orderStore->readAll());
+        $this->spec->assertCount($int, $this->orderStore->readAll());
     }
 
     public function thenThereShouldBeAnOrderWithTheName($string) {
@@ -91,19 +91,19 @@ class OrderFixture extends Fixture {
                 return;
             }
         }
-        $this->test->fail("Order with name $string not found");
+        $this->spec->fail("Order with name $string not found");
     }
 
     public function thenThisOrderShouldHaveTheDeadline($string) {
-        $this->test->assertEquals(new \DateTime($string), $this->currentOrder->getDeadline());
+        $this->spec->assertEquals(new \DateTime($string), $this->currentOrder->getDeadline());
     }
 
     public function thenThisOrderShouldHave_Menus($int) {
-        $this->test->assertCount($int, $this->menuStore->readAllByOrderId($this->currentOrder->id));
+        $this->spec->assertCount($int, $this->menuStore->readAllByOrderId($this->currentOrder->id));
     }
 
     public function thenTheDateOfMenu_OfThisOrderShouldBe($int, $string) {
-        $this->test->assertEquals(new \DateTime($string), $this->getMenuOfCurrentOrder($int)->getDate());
+        $this->spec->assertEquals(new \DateTime($string), $this->getMenuOfCurrentOrder($int)->getDate());
     }
 
     /**
@@ -117,7 +117,7 @@ class OrderFixture extends Fixture {
 
     public function thenMenu_OfThisOrderShouldHave_Dishes($menuIndex, $numDishes) {
         $menu = $this->getMenuOfCurrentOrder($menuIndex);
-        $this->test->assertCount($numDishes, $this->dishStore->readAllByMenuId($menu->id));
+        $this->spec->assertCount($numDishes, $this->dishStore->readAllByMenuId($menu->id));
     }
 
     public function getOrder($orderName) {
@@ -140,7 +140,7 @@ class OrderFixture extends Fixture {
     }
 
     public function thenThereShouldBe_Dishes($int) {
-        $this->test->assertCount($int, $this->dishStore->readAll());
+        $this->spec->assertCount($int, $this->dishStore->readAll());
     }
 
     public function thenThereShouldBeADish($string) {
@@ -149,11 +149,11 @@ class OrderFixture extends Fixture {
                 return;
             }
         }
-        $this->test->fail("Dish $string not found");
+        $this->spec->fail("Dish $string not found");
     }
 
     public function thereShouldBe_Menus($int) {
-        $this->test->assertCount($int, $this->menuStore->readAll());
+        $this->spec->assertCount($int, $this->menuStore->readAll());
     }
 
     public function given_SelectedDish_ForMenu_OfOrder($userName, $dishName, $menuNum, $orderName) {

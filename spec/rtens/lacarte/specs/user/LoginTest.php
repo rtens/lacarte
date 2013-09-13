@@ -3,16 +3,16 @@ namespace spec\rtens\lacarte\specs\user;
 
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\user\LoginComponentFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\fixtures\service\SessionFixture;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property UserFixture user
- * @property SessionFixture session
- * @property LoginComponentFixture component
+ * @property UserFixture user<-
+ * @property SessionFixture session<-
+ * @property LoginComponentFixture component<-
  */
-class LoginTest extends TestCase {
+class LoginTest extends Specification {
 
     public function background() {
         $this->user->givenTheGroup_WithTheAdminEmail_AndPassword('Group', 'admin@example.com', 'password');

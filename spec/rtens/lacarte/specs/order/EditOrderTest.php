@@ -5,14 +5,14 @@ use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\order\EditComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property OrderFixture order
- * @property SessionFixture session
- * @property EditComponentFixture component
+ * @property OrderFixture order<-
+ * @property SessionFixture session<-
+ * @property EditComponentFixture component<-
  */
-class EditOrderTest extends TestCase {
+class EditOrderTest extends Specification {
 
     function testNotAdminWhenOpeningThePage() {
         $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 2, 2);

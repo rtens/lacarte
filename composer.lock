@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "26c14bcf4b9a1d57058c16d136f10e70",
+    "hash": "c4a63b2a49eeb402b7d51056534b1a89",
     "packages": [
         {
             "name": "symfony/console",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "bcad0c271065f6deb00014893dba80c849880b7b"
+                "reference": "9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/bcad0c271065f6deb00014893dba80c849880b7b",
-                "reference": "bcad0c271065f6deb00014893dba80c849880b7b",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e",
+                "reference": "9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-05 13:35:47"
+            "time": "2013-09-12 20:51:59"
         },
         {
             "name": "watoki/collections",
@@ -195,12 +195,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/factory.git",
-                "reference": "3c584976a8c6f947e7618e5f12d7fef4268057f9"
+                "reference": "78d172150ee0ff13ae1fbb18e3b38b211faabeff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/factory/zipball/3c584976a8c6f947e7618e5f12d7fef4268057f9",
-                "reference": "3c584976a8c6f947e7618e5f12d7fef4268057f9",
+                "url": "https://api.github.com/repos/watoki/factory/zipball/78d172150ee0ff13ae1fbb18e3b38b211faabeff",
+                "reference": "78d172150ee0ff13ae1fbb18e3b38b211faabeff",
                 "shasum": ""
             },
             "require": {
@@ -230,7 +230,7 @@
                 "dependency injection",
                 "watoki"
             ],
-            "time": "2013-04-16 10:25:59"
+            "time": "2013-09-12 06:41:35"
         },
         {
             "name": "watoki/smokey",
@@ -662,12 +662,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "31babf400e5b5868573bf49a000a3519d3978233"
+                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/31babf400e5b5868573bf49a000a3519d3978233",
-                "reference": "31babf400e5b5868573bf49a000a3519d3978233",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
+                "reference": "5220af2a7929aa35cf663d97c89ad3d50cf5fa3e",
                 "shasum": ""
             },
             "require": {
@@ -704,7 +704,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-08-04 05:57:48"
+            "time": "2013-09-13 04:58:23"
         },
         {
             "name": "phpunit/phpunit",
@@ -712,12 +712,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2"
+                "reference": "551d18555488f385aea9dfb33f2ba3fe6f3050f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/162da5b9efbf2d483d4ee93dc54b7266d30beae2",
-                "reference": "162da5b9efbf2d483d4ee93dc54b7266d30beae2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/551d18555488f385aea9dfb33f2ba3fe6f3050f8",
+                "reference": "551d18555488f385aea9dfb33f2ba3fe6f3050f8",
                 "shasum": ""
             },
             "require": {
@@ -778,7 +778,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:23:58"
+            "time": "2013-09-13 05:00:10"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -937,12 +937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/scrut.git",
-                "reference": "3b6c2572281a17d6dd26c15abe9e582e9dd370b3"
+                "reference": "ed86f5fef22c0ee67fa4dffdca9551f6716f79f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/scrut/zipball/3b6c2572281a17d6dd26c15abe9e582e9dd370b3",
-                "reference": "3b6c2572281a17d6dd26c15abe9e582e9dd370b3",
+                "url": "https://api.github.com/repos/watoki/scrut/zipball/ed86f5fef22c0ee67fa4dffdca9551f6716f79f9",
+                "reference": "ed86f5fef22c0ee67fa4dffdca9551f6716f79f9",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
                 "test",
                 "watoki"
             ],
-            "time": "2013-09-12 17:37:32"
+            "time": "2013-09-13 10:06:16"
         }
     ],
     "aliases": [

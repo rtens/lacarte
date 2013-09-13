@@ -6,9 +6,9 @@ use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
-class UpdateUserTest extends TestCase {
+class UpdateUserTest extends Specification {
 
     /** @var UserFixture */
     public $user;

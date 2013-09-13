@@ -3,18 +3,18 @@ namespace spec\rtens\lacarte\specs\user;
 
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
+use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session
- * @property UserFixture user
- * @property FileFixture file
- * @property ListComponentFixture component
+ * @property SessionFixture session<-
+ * @property UserFixture user<-
+ * @property FileFixture file<-
+ * @property ListComponentFixture component<-
  */
-class ListUsersTest extends TestCase {
+class ListUsersTest extends Specification {
 
     function testZeroUsers() {
         $this->session->givenIAmLoggedInAsAdmin();

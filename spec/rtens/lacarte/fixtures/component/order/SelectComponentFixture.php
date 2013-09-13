@@ -2,18 +2,16 @@
 namespace spec\rtens\lacarte\fixtures\component\order;
 
 use rtens\lacarte\model\Order;
-use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\order\SelectComponent;
 use spec\rtens\lacarte\fixtures\component\ComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
 use watoki\collections\Map;
-use watoki\factory\Factory;
 
 /**
- * @property SelectComponent $component
+ * @property SelectComponent component
+ * @property UserFixture user<-
+ * @property OrderFixture order<-
  */
 class SelectComponentFixture extends ComponentFixture {
 
@@ -25,14 +23,6 @@ class SelectComponentFixture extends ComponentFixture {
     /** @var null|Order */
     private $currentOrder;
 
-    /** @var OrderFixture */
-    private $order;
-
-    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
-        parent::__construct($test, $factory, $root);
-        $this->order = $test->useFixture(OrderFixture::$CLASS);
-    }
-
     public function whenIOpenThePageForOrder($string) {
         $this->model = $this->component->doGet($this->order->getOrder($string)->id);
     }
@@ -42,11 +32,11 @@ class SelectComponentFixture extends ComponentFixture {
     }
 
     public function thenTheDisplayedTimeLeftShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('order/timeLeft'));
+        $this->spec->assertEquals($string, $this->getField('order/timeLeft'));
     }
 
     public function thenTheSelectionOf_ShouldBeLoaded($string) {
-        $this->test->assertEquals($this->user->getUser($string)->id, $this->getField('userId/value'));
+        $this->spec->assertEquals($this->user->getUser($string)->id, $this->getField('userId/value'));
     }
 
     public function thenThereShouldBeNoErrorMessage() {
@@ -58,11 +48,11 @@ class SelectComponentFixture extends ComponentFixture {
     }
 
     public function thenTheOrder_ShouldBeLoaded($string) {
-        $this->test->assertEquals($this->order->getOrder($string)->id, $this->getField('order/id/value'));
+        $this->spec->assertEquals($this->order->getOrder($string)->id, $this->getField('order/id/value'));
     }
 
     public function thenThereShouldBe_Menus($int) {
-        $this->test->assertCount($int, $this->getField('order/menu'));
+        $this->spec->assertCount($int, $this->getField('order/menu'));
     }
 
     public function thenTheDateOfMenu_ShouldBe($int, $string) {
@@ -78,7 +68,7 @@ class SelectComponentFixture extends ComponentFixture {
     }
 
     public function thenMenu_ShouldHave_Dishes($menuNum, $dishCount) {
-        $this->test->assertCount($dishCount, $this->getMenuField('dish', $menuNum));
+        $this->spec->assertCount($dishCount, $this->getMenuField('dish', $menuNum));
     }
 
     public function thenDish_OfMenu_ShouldBe($dishNum, $menuNum, $text) {
@@ -124,15 +114,15 @@ class SelectComponentFixture extends ComponentFixture {
     }
 
     public function thenTheErrorMessageShouldBe($value) {
-        $this->test->assertEquals($value, $this->getField('error'));
+        $this->spec->assertEquals($value, $this->getField('error'));
     }
 
     public function thenTheSuccessMessageShouldBe($value) {
-        $this->test->assertEquals($value, $this->getField('success'));
+        $this->spec->assertEquals($value, $this->getField('success'));
     }
 
     private function then_OfMenu_ShouldBe($field, $menuNum, $value) {
-        $this->test->assertEquals($value, $this->getMenuField($field, $menuNum));
+        $this->spec->assertEquals($value, $this->getMenuField($field, $menuNum));
     }
 
     private function getMenuField($field, $menuNum) {

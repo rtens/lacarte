@@ -5,7 +5,7 @@ use rtens\lacarte\web\order\ListComponent;
 use spec\rtens\lacarte\fixtures\component\ComponentFixture;
 
 /**
- * @property ListComponent $component
+ * @property ListComponent component
  */
 class ListComponentFixture extends ComponentFixture {
 
@@ -22,7 +22,7 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function thenThereShouldBe_OrdersListed($int) {
-        $this->test->assertCount($int, $this->getField('order'));
+        $this->spec->assertCount($int, $this->getField('order'));
     }
 
     public function thenTheNameOfOrder_ShouldBe($int, $string) {
@@ -86,19 +86,19 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function thenTheErrorMessageShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('error'));
+        $this->spec->assertEquals($string, $this->getField('error'));
     }
 
     public function thenTheErrorMessageShouldContain($string) {
-        $this->test->assertContains($string, $this->getField('error'));
+        $this->spec->assertContains($string, $this->getField('error'));
     }
 
     public function thenItShouldDisplayTodaysOrder($string) {
-        $this->test->assertEquals($string, $this->getField('today/dish'));
+        $this->spec->assertEquals($string, $this->getField('today/dish'));
     }
 
     public function thenThereShouldBeNoTodaysOrder() {
-        $this->test->assertEquals(NULL, $this->getField('today'));
+        $this->spec->assertEquals(null, $this->getField('today'));
     }
 
     protected function getComponentClass() {
@@ -111,6 +111,6 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     private function then_ShouldBe($field, $value) {
-        $this->test->assertEquals($value, $this->getField($field));
+        $this->spec->assertEquals($value, $this->getField($field));
     }
 }

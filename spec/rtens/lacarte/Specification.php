@@ -6,7 +6,7 @@ use rtens\mockster\ClassResolver;
 use rtens\mockster\MockFactory;
 use watoki\stepper\Migrater;
 
-abstract class TestCase extends \watoki\scrut\TestCase {
+abstract class Specification extends \watoki\scrut\Specification {
 
     public static $CLASS = __CLASS__;
 

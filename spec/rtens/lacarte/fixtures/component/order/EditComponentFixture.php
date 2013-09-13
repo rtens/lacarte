@@ -4,44 +4,25 @@ namespace spec\rtens\lacarte\fixtures\component\order;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
-use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\order\EditComponent;
 use spec\rtens\lacarte\fixtures\component\ComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 
 /**
- * @property EditComponent $component
+ * @property EditComponent component
+ * @property OrderFixture order<-
+ * @property MenuStore menuStore<-
+ * @property DishStore dishStore<-
  */
 class EditComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
 
-    /** @var OrderFixture */
-    private $order;
-
     /** @var array|string[] */
     private $dishTexts = array();
 
-    /** @var DishStore */
-    private $dishStore;
-
     /** @var null|Order */
     private $currentOrder;
-
-    /** @var MenuStore */
-    private $menuStore;
-
-    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root, MenuStore $menuStore,
-                                DishStore $dishStore) {
-        parent::__construct($test, $factory, $root);
-        $this->order = $test->useFixture(OrderFixture::$CLASS);
-        $this->menuStore = $menuStore;
-        $this->dishStore = $dishStore;
-    }
 
     public function whenIOpenThePageToEdit($orderName) {
         $this->model = $this->component->doGet($this->order->getOrder($orderName)->id);
@@ -56,7 +37,7 @@ class EditComponentFixture extends ComponentFixture {
     }
 
     public function thenTheErrorMessageShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('error'));
+        $this->spec->assertEquals($string, $this->getField('error'));
     }
 
     public function thenThereShouldBeNoSuccessMessage() {
@@ -64,34 +45,34 @@ class EditComponentFixture extends ComponentFixture {
     }
 
     public function thenTheSuccessMessageShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('success'));
+        $this->spec->assertEquals($string, $this->getField('success'));
     }
 
     public function thenTheNameOfTheOrderShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('order/name'));
-        $this->test->assertEquals($this->order->getOrder($string)->id, $this->getField('order/id/value'));
+        $this->spec->assertEquals($string, $this->getField('order/name'));
+        $this->spec->assertEquals($this->order->getOrder($string)->id, $this->getField('order/id/value'));
     }
 
     public function thenThereShouldBe_Menus($int) {
-        $this->test->assertCount($int, $this->getField('order/menu'));
+        $this->spec->assertCount($int, $this->getField('order/menu'));
     }
 
     public function thenTheDateOfMenu_ShouldBe($num, $string) {
         $num--;
-        $this->test->assertEquals($string, $this->getField("order/menu/$num/date"));
+        $this->spec->assertEquals($string, $this->getField("order/menu/$num/date"));
     }
 
     public function thenMenu_ShouldHave_Dishes($menuNum, $countDishes) {
         $menuNum--;
-        $this->test->assertCount($countDishes, $this->getField("order/menu/$menuNum/dish"));
+        $this->spec->assertCount($countDishes, $this->getField("order/menu/$menuNum/dish"));
     }
 
     public function thenDish_OfMenu_ShouldBe($dishNum, $menuNum, $text) {
         $menuNum--;
         $dishNum--;
         $id = $this->order->getDish($text)->id;
-        $this->test->assertEquals($text, $this->getField("order/menu/$menuNum/dish/$dishNum/text/_"));
-        $this->test->assertEquals("dish[$id]", $this->getField("order/menu/$menuNum/dish/$dishNum/text/name"));
+        $this->spec->assertEquals($text, $this->getField("order/menu/$menuNum/dish/$dishNum/text/_"));
+        $this->spec->assertEquals("dish[$id]", $this->getField("order/menu/$menuNum/dish/$dishNum/text/name"));
     }
 
     public function givenIHaveEntered_ForDish_OfMenu($text, $dishNum, $menuNum) {

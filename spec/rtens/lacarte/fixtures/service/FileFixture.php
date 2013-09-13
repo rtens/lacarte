@@ -6,7 +6,7 @@ use rtens\lacarte\core\FileRepository;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
@@ -20,12 +20,12 @@ class FileFixture extends Fixture {
     /** @var FileRepository|Mock */
     private $file;
 
-    public function __construct(TestCase $test, Factory $factory, Configuration $config) {
-        parent::__construct($test, $factory);
-        $this->user = $test->useFixture(UserFixture::$CLASS);
+    public function __construct(Specification $spec, Factory $factory, Configuration $config) {
+        parent::__construct($spec, $factory);
+        $this->user = $spec->useFixture(UserFixture::$CLASS);
         $this->config = $config;
 
-        $this->file = $test->mockFactory->createTestUnit(FileRepository::$CLASS, array(
+        $this->file = $spec->mockFactory->createTestUnit(FileRepository::$CLASS, array(
             'config' => $config
         ));
         $factory->setSingleton(FileRepository::$CLASS, $this->file);
@@ -41,7 +41,7 @@ class FileFixture extends Fixture {
 
     public function then_ShouldHaveAnAvatar($userName) {
         $filename = $this->getAvatarFile($userName);
-        $this->test->assertTrue($this->file->exists($filename), "File [$filename] does not exist.");
+        $this->spec->assertTrue($this->file->exists($filename), "File [$filename] does not exist.");
     }
 
     private function getAvatarFile($userName) {

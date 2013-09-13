@@ -5,7 +5,7 @@ use rtens\lacarte\web\user\LoginComponent;
 use spec\rtens\lacarte\fixtures\component\ComponentFixture;
 
 /**
- * @property LoginComponent $component
+ * @property LoginComponent component
  */
 class LoginComponentFixture extends ComponentFixture {
 
@@ -30,11 +30,11 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function thenTheErrorMessageShouldBe($msg) {
-        $this->test->assertEquals($msg, $this->getField('error'));
+        $this->spec->assertEquals($msg, $this->getField('error'));
     }
 
     public function thenTheAdminEmailFieldShouldContain($string) {
-        $this->test->assertEquals($string, $this->getField('email'));
+        $this->spec->assertEquals($string, $this->getField('email'));
     }
 
     public function whenIOpenThePage() {
@@ -42,7 +42,7 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function thenThereShouldBeNoErrorMessage() {
-        $this->test->assertNull($this->getField('error'));
+        $this->spec->assertNull($this->getField('error'));
     }
 
     public function whenILogOut() {

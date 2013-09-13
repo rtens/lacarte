@@ -3,16 +3,16 @@ namespace spec\rtens\lacarte\specs\user;
 
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\fixtures\service\SessionFixture;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property UserFixture user
- * @property SessionFixture session
- * @property ListComponentFixture component
+ * @property UserFixture user<-
+ * @property SessionFixture session<-
+ * @property ListComponentFixture component<-
  */
-class DeleteUserTest extends TestCase {
+class DeleteUserTest extends Specification {
 
     function testDeleteAUser() {
         $this->user->givenTheUser('Bart Simpson');

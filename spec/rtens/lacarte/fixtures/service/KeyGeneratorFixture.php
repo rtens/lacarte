@@ -3,7 +3,7 @@ namespace spec\rtens\lacarte\fixtures\service;
 
 use rtens\lacarte\utils\KeyGenerator;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
@@ -11,8 +11,8 @@ class KeyGeneratorFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
 
-    public function __construct(TestCase $test, Factory $factory) {
-        parent::__construct($test, $factory);
+    public function __construct(Specification $spec, Factory $factory) {
+        parent::__construct($spec, $factory);
 
         $mf = new MockFactory();
         $this->keyGenerator = $mf->createMock(KeyGenerator::$CLASS);

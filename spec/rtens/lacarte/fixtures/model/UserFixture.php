@@ -6,10 +6,12 @@ use rtens\lacarte\model\stores\GroupStore;
 use rtens\lacarte\model\stores\UserStore;
 use rtens\lacarte\model\User;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
+/**
+ * @property GroupStore groupStore<-
+ * @property UserStore store<-
+ */
 class UserFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
@@ -20,29 +22,16 @@ class UserFixture extends Fixture {
     /** @var Group */
     private $group;
 
-    /** @var UserStore */
-    private $store;
-
-    public function __construct(TestCase $test, Factory $factory, UserStore $store, GroupStore $groupStore) {
-        parent::__construct($test, $factory);
-
-        $this->store = $store;
-        $this->groupStore = $groupStore;
-
-        $this->group = new Group('Test', '', '');
-        $this->groupStore->create($this->group);
-    }
-
     public function givenTheGroup_WithTheAdminEmail_AndPassword($name, $email, $password) {
-        $this->group->setName($name);
-        $this->group->setAdminEmail($email);
-        $this->group->setAdminPassword($password);
+        $this->getGroup()->setName($name);
+        $this->getGroup()->setAdminEmail($email);
+        $this->getGroup()->setAdminPassword($password);
 
-        $this->groupStore->update($this->group);
+        $this->groupStore->update($this->getGroup());
     }
 
     public function thenThereShouldBe_Users($count) {
-        $this->test->assertCount($count, $this->store->readAll());
+        $this->spec->assertCount($count, $this->store->readAll());
     }
 
     public function givenTheUser($name) {
@@ -50,6 +39,10 @@ class UserFixture extends Fixture {
     }
 
     public function getGroup() {
+        if (!$this->group) {
+            $this->group = new Group('Test', '', '');
+            $this->groupStore->create($this->group);
+        }
         return $this->group;
     }
 
@@ -62,7 +55,7 @@ class UserFixture extends Fixture {
     }
 
     public function givenTheUser_WithTheEmail_AndKey($name, $email, $key) {
-        $user = new User($this->group->id, $name, $email, $key);
+        $user = new User($this->getGroup()->id, $name, $email, $key);
         $this->store->create($user);
 
         $this->users[$name] = $user;
@@ -74,7 +67,7 @@ class UserFixture extends Fixture {
                 return;
             }
         }
-        $this->test->fail('User does not exist');
+        $this->spec->fail('User does not exist');
     }
 
     public function thenThereShouldBeAUserWithTheName_TheEmail($name, $email) {
@@ -83,7 +76,7 @@ class UserFixture extends Fixture {
                 return;
             }
         }
-        $this->test->fail("User with name [$name] and email [$email] does not exist");
+        $this->spec->fail("User with name [$name] and email [$email] does not exist");
     }
 
     public function thenThereShouldBeAUserWithTheTheName($name) {
@@ -92,7 +85,7 @@ class UserFixture extends Fixture {
                 return;
             }
         }
-        $this->test->fail('User does not exist');
+        $this->spec->fail('User does not exist');
     }
 
     public function given_WasDeleted($string) {

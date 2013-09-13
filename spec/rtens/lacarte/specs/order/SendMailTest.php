@@ -7,16 +7,16 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\MailFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property OrderFixture order
- * @property SessionFixture session
- * @property UserFixture user
- * @property MailFixture mail
- * @property SelectionsComponentFixture component
+ * @property OrderFixture order<-
+ * @property SessionFixture session<-
+ * @property UserFixture user<-
+ * @property MailFixture mail<-
+ * @property SelectionsComponentFixture component<-
  */
-class SendMailTest extends TestCase {
+class SendMailTest extends Specification {
 
     function testNotAdmin() {
         $this->order->givenTheOrder('Test Order');

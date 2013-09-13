@@ -7,17 +7,17 @@ use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\ConfigFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property ConfigFixture config
- * @property OrderFixture order
- * @property UserFixture user
- * @property TimeFixture time
- * @property FileFixture file
- * @property SelectionsComponentFixture component
+ * @property ConfigFixture config<-
+ * @property OrderFixture order<-
+ * @property UserFixture user<-
+ * @property TimeFixture time<-
+ * @property FileFixture file<-
+ * @property SelectionsComponentFixture component<-
  */
-class SelectionsOfTheDayTest extends TestCase {
+class SelectionsOfTheDayTest extends Specification {
 
     public function background() {
         $this->config->givenTheApiTokenIs('token');

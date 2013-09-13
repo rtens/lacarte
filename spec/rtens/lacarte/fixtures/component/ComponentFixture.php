@@ -2,17 +2,12 @@
 namespace spec\rtens\lacarte\fixtures\component;
 
 use rtens\lacarte\web\LaCarteModule;
-use spec\rtens\lacarte\fixtures\Fixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 use watoki\curir\Response;
 use watoki\factory\Factory;
+use watoki\scrut\Fixture;
 
-abstract class ComponentFixture extends \watoki\scrut\Fixture {
-
-    /** @var UserFixture */
-    protected $user;
+abstract class ComponentFixture extends Fixture {
 
     protected $model;
 
@@ -20,10 +15,8 @@ abstract class ComponentFixture extends \watoki\scrut\Fixture {
 
     abstract protected function getComponentClass();
 
-    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
-        parent::__construct($test, $factory);
-        $this->user = $test->useFixture(UserFixture::$CLASS);
-        $test->useFixture(SessionFixture::$CLASS);
+    public function __construct(Specification $spec, Factory $factory, LaCarteModule $root) {
+        parent::__construct($spec, $factory);
 
         $this->component = $factory->getInstance($this->getComponentClass(), array(
             'parent' => $root
@@ -31,13 +24,13 @@ abstract class ComponentFixture extends \watoki\scrut\Fixture {
     }
 
     public function thenIShouldBeRedirectedTo($url) {
-        $this->test->assertNull($this->model);
-        $this->test->assertEquals($url,
+        $this->spec->assertNull($this->model);
+        $this->spec->assertEquals($url,
             $this->component->getResponse()->getHeaders()->get(Response::HEADER_LOCATION));
     }
 
     protected function getFieldIn($string, $field) {
-        $this->test->assertTrue(is_array($field), $string . ' is not an array');
+        $this->spec->assertTrue(is_array($field), $string . ' is not an array');
 
         foreach (explode('/', $string) as $key) {
             if (!array_key_exists($key, $field)) {

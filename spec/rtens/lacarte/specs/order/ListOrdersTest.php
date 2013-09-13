@@ -6,15 +6,15 @@ use spec\rtens\lacarte\fixtures\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property TimeFixture time
- * @property OrderFixture order
- * @property SessionFixture session
- * @property ListComponentFixture component
+ * @property TimeFixture time<-
+ * @property OrderFixture order<-
+ * @property SessionFixture session<-
+ * @property ListComponentFixture component<-
  */
-class ListOrdersTest extends TestCase {
+class ListOrdersTest extends Specification {
 
     function testFourOrders() {
         $this->time->givenNowIs('2013-04-02 19:00');

@@ -5,14 +5,14 @@ use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\order\SelectionComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session
- * @property OrderFixture order
- * @property SelectionComponentFixture component
+ * @property SessionFixture session<-
+ * @property OrderFixture order<-
+ * @property SelectionComponentFixture component<-
  */
-class ShowSelectionTest extends TestCase {
+class ShowSelectionTest extends Specification {
 
     function testNoSelection() {
         $this->session->givenIAmLoggedAsTheUser('Bart');

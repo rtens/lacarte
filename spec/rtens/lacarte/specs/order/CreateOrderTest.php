@@ -6,15 +6,15 @@ use spec\rtens\lacarte\fixtures\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session
- * @property TimeFixture time
- * @property OrderFixture order
- * @property ListComponentFixture component
+ * @property SessionFixture session<-
+ * @property TimeFixture time<-
+ * @property OrderFixture order<-
+ * @property ListComponentFixture component<-
  */
-class CreateOrderTest extends TestCase {
+class CreateOrderTest extends Specification {
 
     function testAutoFillFields() {
         $this->session->givenIAmLoggedInAsAdmin();

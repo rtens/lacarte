@@ -1,34 +1,24 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component\user;
 
-use rtens\lacarte\web\LaCarteModule;
 use rtens\lacarte\web\user\ListComponent;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\ComponentFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
-use spec\rtens\lacarte\TestCase;
-use watoki\factory\Factory;
 
 /**
- * @property ListComponent $component
+ * @property ListComponent component
+ * @property UserFixture user<-
+ * @property FileFixture files<-
  */
 class ListComponentFixture extends ComponentFixture {
 
     public static $CLASS = __CLASS__;
 
-    /** @var FileFixture */
-    private $files;
-
     private $newName;
 
     private $newEmail;
-
-    public function __construct(TestCase $test, Factory $factory, LaCarteModule $root) {
-        parent::__construct($test, $factory, $root);
-        $this->files = $test->useFixture(FileFixture::$CLASS);
-    }
 
     public function givenIHaveEnteredTheName($string) {
         $this->newName = $string;
@@ -51,32 +41,32 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function thenTheSuccessMessageShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('success'));
+        $this->spec->assertEquals($string, $this->getField('success'));
     }
 
     public function thenTheErrorMessageShouldBe($string) {
-        $this->test->assertEquals($string, $this->getField('error'));
+        $this->spec->assertEquals($string, $this->getField('error'));
     }
 
     public function thenTheNewNameFieldShouldContain($string) {
-        $this->test->assertEquals($string, $this->getField('name/value'));
+        $this->spec->assertEquals($string, $this->getField('name/value'));
     }
 
     public function thenTheEmailFieldShouldContain($string) {
-        $this->test->assertEquals($string, $this->getField('email/value'));
+        $this->spec->assertEquals($string, $this->getField('email/value'));
     }
 
     public function thenTheUserListShouldBeEmpty() {
-        $this->test->assertCount(0, $this->getField('user'));
+        $this->spec->assertCount(0, $this->getField('user'));
     }
 
     public function thenThereShouldBe_Users($count) {
-        $this->test->assertCount($count, $this->getField('user'));
+        $this->spec->assertCount($count, $this->getField('user'));
     }
 
     public function thenTheAvatarOfUserAtPosition_ShouldBe($position, $imgSrc) {
         $i = $position - 1;
-        $this->test->assertEquals($imgSrc, $this->getField("user/$i/avatar/src"));
+        $this->spec->assertEquals($imgSrc, $this->getField("user/$i/avatar/src"));
     }
 
     public function givenIAmEditingTheUser($userName) {
@@ -110,16 +100,16 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function thenIShouldStillBeEditingTheUser($userName) {
-        $this->test->assertNotNull($this->getField('editing'));
-        $this->test->assertEquals($this->user->getUser($userName)->id, $this->getField('editing/id/value'));
+        $this->spec->assertNotNull($this->getField('editing'));
+        $this->spec->assertEquals($this->user->getUser($userName)->id, $this->getField('editing/id/value'));
     }
 
     public function thenTheEditingNameFieldShouldContain($string) {
-        $this->test->assertEquals($string, $this->getField('editing/name/value'));
+        $this->spec->assertEquals($string, $this->getField('editing/name/value'));
     }
 
     public function thenTheEditingEmailFieldShouldContain($string) {
-        $this->test->assertEquals($string, $this->getField('editing/email/value'));
+        $this->spec->assertEquals($string, $this->getField('editing/email/value'));
     }
 
     protected function getComponentClass() {

@@ -5,20 +5,20 @@ use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\order\SelectComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\SelectionFixture;
+use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
-use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property TimeFixture time
- * @property SelectionFixture selection
- * @property OrderFixture order
- * @property SessionFixture session
- * @property UserFixture user
- * @property SelectComponentFixture component
+ * @property TimeFixture time<-
+ * @property SelectionFixture selection<-
+ * @property OrderFixture order<-
+ * @property SessionFixture session<-
+ * @property UserFixture user<-
+ * @property SelectComponentFixture component<-
  */
-class MakeSelectionTest extends TestCase {
+class MakeSelectionTest extends Specification {
 
     function testAfterDeadline() {
         $this->time->givenNowIs('2000-01-01 18:00:01');

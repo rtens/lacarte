@@ -4,7 +4,7 @@ namespace spec\rtens\lacarte\fixtures\service;
 use rtens\lacarte\core\Configuration;
 use rtens\mockster\Mock;
 use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
@@ -15,8 +15,8 @@ class ConfigFixture extends Fixture {
     /** @var Mock */
     private $config;
 
-    public function __construct(TestCase $test, Factory $factory) {
-        parent::__construct($test, $factory);
+    public function __construct(Specification $spec, Factory $factory) {
+        parent::__construct($spec, $factory);
 
         $this->config = $factory->getInstance(Configuration::Configuration);
     }

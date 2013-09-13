@@ -4,17 +4,17 @@ namespace spec\rtens\lacarte\specs\order;
 use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\order\SelectionsComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
-use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use spec\rtens\lacarte\TestCase;
+use spec\rtens\lacarte\fixtures\service\SessionFixture;
+use spec\rtens\lacarte\Specification;
 
 /**
- * @property OrderFixture order
- * @property SessionFixture session
- * @property UserFixture user
- * @property SelectionsComponentFixture component
+ * @property OrderFixture order<-
+ * @property SessionFixture session<-
+ * @property UserFixture user<-
+ * @property SelectionsComponentFixture component<-
  */
-class ShowAllSelectionsTest extends TestCase {
+class ShowAllSelectionsTest extends Specification {
 
     function testNotAdmin() {
         $this->order->givenAnOrder_With_MenusEach_Dishes('Test Order', 0, 0);
