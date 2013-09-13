@@ -7,7 +7,7 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property DishesComponent component
- * @property OrderFixture order<-
+ * @property OrderFixture order <-
  */
 class DishesComponentFixture extends ComponentFixture {
 

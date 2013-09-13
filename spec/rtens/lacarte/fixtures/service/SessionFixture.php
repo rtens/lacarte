@@ -11,8 +11,7 @@ use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
 /**
- * @property UserFixture user<-
- * @property UserFixture user<-
+ * @property UserFixture user <-
  */
 class SessionFixture extends Fixture {
 

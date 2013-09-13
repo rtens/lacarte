@@ -9,8 +9,8 @@ use spec\rtens\lacarte\fixtures\service\FileFixture;
 
 /**
  * @property ListComponent component
- * @property UserFixture user<-
- * @property FileFixture files<-
+ * @property UserFixture user <-
+ * @property FileFixture files <-
  */
 class ListComponentFixture extends ComponentFixture {
 

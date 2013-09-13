@@ -9,8 +9,8 @@ use rtens\mockster\MockFactory;
 use watoki\scrut\Fixture;
 
 /**
- * @property GroupStore groupStore<-
- * @property UserStore store<-
+ * @property GroupStore groupStore <-
+ * @property UserStore store <-
  */
 class UserFixture extends Fixture {
 

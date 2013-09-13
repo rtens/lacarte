@@ -10,8 +10,8 @@ use watoki\collections\Map;
 
 /**
  * @property SelectComponent component
- * @property UserFixture user<-
- * @property OrderFixture order<-
+ * @property UserFixture user <-
+ * @property OrderFixture order <-
  */
 class SelectComponentFixture extends ComponentFixture {
 

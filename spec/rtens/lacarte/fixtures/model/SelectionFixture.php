@@ -7,10 +7,10 @@ use rtens\mockster\MockFactory;
 use watoki\scrut\Fixture;
 
 /**
- * @property OrderFixture order<-
- * @property UserFixture user<-
- * @property SelectionStore store<-
- * @property MenuStore menuStore<-
+ * @property OrderFixture order <-
+ * @property UserFixture user <-
+ * @property SelectionStore store <-
+ * @property MenuStore menuStore <-
  */
 class SelectionFixture extends Fixture {
 

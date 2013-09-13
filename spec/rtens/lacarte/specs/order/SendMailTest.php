@@ -10,11 +10,11 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property OrderFixture order<-
- * @property SessionFixture session<-
- * @property UserFixture user<-
- * @property MailFixture mail<-
- * @property SelectionsComponentFixture component<-
+ * @property OrderFixture order <-
+ * @property SessionFixture session <-
+ * @property UserFixture user <-
+ * @property MailFixture mail <-
+ * @property SelectionsComponentFixture component <-
  */
 class SendMailTest extends Specification {
 

@@ -8,7 +8,7 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property SelectionsComponent component
- * @property OrderFixture order<-
+ * @property OrderFixture order <-
  */
 class SelectionsComponentFixture extends ComponentFixture {
 

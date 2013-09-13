@@ -10,10 +10,10 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property OrderFixture order<-
- * @property SessionFixture session<-
- * @property UserFixture user<-
- * @property DishesComponentFixture component<-
+ * @property OrderFixture order <-
+ * @property SessionFixture session <-
+ * @property UserFixture user <-
+ * @property DishesComponentFixture component <-
  */
 class ExportOrderTest extends Specification {
 

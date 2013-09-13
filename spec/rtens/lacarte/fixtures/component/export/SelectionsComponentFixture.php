@@ -8,8 +8,8 @@ use spec\rtens\lacarte\fixtures\model\UserFixture;
 
 /**
  * @property SelectionsComponent component
- * @property UserFixture user<-
- * @property OrderFixture order<-
+ * @property UserFixture user <-
+ * @property OrderFixture order <-
  */
 class SelectionsComponentFixture extends ComponentFixture {
 

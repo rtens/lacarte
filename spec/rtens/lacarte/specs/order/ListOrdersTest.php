@@ -9,10 +9,10 @@ use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property TimeFixture time<-
- * @property OrderFixture order<-
- * @property SessionFixture session<-
- * @property ListComponentFixture component<-
+ * @property TimeFixture time <-
+ * @property OrderFixture order <-
+ * @property SessionFixture session <-
+ * @property ListComponentFixture component <-
  */
 class ListOrdersTest extends Specification {
 

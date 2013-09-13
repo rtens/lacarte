@@ -10,9 +10,9 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property EditComponent component
- * @property OrderFixture order<-
- * @property MenuStore menuStore<-
- * @property DishStore dishStore<-
+ * @property OrderFixture order <-
+ * @property MenuStore menuStore <-
+ * @property DishStore dishStore <-
  */
 class EditComponentFixture extends ComponentFixture {
 

@@ -8,10 +8,10 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session<-
- * @property KeyGeneratorFixture key<-
- * @property UserFixture user<-
- * @property ListComponentFixture component<-
+ * @property SessionFixture session <-
+ * @property KeyGeneratorFixture key <-
+ * @property UserFixture user <-
+ * @property ListComponentFixture component <-
  */
 class CreateUserTest extends Specification {
 

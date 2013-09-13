@@ -8,9 +8,9 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property UserFixture user<-
- * @property SessionFixture session<-
- * @property ListComponentFixture component<-
+ * @property UserFixture user <-
+ * @property SessionFixture session <-
+ * @property ListComponentFixture component <-
  */
 class DeleteUserTest extends Specification {
 

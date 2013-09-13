@@ -9,10 +9,10 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session<-
- * @property UserFixture user<-
- * @property FileFixture file<-
- * @property ListComponentFixture component<-
+ * @property SessionFixture session <-
+ * @property UserFixture user <-
+ * @property FileFixture file <-
+ * @property ListComponentFixture component <-
  */
 class ListUsersTest extends Specification {
 
@@ -47,6 +47,5 @@ class ListUsersTest extends Specification {
 
         $this->component->thenTheAvatarOfUserAtPosition_ShouldBe(1, 'http://lacarte/user/avatars/1.jpg');
     }
-
 
 }

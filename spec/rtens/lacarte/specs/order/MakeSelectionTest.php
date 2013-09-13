@@ -11,12 +11,12 @@ use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property TimeFixture time<-
- * @property SelectionFixture selection<-
- * @property OrderFixture order<-
- * @property SessionFixture session<-
- * @property UserFixture user<-
- * @property SelectComponentFixture component<-
+ * @property TimeFixture time <-
+ * @property SelectionFixture selection <-
+ * @property OrderFixture order <-
+ * @property SessionFixture session <-
+ * @property UserFixture user <-
+ * @property SelectComponentFixture component <-
  */
 class MakeSelectionTest extends Specification {
 

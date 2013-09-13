@@ -937,12 +937,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/scrut.git",
-                "reference": "ed86f5fef22c0ee67fa4dffdca9551f6716f79f9"
+                "reference": "32084928f769409056ad862579b9be8fe58226ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/scrut/zipball/ed86f5fef22c0ee67fa4dffdca9551f6716f79f9",
-                "reference": "ed86f5fef22c0ee67fa4dffdca9551f6716f79f9",
+                "url": "https://api.github.com/repos/watoki/scrut/zipball/32084928f769409056ad862579b9be8fe58226ad",
+                "reference": "32084928f769409056ad862579b9be8fe58226ad",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
                 "test",
                 "watoki"
             ],
-            "time": "2013-09-13 10:06:16"
+            "time": "2013-09-13 12:18:08"
         }
     ],
     "aliases": [

@@ -8,9 +8,9 @@ use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
- * @property SessionFixture session<-
- * @property OrderFixture order<-
- * @property SelectionComponentFixture component<-
+ * @property SessionFixture session <-
+ * @property OrderFixture order <-
+ * @property SelectionComponentFixture component <-
  */
 class ShowSelectionTest extends Specification {
 
