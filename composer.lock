@@ -844,16 +844,16 @@
         },
         {
             "name": "rtens/mockster",
-            "version": "2.0.0-alpha",
+            "version": "2.0.1-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rtens/mockster.git",
-                "reference": "2c0d642b0582a40267badd7be2263b36d47cb423"
+                "reference": "d47de06bb37ad3d5b27ee0fc14dc8e1e4ff4e00e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rtens/mockster/zipball/2c0d642b0582a40267badd7be2263b36d47cb423",
-                "reference": "2c0d642b0582a40267badd7be2263b36d47cb423",
+                "url": "https://api.github.com/repos/rtens/mockster/zipball/d47de06bb37ad3d5b27ee0fc14dc8e1e4ff4e00e",
+                "reference": "d47de06bb37ad3d5b27ee0fc14dc8e1e4ff4e00e",
                 "shasum": ""
             },
             "require": {
@@ -890,7 +890,7 @@
                 "mocking",
                 "unit testing"
             ],
-            "time": "2013-09-18 08:59:18"
+            "time": "2013-09-18 15:30:10"
         },
         {
             "name": "symfony/yaml",
