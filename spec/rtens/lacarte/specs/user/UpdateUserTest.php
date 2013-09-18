@@ -1,35 +1,19 @@
 <?php
 namespace spec\rtens\lacarte\specs\user;
 
-use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
+/**
+ * @property SessionFixture session <-
+ * @property UserFixture user <-
+ * @property FileFixture files <-
+ * @property ListComponentFixture component <-
+ */
 class UpdateUserTest extends Specification {
-
-    /** @var UserFixture */
-    public $user;
-
-    /** @var ListComponentFixture */
-    public $component;
-
-    /** @var SessionFixture */
-    public $session;
-
-    /** @var FileFixture */
-    public $files;
-
-    protected function setUp() {
-        parent::setUp();
-
-        $this->user = $this->useFixture(UserFixture::$CLASS);
-        $this->session = $this->useFixture(SessionFixture::$CLASS);
-        $this->files = $this->useFixture(FileFixture::$CLASS);
-        $this->component = $this->useFixture(ListComponentFixture::$CLASS);
-    }
 
     protected function background() {
         $this->session->givenIAmLoggedInAsAdmin();

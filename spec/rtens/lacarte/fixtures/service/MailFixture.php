@@ -3,12 +3,14 @@ namespace spec\rtens\lacarte\fixtures\service;
 
 use rtens\lacarte\utils\MailService;
 use rtens\mockster\Mock;
-use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
+/**
+ * @property UserFixture user <-
+ */
 class MailFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
@@ -22,19 +24,18 @@ class MailFixture extends Fixture {
     public function __construct(Specification $spec, Factory $factory) {
         parent::__construct($spec, $factory);
 
-        $this->service = $spec->mockFactory->createMock(MailService::$CLASS);
+        $this->service = $spec->mockFactory->getInstance(MailService::$CLASS);
         $factory->setSingleton(MailService::$CLASS, $this->service);
-        $this->user = $spec->useFixture(UserFixture::$CLASS);
     }
 
     public function thenAMailShouldBeSentTo_WithTheSubject_AndTheBody($userName, $subject, $body) {
         $email = $this->user->getUser($userName)->getEmail();
         $send = $this->service->__mock()->method('send');
 
-        for ($i = 0; $i < $send->getCalledCount(); $i++) {
-            if ($send->getCalledArgumentAt($i, 'to') == $email) {
-                $this->spec->assertEquals($subject, $send->getCalledArgumentAt($i, 'subject'));
-                $this->spec->assertEquals($body, $send->getCalledArgumentAt($i, 'body'));
+        for ($i = 0; $i < $send->getHistory()->getCalledCount(); $i++) {
+            if ($send->getHistory()->getCalledArgumentAt($i, 'to') == $email) {
+                $this->spec->assertEquals($subject, $send->getHistory()->getCalledArgumentAt($i, 'subject'));
+                $this->spec->assertEquals($body, $send->getHistory()->getCalledArgumentAt($i, 'body'));
                 return;
             }
         }
@@ -42,7 +43,7 @@ class MailFixture extends Fixture {
     }
 
     public function then_EmailsShouldBeSent($int) {
-        $this->spec->assertEquals($int, $this->service->__mock()->method('send')->getCalledCount());
+        $this->spec->assertEquals($int, $this->service->__mock()->method('send')->getHistory()->getCalledCount());
     }
 
     public function givenAnError_OccursWhileSendingTheMail($string) {

@@ -2,7 +2,6 @@
 namespace spec\rtens\lacarte;
 
 use rtens\lacarte\core\Configuration;
-use rtens\mockster\ClassResolver;
 use rtens\mockster\MockFactory;
 use watoki\stepper\Migrater;
 
@@ -26,7 +25,7 @@ abstract class Specification extends \watoki\scrut\Specification {
 
         $stateFile = $userFilesDir . '/migration' . uniqid();
 
-        $config = $this->mockFactory->createMock(Configuration::Configuration);
+        $config = $this->mockFactory->getInstance(Configuration::Configuration);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
         $config->__mock()->method('getHost')->willReturn('http://lacarte');
         $config->__mock()->method('getUserFilesDirectory')->willReturn($userFilesDir);

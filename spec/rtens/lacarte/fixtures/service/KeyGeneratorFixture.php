@@ -15,7 +15,7 @@ class KeyGeneratorFixture extends Fixture {
         parent::__construct($spec, $factory);
 
         $mf = new MockFactory();
-        $this->keyGenerator = $mf->createMock(KeyGenerator::$CLASS);
+        $this->keyGenerator = $mf->getInstance(KeyGenerator::$CLASS);
         $factory->setSingleton(KeyGenerator::$CLASS, $this->keyGenerator);
     }
 

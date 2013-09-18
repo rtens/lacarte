@@ -4,32 +4,33 @@ namespace spec\rtens\lacarte\fixtures\service;
 use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\FileRepository;
 use rtens\mockster\Mock;
-use rtens\mockster\MockFactory;
+use rtens\mockster\Mockster;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
 
+/**
+ * @property UserFixture user <-
+ * @property UserFixture user
+ */
 class FileFixture extends Fixture {
 
     public static $CLASS = __CLASS__;
-
-    /** @var UserFixture */
-    private $user;
 
     /** @var FileRepository|Mock */
     private $file;
 
     public function __construct(Specification $spec, Factory $factory, Configuration $config) {
         parent::__construct($spec, $factory);
-        $this->user = $spec->useFixture(UserFixture::$CLASS);
         $this->config = $config;
 
-        $this->file = $spec->mockFactory->createTestUnit(FileRepository::$CLASS, array(
+        $this->file = $spec->mockFactory->getInstance(FileRepository::$CLASS, array(
             'config' => $config
         ));
         $factory->setSingleton(FileRepository::$CLASS, $this->file);
 
+        $this->file->__mock()->mockMethods(Mockster::F_NONE);
         $this->file->__mock()->method('moveUploadedFile')->willCall(function ($from, $to) {
             return rename($from, $to);
         });

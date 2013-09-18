@@ -3,8 +3,52 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c4a63b2a49eeb402b7d51056534b1a89",
+    "hash": "a0998265d7a3884a34f739c7af8fb6d3",
     "packages": [
+        {
+            "name": "nikic/php-parser",
+            "version": "v0.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPParser": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2013-08-25 17:11:40"
+        },
         {
             "name": "symfony/console",
             "version": "2.2.x-dev",
@@ -12,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e"
+                "reference": "53303b8a024736b049e4c4d044966a679bc9608d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e",
-                "reference": "9ad6ecc82d4713d6e16b08d444a0bc07ab15e62e",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/53303b8a024736b049e4c4d044966a679bc9608d",
+                "reference": "53303b8a024736b049e4c4d044966a679bc9608d",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +94,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-12 20:51:59"
+            "time": "2013-09-18 07:27:26"
         },
         {
             "name": "watoki/collections",
@@ -195,16 +239,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/factory.git",
-                "reference": "78d172150ee0ff13ae1fbb18e3b38b211faabeff"
+                "reference": "1b60df551c7b0f5d4dab0802de91cbd745aa31eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/factory/zipball/78d172150ee0ff13ae1fbb18e3b38b211faabeff",
-                "reference": "78d172150ee0ff13ae1fbb18e3b38b211faabeff",
+                "url": "https://api.github.com/repos/watoki/factory/zipball/1b60df551c7b0f5d4dab0802de91cbd745aa31eb",
+                "reference": "1b60df551c7b0f5d4dab0802de91cbd745aa31eb",
                 "shasum": ""
             },
             "require": {
+                "nikic/php-parser": "0.9.4",
                 "php": ">=5.3.8"
+            },
+            "require-dev": {
+                "watoki/scrut": "*"
             },
             "type": "library",
             "autoload": {
@@ -230,7 +278,7 @@
                 "dependency injection",
                 "watoki"
             ],
-            "time": "2013-09-12 06:41:35"
+            "time": "2013-09-18 08:29:59"
         },
         {
             "name": "watoki/smokey",
@@ -418,50 +466,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "nikic/php-parser",
-            "version": "v0.9.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
-                "reference": "1e5e280ae88a27effa2ae4aa2bd088494ed8594f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "PHPParser": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2013-08-25 17:11:40"
-        },
         {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.x-dev",
@@ -712,12 +716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "551d18555488f385aea9dfb33f2ba3fe6f3050f8"
+                "reference": "4b024e753e3421837afbcca962c8724c58b39376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/551d18555488f385aea9dfb33f2ba3fe6f3050f8",
-                "reference": "551d18555488f385aea9dfb33f2ba3fe6f3050f8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4b024e753e3421837afbcca962c8724c58b39376",
+                "reference": "4b024e753e3421837afbcca962c8724c58b39376",
                 "shasum": ""
             },
             "require": {
@@ -778,7 +782,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-13 05:00:10"
+            "time": "2013-09-16 03:09:52"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -840,21 +844,25 @@
         },
         {
             "name": "rtens/mockster",
-            "version": "dev-master",
+            "version": "2.0.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rtens/mockster.git",
-                "reference": "8540fdd101cfed59d444ea150a507e21d3c03dfc"
+                "reference": "2c0d642b0582a40267badd7be2263b36d47cb423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rtens/mockster/zipball/8540fdd101cfed59d444ea150a507e21d3c03dfc",
-                "reference": "8540fdd101cfed59d444ea150a507e21d3c03dfc",
+                "url": "https://api.github.com/repos/rtens/mockster/zipball/2c0d642b0582a40267badd7be2263b36d47cb423",
+                "reference": "2c0d642b0582a40267badd7be2263b36d47cb423",
                 "shasum": ""
             },
             "require": {
                 "nikic/php-parser": "0.9.4",
-                "php": ">=5.3.2"
+                "php": ">=5.3.2",
+                "watoki/factory": "*"
+            },
+            "require-dev": {
+                "watoki/scrut": "*"
             },
             "type": "library",
             "autoload": {
@@ -882,7 +890,7 @@
                 "mocking",
                 "unit testing"
             ],
-            "time": "2013-09-12 14:16:05"
+            "time": "2013-09-18 08:59:18"
         },
         {
             "name": "symfony/yaml",
@@ -937,21 +945,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/scrut.git",
-                "reference": "32084928f769409056ad862579b9be8fe58226ad"
+                "reference": "98e1ae2f4c991d29328022d80e7c3f03a8acf552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/scrut/zipball/32084928f769409056ad862579b9be8fe58226ad",
-                "reference": "32084928f769409056ad862579b9be8fe58226ad",
+                "url": "https://api.github.com/repos/watoki/scrut/zipball/98e1ae2f4c991d29328022d80e7c3f03a8acf552",
+                "reference": "98e1ae2f4c991d29328022d80e7c3f03a8acf552",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.8",
                 "phpunit/phpunit": "3.7.*",
-                "rtens/mockster": "*",
-                "watoki/curir": "*",
-                "watoki/factory": "*",
-                "watoki/stache": "*"
+                "watoki/factory": "*"
             },
             "type": "library",
             "autoload": {
@@ -979,7 +984,7 @@
                 "test",
                 "watoki"
             ],
-            "time": "2013-09-13 12:18:08"
+            "time": "2013-09-15 14:34:30"
         }
     ],
     "aliases": [

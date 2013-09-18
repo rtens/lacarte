@@ -3,7 +3,6 @@ namespace spec\rtens\lacarte\fixtures\service;
 
 use rtens\lacarte\core\Session;
 use rtens\mockster\Mock;
-use rtens\mockster\MockFactory;
 use rtens\mockster\Mockster;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\Specification;
@@ -23,7 +22,7 @@ class SessionFixture extends Fixture {
     public function __construct(Specification $spec, Factory $factory) {
         parent::__construct($spec, $factory);
 
-        $this->session = $spec->mockFactory->createMock(Session::$CLASS);
+        $this->session = $spec->mockFactory->getInstance(Session::$CLASS);
         $factory->setSingleton(Session::$CLASS, $this->session);
     }
 
@@ -41,19 +40,19 @@ class SessionFixture extends Fixture {
     }
 
     public function thenIShouldBeLoggedInAsAdmin() {
-        $this->spec->assertTrue($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'admin')));
+        $this->spec->assertTrue($this->session->__mock()->method('set')->getHistory()->wasCalledWith(array('key' => 'admin')));
     }
 
     public function thenIShouldNotBeLoggedInAsUser() {
-        $this->spec->assertFalse($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'key')));
+        $this->spec->assertFalse($this->session->__mock()->method('set')->getHistory()->wasCalledWith(array('key' => 'key')));
     }
 
     public function thenIShouldNotBeLoggedInAsAdmin() {
-        $this->spec->assertFalse($this->session->__mock()->method('set')->wasCalledWith(array('key' => 'admin')));
+        $this->spec->assertFalse($this->session->__mock()->method('set')->getHistory()->wasCalledWith(array('key' => 'admin')));
     }
 
     public function thenIShouldBeLoggedInAs($userName) {
-        $this->spec->assertTrue($this->session->__mock()->method('set')->wasCalledWith(array(
+        $this->spec->assertTrue($this->session->__mock()->method('set')->getHistory()->wasCalledWith(array(
             'key' => 'key',
             'value' => $this->user->getUser($userName)->getKey()
         )));
@@ -61,7 +60,7 @@ class SessionFixture extends Fixture {
 
     public function thenIShouldBeLoggedOut() {
         $remove = $this->session->__mock()->method('remove');
-        $this->spec->assertTrue($remove->wasCalledWith(array('key' => 'admin')));
-        $this->spec->assertTrue($remove->wasCalledWith(array('key' => 'key')));
+        $this->spec->assertTrue($remove->getHistory()->wasCalledWith(array('key' => 'admin')));
+        $this->spec->assertTrue($remove->getHistory()->wasCalledWith(array('key' => 'key')));
     }
 }
