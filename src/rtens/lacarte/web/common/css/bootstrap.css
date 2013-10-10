@@ -6169,3 +6169,15 @@ a.badge:focus {
 .affix {
     position: fixed;
 }
+
+
+.bigscreen {
+    padding: 8px 35px 8px 14px;
+    font-family: sans-serif;
+    line-height: 50px;
+    font-size: 46px;
+    margin-bottom: 20px;
+    background-color: #dff0d8;
+    border: 1px solid #fbeed5;
+    border-radius: 4px;
+}

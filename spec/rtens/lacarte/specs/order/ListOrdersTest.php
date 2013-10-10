@@ -51,4 +51,5 @@ class ListOrdersTest extends Specification {
 
         $this->component->thenTheItemLinkOfOrder_ShouldBe(1, 'selections.html?order=1');
     }
+
 }
