@@ -117,11 +117,11 @@ class SelectionsComponent extends Component {
 
                 $selections[$selection->id] = array(
                     'dish' => intval($selection->getDishId()),
+                    'yielded' => false,
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
-						'yielded' => false
+						'avatar' => $this->files->getUserAvatarUrl($user, $this->getRoot())
                     )
                 );
             } catch (NotFoundException $e) {}
