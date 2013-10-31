@@ -3,6 +3,7 @@ namespace spec\rtens\lacarte;
 
 use rtens\lacarte\core\Configuration;
 use rtens\mockster\MockFactory;
+use watoki\factory\providers\PropertyInjectionProvider;
 use watoki\stepper\Migrater;
 
 abstract class Specification extends \watoki\scrut\Specification {
@@ -12,12 +13,9 @@ abstract class Specification extends \watoki\scrut\Specification {
     /** @var MockFactory */
     public $mockFactory;
 
-    protected function setUp() {
-        $this->mockFactory = new MockFactory();
-        parent::setUp();
-    }
-
     protected function loadDependencies() {
+        $this->factory->setProvider('StdClass', new PropertyInjectionProvider($this->factory));
+        $this->mockFactory = new MockFactory();
 
         $userFilesDir = __DIR__ . '/__userfiles';
         $this->cleanUp($userFilesDir);
