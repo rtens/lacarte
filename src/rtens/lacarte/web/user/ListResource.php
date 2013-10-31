@@ -141,10 +141,10 @@ class ListResource extends DefaultResource {
                 'email' => $user->getEmail(),
                 'key' => $user->getKey(),
                 'editAction' => array(
-                    'href' => 'list.html?action=edit&user=' . $user->id
+                    'href' => 'list.html?method=edit&user=' . $user->id
                 ),
                 'deleteAction' => array(
-                    'href' => 'list.html?action=delete&user=' . $user->id
+                    'href' => 'list.html?method=delete&user=' . $user->id
                 ),
                 'avatar' => array(
                     'src' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
