@@ -1,7 +1,6 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component;
 
-use rtens\lacarte\WebResource;
 use spec\rtens\lacarte\Specification;
 use watoki\curir\responder\Presenter;
 use watoki\curir\Responder;
@@ -21,19 +20,14 @@ abstract class ResourceFixture extends Fixture {
     public function __construct(Specification $spec, Factory $factory) {
         parent::__construct($spec, $factory);
 
-        $root = $factory->getInstance(WebResource::$CLASS, array(
-            'name' => 'lacarte',
-            'root' => null
-        ));
-
         $this->component = $factory->getInstance($this->getComponentClass(), array(
-            'name' => 'resource',
-            'parent' => $root
+            'name' => '',
+            'parent' => null
         ));
     }
 
     public function thenIShouldBeRedirectedTo($url) {
-        $this->spec->assertTrue($this->responder instanceof Redirecter);
+        $this->spec->assertTrue($this->responder instanceof Redirecter, 'Not a Redirecter');
         if ($this->responder instanceof Redirecter) {
             $this->spec->assertEquals($url, $this->responder->getTarget()->toString());
         }
@@ -52,7 +46,7 @@ abstract class ResourceFixture extends Fixture {
     }
 
     protected function getField($string) {
-        $this->spec->assertTrue($this->responder instanceof Presenter);
+        $this->spec->assertTrue($this->responder instanceof Presenter, 'Not a Presenter');
         if ($this->responder instanceof Presenter) {
             return $this->getFieldIn($string, $this->responder->getModel());
         }

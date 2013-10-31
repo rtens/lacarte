@@ -34,7 +34,7 @@ class LoginComponentFixture extends ResourceFixture {
     }
 
     public function thenTheAdminEmailFieldShouldContain($string) {
-        $this->spec->assertEquals($string, $this->getField('email'));
+        $this->spec->assertEquals($string, $this->getField('email/value'));
     }
 
     public function whenIOpenThePage() {

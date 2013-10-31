@@ -21,33 +21,13 @@ class ListResource extends DefaultResource {
         return new Presenter($this->assembleModel());
     }
 
-    protected function assembleModel($model = array()) {
-        return parent::assembleModel(
-            array_merge(
-                array(
-                    'order' => $this->assembleOrders(),
-                    'firstDay' => array('value' => $this->time->fromString('monday next week')->format('Y-m-d')),
-                    'lastDay' => array('value' => $this->time->fromString('friday next week')->format('Y-m-d')),
-                    'deadline' => array(
-                        'value' => $this->time->fromString('thursday this week 18:00')->format(
-                            'Y-m-d H:i'
-                        )
-                    ),
-                    'error' => null,
-                    'today' => $this->getTodaysOrder()
-                ),
-                $model
-            )
-        );
-    }
-
     public function doPost($firstDay, $lastDay, $deadline) {
         if (!$this->isAdmin()) {
-            return $this->assembleModel(
+            return new Presenter($this->assembleModel(
                 array(
                     'error' => 'Access denied.'
                 )
-            );
+            ));
         }
         try {
             $order = $this->orderInteractor->createOrder(
@@ -58,12 +38,32 @@ class ListResource extends DefaultResource {
             );
             return new Redirecter(Url::parse('edit.html?order=' . $order->id));
         } catch (\Exception $e) {
-            return $this->assembleModel(
+            return new Presenter($this->assembleModel(
                 array(
                     'error' => $e->getMessage()
                 )
-            );
+            ));
         }
+    }
+
+    protected function assembleModel($model = array()) {
+        return parent::assembleModel(
+            array_merge(
+                array(
+                    'order' => $this->assembleOrders(),
+                    'firstDay' => array('value' => $this->time->fromString('monday next week')->format('Y-m-d')),
+                    'lastDay' => array('value' => $this->time->fromString('friday next week')->format('Y-m-d')),
+                    'deadline' => array(
+                        'value' => $this->time->fromString('thursday this week 18:00')->format(
+                                'Y-m-d H:i'
+                            )
+                    ),
+                    'error' => null,
+                    'today' => $this->getTodaysOrder()
+                ),
+                $model
+            )
+        );
     }
 
     private function assembleOrders() {
