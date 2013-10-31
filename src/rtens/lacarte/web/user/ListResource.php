@@ -1,91 +1,79 @@
 <?php
 namespace rtens\lacarte\web\user;
  
-use rtens\lacarte\core\FileRepository;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Session;
-use rtens\lacarte\model\Group;
 use rtens\lacarte\model\User;
-use rtens\lacarte\web\DefaultComponent;
-use rtens\lacarte\web\common\MenuComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
-use watoki\tempan\Renderer;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class ListComponent extends DefaultComponent {
+class ListResource extends DefaultResource {
 
     public static $CLASS = __CLASS__;
 
+    /** @var \rtens\lacarte\core\FileRepository <- */
     private $files;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $userInteractor, Session $session, FileRepository $files) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->files = $files;
-    }
 
     public function doGet() {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('../order/list.html'));
+            return new Redirecter(Url::parse('../order/list.html'));
         }
-        return $this->assembleModel();
+        return new Presenter($this->assembleModel());
     }
 
     public function doEdit($user) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('../order/list.html'));
+            return new Redirecter(Url::parse('../order/list.html'));
         }
-        return $this->assembleModel(array(), $user);
+        return new Presenter($this->assembleModel(array(), $user));
     }
 
     public function doPost($name, $email) {
         if (!$this->isLoggedIn()) {
-            return $this->redirect(Url::parse('login.html'));
+            return new Redirecter(Url::parse('login.html'));
         }
 
         if (!$this->isAdmin()) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => 'Access denied. Must be administrator.',
                 'email' => array('value' => $email),
                 'name' => array('value' => $name)
-            ));
+            )));
         }
 
         try {
             $groupId = $this->session->get('admin');
             $this->userInteractor->createUser($groupId, $name, $email);
 
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'success' => "The user $name was created."
-            ));
+            )));
         } catch (\Exception $e) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => $e->getMessage(),
                 'email' => array('value' => $email),
                 'name' => array('value' => $name)
-            ));
+            )));
         }
     }
 
     public function doDelete($user) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('../order/list.html'));
+            return new Redirecter(Url::parse('../order/list.html'));
         }
 
         $entity = new User(1, '', '', '');
         $entity->id = $user;
         $this->userInteractor->delete($entity);
 
-        return $this->assembleModel(array(
+        return new Presenter($this->assembleModel(array(
             'success' => 'The user has been deleted'
-        ));
+        )));
     }
 
     public function doSave($name, $email, $userId) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('../order/list.html'));
+            return new Redirecter(Url::parse('../order/list.html'));
         }
 
         if (isset($_FILES['picture']) && $_FILES['picture']['name']) {
@@ -93,11 +81,11 @@ class ListComponent extends DefaultComponent {
             $pictureTmp = $_FILES['picture']['tmp_name'];
 
             if ('jpg' != strtolower(substr($picture, strrpos($picture, '.') + 1))) {
-                return $this->assembleModel(array(
+                return new Presenter($this->assembleModel(array(
                     'error' => 'Only jpg-files allowed.',
                     'notEditing' => null,
                     'editing' => $this->assembleEditingUser($userId, $name, $email)
-                ));
+                )));
             };
 
             $avatarDir = $this->files->getUserFilesDirectory() . '/avatars';
@@ -105,31 +93,31 @@ class ListComponent extends DefaultComponent {
 
             @mkdir($avatarDir, 0777, true);
             if(!$this->files->moveUploadedFile($pictureTmp, $avatarPath)) {
-                return $this->assembleModel(array(
+                return new Presenter($this->assembleModel(array(
                     'error' => 'There was an error uploading the file, please try again!'
-                ));
+                )));
             }
         }
 
         $user = $this->userInteractor->readById($userId);
         if(!$email || !$name) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => 'Could not update user. Missing data.',
                 'notEditing' => null,
                 'editing' => $this->assembleEditingUser($userId, $name, $email)
-            ), $userId);
+            ), $userId));
         }
         $user->setEmail($email);
         $user->setName($name);
         try {
             $this->userInteractor->updateUser($user);
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'success' => 'The user has been updated'
-            ));
+            )));
         } catch (\Exception $e) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => $e->getMessage()
-            ));
+            )));
         }
     }
 

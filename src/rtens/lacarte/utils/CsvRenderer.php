@@ -2,9 +2,8 @@
 namespace rtens\lacarte\utils;
 
 use watoki\collections\Map;
-use watoki\curir\Renderer;
 
-class CsvRenderer implements Renderer {
+class CsvRenderer {
 
     static $CLASS = __CLASS__;
 

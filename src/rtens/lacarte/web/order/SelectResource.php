@@ -1,32 +1,41 @@
 <?php
 namespace rtens\lacarte\web\order;
 
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\NotFoundException;
-use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
+use rtens\lacarte\OrderInteractor;
+use rtens\lacarte\Presenter;
 use rtens\lacarte\utils\TimeService;
-use rtens\lacarte\web\DefaultComponent;
+use rtens\lacarte\web\DefaultResource;
 use watoki\collections\Map;
 use watoki\collections\Set;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class SelectComponent extends DefaultComponent {
+class SelectResource extends DefaultResource {
 
     public static $CLASS = __CLASS__;
 
     /** @var array|Selection[] */
     private $selections = array();
 
+    /** @var TimeService <- */
     private $time;
 
+    /** @var OrderInteractor <- */
     private $orderInteractor;
+
+    public function doGet($order, $user = null) {
+        $entity = $this->orderInteractor->readById($order);
+
+        if ($this->isOpen($entity)) {
+            return new Redirecter(Url::parse('selection.html?order=' . $entity->id));
+        }
+
+        return new Presenter($this->assembleMyModel($entity, $user));
+    }
 
     /**
      * @param int $order ID of Order
@@ -44,16 +53,17 @@ class SelectComponent extends DefaultComponent {
                 $selections = $this->collectSelections($order, $selection, $user, $userId);
                 $this->orderInteractor->saveSelections($selections);
 
-                return $this->assembleMyModel($orderEntity, $userId, array(
+                return new Presenter($this->assembleMyModel($orderEntity, $userId, array(
                     'success' => 'Selection saved'
-                ));
+                )));
             } catch (\InvalidArgumentException $e) {}
         }
 
-        return $this->assembleMyModel($orderEntity, $userId, array(
+        return new Presenter($this->assembleMyModel($orderEntity, $userId, array(
             'error' => 'Please make a selection for every day'
-        ));
+        )));
     }
+
     private function collectSelections($order, Map $selection, $user, $userId) {
         $missing = false;
         $selections = new Set();
@@ -77,24 +87,6 @@ class SelectComponent extends DefaultComponent {
         }
 
         return $selections;
-    }
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor,
-                         TimeService $time) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->orderInteractor = $orderInteractor;
-        $this->time = $time;
-    }
-
-    public function doGet($order, $user = null) {
-        $entity = $this->orderInteractor->readById($order);
-
-        if ($this->isOpen($entity)) {
-            return $this->redirect(Url::parse('selection.html?order=' . $entity->id));
-        }
-
-        return $this->assembleMyModel($entity, $user);
     }
 
     private function assembleMyModel(Order $order, $userId, $model = array()) {

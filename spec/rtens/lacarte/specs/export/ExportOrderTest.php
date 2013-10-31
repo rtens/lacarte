@@ -1,8 +1,6 @@
 <?php
 namespace spec\rtens\lacarte\specs\export;
 
-use rtens\lacarte\web\export\DishesComponent;
-use rtens\mockster\MockFactory;
 use spec\rtens\lacarte\fixtures\component\export\DishesComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;

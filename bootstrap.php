@@ -7,6 +7,7 @@ use rtens\lacarte\core\Configuration;
 require __DIR__ . '/vendor/autoload.php';
 
 $factory = new \watoki\factory\Factory();
+$factory->setProvider('StdClass', new \watoki\factory\providers\PropertyInjectionProvider($factory));
 
 require_once __DIR__ . '/config/DefaultConfiguration.php';
 

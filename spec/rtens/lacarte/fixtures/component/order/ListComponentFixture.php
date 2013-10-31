@@ -1,13 +1,13 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component\order;
 
-use rtens\lacarte\web\order\ListComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\order\ListResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 
 /**
- * @property ListComponent component
+ * @property ListResource component
  */
-class ListComponentFixture extends ComponentFixture {
+class ListComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -18,7 +18,7 @@ class ListComponentFixture extends ComponentFixture {
     private $deadline;
 
     public function whenIOpenThePage() {
-        $this->model = $this->component->doGet();
+        $this->responder = $this->component->doGet();
     }
 
     public function thenThereShouldBe_OrdersListed($int) {
@@ -82,7 +82,7 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function whenICreateANewOrder() {
-        $this->model = $this->component->doPost($this->firstDay, $this->lastDay, $this->deadline);
+        $this->responder = $this->component->doPost($this->firstDay, $this->lastDay, $this->deadline);
     }
 
     public function thenTheErrorMessageShouldBe($string) {
@@ -102,7 +102,7 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return ListComponent::$CLASS;
+        return ListResource::$CLASS;
     }
 
     private function then_OfOrder_ShouldBe($field, $i, $string) {

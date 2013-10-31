@@ -3,53 +3,45 @@ namespace rtens\lacarte\web\order;
 
 use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Menu;
-use rtens\lacarte\model\Selection;
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Order;
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use rtens\lacarte\model\Selection;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\Responder;
+use watoki\curir\responder\Redirecter;
 
-class SelectionComponent extends DefaultComponent {
+class SelectionResource extends DefaultResource {
 
     static $CLASS = __CLASS__;
 
+    /** @var \rtens\lacarte\OrderInteractor <- */
     private $orderInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->orderInteractor = $orderInteractor;
-    }
 
     /**
      * @param int $order ID of order to display
-     * @return array
+     * @return Responder
      */
     public function doGet($order) {
         if ($this->isAdmin()) {
-            return $this->redirect(Url::parse('selections.html?order=' . $order));
+            return new Redirecter(Url::parse('selections.html?order=' . $order));
         }
 
         try {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
                 'error' => null
-            ));
+            )));
         } catch (NotFoundException $nfe) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'order' => null,
                 'error' => 'You seem to have no selections for this order.'
-            ));
+            )));
         } catch (\Exception $e) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'order' => null,
                 'error' => $e->getMessage()
-            ));
+            )));
         }
     }
 

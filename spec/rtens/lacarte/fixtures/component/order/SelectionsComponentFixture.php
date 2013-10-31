@@ -2,15 +2,15 @@
 namespace spec\rtens\lacarte\fixtures\component\order;
 
 use rtens\lacarte\model\Order;
-use rtens\lacarte\web\order\SelectionsComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\order\SelectionsResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
- * @property SelectionsComponent component
+ * @property SelectionsResource component
  * @property OrderFixture order <-
  */
-class SelectionsComponentFixture extends ComponentFixture {
+class SelectionsComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -24,7 +24,7 @@ class SelectionsComponentFixture extends ComponentFixture {
     private $body;
 
     public function whenIOpenThePageForOrder($name) {
-        $this->model = $this->component->doGet($this->order->getOrder($name)->id);
+        $this->responder = $this->component->doGet($this->order->getOrder($name)->id);
     }
 
     public function thenThereShouldBeNoSuccessMessage() {
@@ -101,7 +101,7 @@ class SelectionsComponentFixture extends ComponentFixture {
     }
 
     public function whenISendTheMail() {
-        $this->model = $this->component->doSendMail($this->currentOrder->id, $this->subject,
+        $this->responder = $this->component->doSendMail($this->currentOrder->id, $this->subject,
             $this->body, $this->onlyWithoutSelection);
     }
 
@@ -130,7 +130,7 @@ class SelectionsComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return SelectionsComponent::$CLASS;
+        return SelectionsResource::$CLASS;
     }
 
     public function thenTheSuccessMessageShouldBe($value) {

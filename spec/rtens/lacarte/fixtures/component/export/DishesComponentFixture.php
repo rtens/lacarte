@@ -1,20 +1,20 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component\export;
 
-use rtens\lacarte\web\export\DishesComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\export\DishesResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
- * @property DishesComponent component
+ * @property DishesResource component
  * @property OrderFixture order <-
  */
-class DishesComponentFixture extends ComponentFixture {
+class DishesComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
     public function whenIExportTheOrder($string) {
-        $this->model = $this->component->doGet($this->order->getOrder($string)->id);
+        $this->responder = $this->component->doGet($this->order->getOrder($string)->id);
     }
 
     public function thenThereShouldBe_Rows($int) {
@@ -38,7 +38,7 @@ class DishesComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return DishesComponent::$CLASS;
+        return DishesResource::$CLASS;
     }
 
     private function getRowField($int, $field) {

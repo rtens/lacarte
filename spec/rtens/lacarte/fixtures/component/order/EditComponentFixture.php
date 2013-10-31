@@ -4,17 +4,17 @@ namespace spec\rtens\lacarte\fixtures\component\order;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
-use rtens\lacarte\web\order\EditComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\order\EditResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
- * @property EditComponent component
+ * @property EditResource component
  * @property OrderFixture order <-
  * @property MenuStore menuStore <-
  * @property DishStore dishStore <-
  */
-class EditComponentFixture extends ComponentFixture {
+class EditComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -25,11 +25,11 @@ class EditComponentFixture extends ComponentFixture {
     private $currentOrder;
 
     public function whenIOpenThePageToEdit($orderName) {
-        $this->model = $this->component->doGet($this->order->getOrder($orderName)->id);
+        $this->responder = $this->component->doGet($this->order->getOrder($orderName)->id);
     }
 
     public function whenISaveTheOrder() {
-        $this->model = $this->component->doPost($this->currentOrder->id, $this->dishTexts);
+        $this->responder = $this->component->doPost($this->currentOrder->id, $this->dishTexts);
     }
 
     public function thenThereShouldBeNoErrorMessage() {
@@ -86,6 +86,6 @@ class EditComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return EditComponent::$CLASS;
+        return EditResource::$CLASS;
     }
 }

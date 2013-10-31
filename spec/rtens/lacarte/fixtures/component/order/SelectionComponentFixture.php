@@ -1,20 +1,20 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component\order;
 
-use rtens\lacarte\web\order\SelectionComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\order\SelectionResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
- * @property SelectionComponent component
+ * @property SelectionResource component
  * @property OrderFixture order <-
  */
-class SelectionComponentFixture extends ComponentFixture {
+class SelectionComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
     public function whenIOpenThePageForOrder($orderName) {
-        $this->model = $this->component->doGet($this->order->getOrder($orderName)->id);
+        $this->responder = $this->component->doGet($this->order->getOrder($orderName)->id);
     }
 
     public function thenTheErrorMessageShouldBe($string) {
@@ -55,6 +55,6 @@ class SelectionComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return SelectionComponent::$CLASS;
+        return SelectionResource::$CLASS;
     }
 }

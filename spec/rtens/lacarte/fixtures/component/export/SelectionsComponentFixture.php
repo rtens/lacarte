@@ -1,26 +1,26 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\component\export;
 
-use rtens\lacarte\web\export\SelectionsComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\export\SelectionsResource;
+use spec\rtens\lacarte\fixtures\component\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 
 /**
- * @property SelectionsComponent component
+ * @property SelectionsResource component
  * @property UserFixture user <-
  * @property OrderFixture order <-
  */
-class SelectionsComponentFixture extends ComponentFixture {
+class SelectionsComponentFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
     public function whenIOpenTheSelectionsOf_WithToken($date, $token) {
-        $this->model = $this->component->doGet($token, $date);
+        $this->responder = $this->component->doGet($token, $date);
     }
 
     public function whenIOpenTheSelectionsWithToke($token) {
-        $this->model = $this->component->doGet($token);
+        $this->responder = $this->component->doGet($token);
     }
 
     public function thenTheMenuShouldBeEmpty() {
@@ -63,6 +63,6 @@ class SelectionsComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return SelectionsComponent::$CLASS;
+        return SelectionsResource::$CLASS;
     }
 }

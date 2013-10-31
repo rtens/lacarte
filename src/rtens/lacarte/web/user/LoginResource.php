@@ -1,11 +1,12 @@
 <?php
 namespace rtens\lacarte\web\user;
 
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class LoginComponent extends DefaultComponent {
+class LoginResource extends DefaultResource {
 
     public static $CLASS = __CLASS__;
 
@@ -23,10 +24,10 @@ class LoginComponent extends DefaultComponent {
         $group = $this->userInteractor->authorizeAdmin($email, $password);
 
         if (!$group) {
-            return array(
+            return new Presenter(array(
                 'error' => 'Could not find group for given email and password',
-                'email' => $email
-            );
+                'email' => array('value' => $email)
+            ));
         }
 
         $this->session->set('admin', $group->id);
@@ -37,18 +38,18 @@ class LoginComponent extends DefaultComponent {
         if ($this->isLoggedIn()) {
             return $this->redirectToList();
         }
-        return $this->assembleModel();
+        return new Presenter($this->assembleModel());
     }
 
     private function redirectToList() {
-        return $this->redirect(Url::parse('../order/list.html'));
+        return new Redirecter(Url::parse('../order/list.html'));
     }
 
     public function doLogout() {
         $this->session->remove('admin');
         $this->session->remove('key');
 
-        return $this->redirect(Url::parse('login.html'));
+        return new Redirecter(Url::parse('login.html'));
     }
 
     public function doPost($key) {
@@ -57,9 +58,10 @@ class LoginComponent extends DefaultComponent {
         try {
             $this->login($key);
         } catch (\Exception $e) {
-            return array(
-                'error' => 'You entered an invalid key'
-            );
+            return new Presenter(array(
+                'error' => 'You entered an invalid key',
+                'key' => array('value' => $key)
+            ));
         }
 
         $this->session->set('key', $user->getKey());
