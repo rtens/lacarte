@@ -13,10 +13,12 @@ class MenuResource extends DynamicResource {
     protected $session;
 
     public function doGet() {
+        $root = $this->getRoot();
+
         return new Presenter(array(
             'adminOnly' => $this->session->has('admin'),
-            'relative' => function (Element $e) {
-                    $e->setAttribute('src', '/' . $this->getRoot()->getRoute()->toString() . '/common/' . $e->getAttribute('src')->getValue());
+            'relative' => function (Element $e) use ($root) {
+                    $e->setAttribute('src', '/' . $root->getRoute()->toString() . '/common/' . $e->getAttribute('src')->getValue());
                     return true;
                 }
         ));

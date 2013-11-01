@@ -39,12 +39,12 @@ class SelectResource extends DefaultResource {
 
     /**
      * @param int $order ID of Order
-     * @param Map|int[] $selection Selected dish IDs indexed by menu ID
+     * @param array|int[] $selection Selected dish IDs indexed by menu ID
      * @param null|int $user ID of user (if admin)
      * @param int|null $user Set if admin is changing the selection
      * @return array|null
      */
-    public function doPost($order, Map $selection = null, $user = null) {
+    public function doPost($order, $selection = null, $user = null) {
         $orderEntity = $this->orderInteractor->readById($order);
         $userId = $this->getUserId($user);
 
