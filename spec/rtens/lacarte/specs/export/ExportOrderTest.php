@@ -1,7 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\specs\export;
 
-use spec\rtens\lacarte\fixtures\component\export\DishesComponentFixture;
+use spec\rtens\lacarte\fixtures\resource\export\DishesResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
@@ -11,7 +11,7 @@ use spec\rtens\lacarte\Specification;
  * @property OrderFixture order <-
  * @property SessionFixture session <-
  * @property UserFixture user <-
- * @property DishesComponentFixture component <-
+ * @property DishesResourceFixture component <-
  */
 class ExportOrderTest extends Specification {
 

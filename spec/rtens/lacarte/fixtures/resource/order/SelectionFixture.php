@@ -1,15 +1,15 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\web\order\SelectionResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property SelectionResource component
  * @property OrderFixture order <-
  */
-class SelectionComponentFixture extends ResourceFixture {
+class SelectionFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

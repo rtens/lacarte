@@ -1,8 +1,8 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\user;
+namespace spec\rtens\lacarte\fixtures\resource\user;
 
 use rtens\lacarte\web\user\ListResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 
@@ -11,7 +11,7 @@ use spec\rtens\lacarte\fixtures\service\FileFixture;
  * @property UserFixture user <-
  * @property FileFixture files <-
  */
-class ListComponentFixture extends ResourceFixture {
+class ListResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

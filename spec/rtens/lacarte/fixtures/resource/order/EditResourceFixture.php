@@ -1,11 +1,11 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\web\order\EditResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
@@ -14,7 +14,7 @@ use spec\rtens\lacarte\fixtures\model\OrderFixture;
  * @property MenuStore menuStore <-
  * @property DishStore dishStore <-
  */
-class EditComponentFixture extends ResourceFixture {
+class EditResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

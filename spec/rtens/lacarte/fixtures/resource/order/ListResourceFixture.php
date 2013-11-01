@@ -1,13 +1,13 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\web\order\ListResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 /**
  * @property ListResource component
  */
-class ListComponentFixture extends ResourceFixture {
+class ListResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

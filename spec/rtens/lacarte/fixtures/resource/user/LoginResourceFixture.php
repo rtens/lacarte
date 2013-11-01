@@ -1,13 +1,13 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\user;
+namespace spec\rtens\lacarte\fixtures\resource\user;
 
 use rtens\lacarte\web\user\LoginResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 /**
  * @property LoginResource component
  */
-class LoginComponentFixture extends ResourceFixture {
+class LoginResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

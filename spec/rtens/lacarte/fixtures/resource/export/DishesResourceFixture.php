@@ -1,15 +1,15 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\export;
+namespace spec\rtens\lacarte\fixtures\resource\export;
 
 use rtens\lacarte\web\export\DishesResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property DishesResource component
  * @property OrderFixture order <-
  */
-class DishesComponentFixture extends ResourceFixture {
+class DishesResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

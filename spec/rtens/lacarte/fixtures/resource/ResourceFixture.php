@@ -1,5 +1,5 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component;
+namespace spec\rtens\lacarte\fixtures\resource;
 
 use spec\rtens\lacarte\Specification;
 use watoki\curir\responder\Presenter;

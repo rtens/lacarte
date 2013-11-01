@@ -1,8 +1,8 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\export;
+namespace spec\rtens\lacarte\fixtures\resource\export;
 
 use rtens\lacarte\web\export\SelectionsResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 
@@ -11,7 +11,7 @@ use spec\rtens\lacarte\fixtures\model\UserFixture;
  * @property UserFixture user <-
  * @property OrderFixture order <-
  */
-class SelectionsComponentFixture extends ResourceFixture {
+class SelectionsResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

@@ -1,7 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\specs\user;
 
-use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
+use spec\rtens\lacarte\fixtures\resource\user\ListResourceFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\KeyGeneratorFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
@@ -11,7 +11,7 @@ use spec\rtens\lacarte\Specification;
  * @property SessionFixture session <-
  * @property KeyGeneratorFixture key <-
  * @property UserFixture user <-
- * @property ListComponentFixture component <-
+ * @property ListResourceFixture component <-
  */
 class CreateUserTest extends Specification {
 

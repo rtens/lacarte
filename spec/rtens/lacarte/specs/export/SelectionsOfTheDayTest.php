@@ -1,7 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\specs\export;
 
-use spec\rtens\lacarte\fixtures\component\export\SelectionsComponentFixture;
+use spec\rtens\lacarte\fixtures\resource\export\SelectionsResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\ConfigFixture;
@@ -15,7 +15,7 @@ use spec\rtens\lacarte\Specification;
  * @property UserFixture user <-
  * @property TimeFixture time <-
  * @property FileFixture file <-
- * @property SelectionsComponentFixture component <-
+ * @property SelectionsResourceFixture component <-
  */
 class SelectionsOfTheDayTest extends Specification {
 

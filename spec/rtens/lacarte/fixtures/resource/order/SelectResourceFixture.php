@@ -1,9 +1,9 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\model\Order;
 use rtens\lacarte\web\order\SelectResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use watoki\collections\Map;
@@ -13,7 +13,7 @@ use watoki\collections\Map;
  * @property UserFixture user <-
  * @property OrderFixture order <-
  */
-class SelectComponentFixture extends ResourceFixture {
+class SelectResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 

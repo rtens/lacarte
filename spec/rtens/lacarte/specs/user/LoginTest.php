@@ -1,16 +1,15 @@
 <?php
 namespace spec\rtens\lacarte\specs\user;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\user\LoginComponentFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
+use spec\rtens\lacarte\fixtures\resource\user\LoginResourceFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
  * @property UserFixture user <-
  * @property SessionFixture session <-
- * @property LoginComponentFixture component <-
+ * @property LoginResourceFixture component <-
  */
 class LoginTest extends Specification {
 

@@ -1,16 +1,16 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\model\Order;
 use rtens\lacarte\web\order\SelectionsResource;
-use spec\rtens\lacarte\fixtures\component\ResourceFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 
 /**
  * @property SelectionsResource component
  * @property OrderFixture order <-
  */
-class SelectionsComponentFixture extends ResourceFixture {
+class SelectionsResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
