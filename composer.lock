@@ -102,12 +102,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/collections.git",
-                "reference": "4c2f4359cd27035e9ff13ec4c24cfb4baa62865c"
+                "reference": "46ade689d65d40e3766b42ad4a4b5cd071076ba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/collections/zipball/4c2f4359cd27035e9ff13ec4c24cfb4baa62865c",
-                "reference": "4c2f4359cd27035e9ff13ec4c24cfb4baa62865c",
+                "url": "https://api.github.com/repos/watoki/collections/zipball/46ade689d65d40e3766b42ad4a4b5cd071076ba8",
+                "reference": "46ade689d65d40e3766b42ad4a4b5cd071076ba8",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
                 "data structure",
                 "watoki"
             ],
-            "time": "2013-10-18 05:16:42"
+            "time": "2013-10-25 10:52:35"
         },
         {
             "name": "watoki/curir",
@@ -147,12 +147,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "af1ac0b1135d67ff8d4f0ec782b0441b30cdfe15"
+                "reference": "c3699aea1122eedf7f4d014dfc885ac71386f8bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/af1ac0b1135d67ff8d4f0ec782b0441b30cdfe15",
-                "reference": "af1ac0b1135d67ff8d4f0ec782b0441b30cdfe15",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/c3699aea1122eedf7f4d014dfc885ac71386f8bb",
+                "reference": "c3699aea1122eedf7f4d014dfc885ac71386f8bb",
                 "shasum": ""
             },
             "require": {
@@ -189,7 +189,7 @@
                 "routing",
                 "watoki"
             ],
-            "time": "2013-10-25 10:45:10"
+            "time": "2013-11-07 09:01:29"
         },
         {
             "name": "watoki/dom",
@@ -241,12 +241,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/factory.git",
-                "reference": "55ba6a8a3b7cffe768f0fc0128709cf20fe5a787"
+                "reference": "8ee546be14261f6bb611bd4791d27ca6fc470a9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/factory/zipball/55ba6a8a3b7cffe768f0fc0128709cf20fe5a787",
-                "reference": "55ba6a8a3b7cffe768f0fc0128709cf20fe5a787",
+                "url": "https://api.github.com/repos/watoki/factory/zipball/8ee546be14261f6bb611bd4791d27ca6fc470a9a",
+                "reference": "8ee546be14261f6bb611bd4791d27ca6fc470a9a",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +280,7 @@
                 "dependency injection",
                 "watoki"
             ],
-            "time": "2013-10-25 11:08:15"
+            "time": "2013-11-06 22:03:54"
         },
         {
             "name": "watoki/smokey",
@@ -425,12 +425,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/tempan.git",
-                "reference": "2f549eb20cabdb8e59f50f2c019bc2acd3e012fe"
+                "reference": "c2a5d8a5a81e5b6a41425db544006fa7e338efc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/tempan/zipball/2f549eb20cabdb8e59f50f2c019bc2acd3e012fe",
-                "reference": "2f549eb20cabdb8e59f50f2c019bc2acd3e012fe",
+                "url": "https://api.github.com/repos/watoki/tempan/zipball/c2a5d8a5a81e5b6a41425db544006fa7e338efc7",
+                "reference": "c2a5d8a5a81e5b6a41425db544006fa7e338efc7",
                 "shasum": ""
             },
             "require": {
@@ -445,7 +445,7 @@
                     "spec\\watoki\\tempan": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -464,7 +464,7 @@
                 "template animation",
                 "watoki"
             ],
-            "time": "2013-04-24 10:11:06"
+            "time": "2013-10-31 22:35:07"
         }
     ],
     "packages-dev": [
@@ -474,12 +474,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
+                "reference": "10c5b2c8b72a801eaad0031cd6a6a3686909c5a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
-                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/10c5b2c8b72a801eaad0031cd6a6a3686909c5a9",
+                "reference": "10c5b2c8b72a801eaad0031cd6a6a3686909c5a9",
                 "shasum": ""
             },
             "require": {
@@ -527,7 +527,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-09-10 08:14:32"
+            "time": "2013-11-01 09:17:11"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -718,12 +718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "598a467a7d234dd78788cd72d5fd58105a1dfd0e"
+                "reference": "236f65cc97d6beaa8fcb8a27b19bd278f3912677"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/598a467a7d234dd78788cd72d5fd58105a1dfd0e",
-                "reference": "598a467a7d234dd78788cd72d5fd58105a1dfd0e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/236f65cc97d6beaa8fcb8a27b19bd278f3912677",
+                "reference": "236f65cc97d6beaa8fcb8a27b19bd278f3912677",
                 "shasum": ""
             },
             "require": {
@@ -784,7 +784,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 23:32:19"
+            "time": "2013-11-06 01:58:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -947,12 +947,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/scrut.git",
-                "reference": "98e1ae2f4c991d29328022d80e7c3f03a8acf552"
+                "reference": "0ee68b7f7987b803fd0a8f926217f3eccb17620c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/scrut/zipball/98e1ae2f4c991d29328022d80e7c3f03a8acf552",
-                "reference": "98e1ae2f4c991d29328022d80e7c3f03a8acf552",
+                "url": "https://api.github.com/repos/watoki/scrut/zipball/0ee68b7f7987b803fd0a8f926217f3eccb17620c",
+                "reference": "0ee68b7f7987b803fd0a8f926217f3eccb17620c",
                 "shasum": ""
             },
             "require": {
@@ -986,7 +986,7 @@
                 "test",
                 "watoki"
             ],
-            "time": "2013-09-15 14:34:30"
+            "time": "2013-11-06 22:03:54"
         }
     ],
     "aliases": [

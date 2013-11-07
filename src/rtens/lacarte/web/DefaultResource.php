@@ -2,6 +2,7 @@
 namespace rtens\lacarte\web;
 
 use rtens\lacarte\web\common\MenuResource;
+use rtens\lacarte\WebResource;
 use watoki\curir\http\Path;
 use watoki\curir\http\Request;
 use watoki\curir\http\Url;
@@ -25,10 +26,10 @@ abstract class DefaultResource extends DynamicResource {
                 try {
                     $this->login($request->getParameters()->get('key'));
                 } catch (\Exception $e) {
-                    return $this->redirectToLogin();
+                    return $this->redirectToLogin($request);
                 }
             } else if (!$this->isLoggedIn()) {
-                return $this->redirectToLogin();
+                return $this->redirectToLogin($request);
             }
         }
 
@@ -67,7 +68,7 @@ abstract class DefaultResource extends DynamicResource {
 
     protected function assembleModel($model = array()) {
         $menu = $this->factory->getInstance(MenuResource::$CLASS, array(
-            'name' => 'menu',
+            'url' => $this->getUrl(),
             'parent' => $this
         ));
         return array_merge(array(
@@ -77,8 +78,9 @@ abstract class DefaultResource extends DynamicResource {
         ), $model);
     }
 
-    protected function redirectToLogin() {
-        return new Redirecter(Url::parse($this->getRoot()->getRoute()->toString() . '/user/login.html'));
+    private function redirectToLogin(Request $request) {
+        $redirecter = new Redirecter(Url::parse($this->getAncestor(WebResource::$CLASS)->getUrl('user/login.html')));
+        return $redirecter->createResponse($this, $request);
     }
 
     protected function requiresLogin() {

@@ -1,7 +1,9 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\resource;
 
+use rtens\lacarte\WebResource;
 use spec\rtens\lacarte\Specification;
+use watoki\curir\http\Url;
 use watoki\curir\responder\Presenter;
 use watoki\curir\Responder;
 use watoki\curir\responder\Redirecter;
@@ -20,9 +22,14 @@ abstract class ResourceFixture extends Fixture {
     public function __construct(Specification $spec, Factory $factory) {
         parent::__construct($spec, $factory);
 
-        $this->component = $factory->getInstance($this->getComponentClass(), array(
-            'name' => '',
+        $root = $factory->getInstance(WebResource::$CLASS, array(
+            'url' => Url::parse('http://lacarte'),
             'parent' => null
+        ));
+
+        $this->component = $factory->getInstance($this->getComponentClass(), array(
+            'url' => Url::parse('http://lacarte'),
+            'parent' => $root
         ));
     }
 

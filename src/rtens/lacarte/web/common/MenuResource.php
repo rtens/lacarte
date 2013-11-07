@@ -2,6 +2,7 @@
 namespace rtens\lacarte\web\common;
  
 use rtens\lacarte\Presenter;
+use rtens\lacarte\WebResource;
 use watoki\curir\resource\DynamicResource;
 use watoki\dom\Element;
 
@@ -13,12 +14,10 @@ class MenuResource extends DynamicResource {
     protected $session;
 
     public function doGet() {
-        $root = $this->getRoot();
-
         return new Presenter(array(
             'adminOnly' => $this->session->has('admin'),
-            'relative' => function (Element $e) use ($root) {
-                    $e->setAttribute('src', '/' . $root->getRoute()->toString() . '/common/' . $e->getAttribute('src')->getValue());
+            'relative' => function (Element $e) {
+                    $e->setAttribute('src', $this->getAncestor(WebResource::$CLASS)->getUrl('common/' . $e->getAttribute('src')->getValue()));
                     return true;
                 }
         ));

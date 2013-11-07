@@ -27,7 +27,7 @@ class FileRepository {
 
     public function getUserAvatarUrl($user, Resource $root) {
         $file = $this->exists('avatars/' . $user->id . '.jpg') ? $user->id . '.jpg' : 'default.png';
-        return $this->config->getHost() . rtrim('/' . $root->getRoute()->toString(), '/'). '/user/avatars/' . $file;
+        return $root->getUrl("user/avatars/$file")->toString();
     }
 
     public function moveUploadedFile($from, $to) {

@@ -6,6 +6,7 @@ use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\Presenter;
+use rtens\lacarte\WebResource;
 use watoki\curir\resource\DynamicResource;
 
 class SelectionsResource extends DynamicResource {
@@ -107,7 +108,7 @@ class SelectionsResource extends DynamicResource {
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
+						'avatar' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS)),
 						'yielded' => false
                     )
                 );

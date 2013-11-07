@@ -4,6 +4,7 @@ namespace rtens\lacarte\web\user;
 use rtens\lacarte\model\User;
 use rtens\lacarte\Presenter;
 use rtens\lacarte\web\DefaultResource;
+use rtens\lacarte\WebResource;
 use watoki\curir\http\Url;
 use watoki\curir\responder\Redirecter;
 
@@ -147,8 +148,8 @@ class ListResource extends DefaultResource {
                     'href' => 'list.html?method=delete&user=' . $user->id
                 ),
                 'avatar' => array(
-                    'src' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
-                    'href' => $this->files->getUserAvatarUrl($user, $this->getRoot()),
+                    'src' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS)),
+                    'href' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS)),
                 )
             );
         }
