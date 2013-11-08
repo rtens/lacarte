@@ -3,12 +3,12 @@
 
 namespace spec\rtens\lacarte\fixtures\component\order;
 
-use rtens\lacarte\web\order\TodaysDishesComponent;
+use rtens\lacarte\web\order\TodaysDishesResource;
 use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 
 /**
- * @property TodaysDishesComponent component
+ * @property TodaysDishesResource component
  */
 class TodaysDishesFixture extends ResourceFixture {
 
@@ -26,6 +26,6 @@ class TodaysDishesFixture extends ResourceFixture {
 
     protected function getComponentClass()
     {
-        return TodaysDishesComponent::$CLASS;
+        return TodaysDishesResource::$CLASS;
     }
 }

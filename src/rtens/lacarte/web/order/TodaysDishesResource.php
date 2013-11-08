@@ -4,9 +4,10 @@ namespace rtens\lacarte\web\order;
 
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\OrderInteractor;
+use rtens\lacarte\Presenter;
 use rtens\lacarte\web\DefaultResource;
 
-class TodaysDishesComponent extends DefaultResource {
+class TodaysDishesResource extends DefaultResource {
 
     static $CLASS = __CLASS__;
 
@@ -14,7 +15,7 @@ class TodaysDishesComponent extends DefaultResource {
     public $orderInteractor;
 
     public function doGet() {
-        return $this->assembleModel();
+        return new Presenter($this->assembleModel());
     }
 
     protected function assembleModel($model = array()) {
