@@ -33,20 +33,6 @@ class SelectionStore extends Store {
         $this->updateEntity($selection, 'selections');
     }
 
-    public function readByUserAndDate($userId, Datetime $date) {
-        var_dump($this->inflateAll($this->db->readAll('
-            SELECT * FROM
-              (SELECT * FROM selections AS SEL
-                    JOIN menus AS MEN ON SEL.menuId=MEN.id) AS SELMEN
-                    JOIN dishes AS DIS ON SELMEN.menuId = DIS.menuId
-                    WHERE SELMEN.userId = ?
-                    AND SELMEN.date = ?
-                    '
-            , array($userId, $date->format('Y-m-d 00:00:00'))))
-        );
-
-    }
-
     public function readAllByDishId($dishId) {
         return $this->inflateAll($this->db->readAll('SELECT * FROM selections WHERE dishId = ?', array($dishId)));
     }

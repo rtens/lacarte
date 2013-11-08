@@ -15,7 +15,7 @@ class TodaysDishesFixture extends ResourceFixture {
     public static $CLASS = __CLASS__;
 
     public function whenIOpenThePage() {
-        $this->model = $this->component->doGet();
+        $this->responder = $this->component->doGet();
     }
 
 
@@ -23,9 +23,17 @@ class TodaysDishesFixture extends ResourceFixture {
         $this->spec->assertCount($int, $this->getField('dish'));
     }
 
+    public function thenThereShouldBeAMessageContaining($string) {
+        $this->spec->assertContains($string, $this->getField('dish'));
+    }
 
-    protected function getComponentClass()
-    {
+    public function thenDish_ShouldBe($int, $string) {
+        $int--;
+        $this->spec->assertEquals($string, $this->getField("dish/$int/_"));
+    }
+
+
+    protected function getComponentClass() {
         return TodaysDishesResource::$CLASS;
     }
 }

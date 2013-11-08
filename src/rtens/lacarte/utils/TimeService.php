@@ -26,4 +26,8 @@ class TimeService {
         return $this->now()->diff($then);
     }
 
+    public function today() {
+        return $this->fromString('today');
+    }
+
 }

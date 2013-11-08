@@ -5,36 +5,30 @@ namespace rtens\lacarte\web\order;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\Presenter;
+use rtens\lacarte\utils\TimeService;
 use rtens\lacarte\web\DefaultResource;
 
 class TodaysDishesResource extends DefaultResource {
 
     static $CLASS = __CLASS__;
 
+    /** @var TimeService <- */
+    public $time;
+
     /** @var \rtens\lacarte\OrderInteractor <- */
     public $orderInteractor;
 
     public function doGet() {
-        return new Presenter($this->assembleModel());
-    }
-
-    protected function assembleModel($model = array()) {
-        $nextTuesday = new \DateTime('next tuesday');
-
-        return parent::assembleModel(
-            array_merge(
-                array(
-                    'dish' => $this->getDishes(),
-                    'date' => $nextTuesday->format('Y-m-d'),
-                    'error' => null
-                ),
-                $model
-            )
+        $model = array(
+            'dish' => $this->getDishes(),
+            'date' => $this->time->today()->format('Y-m-d'),
+            'error' => null
         );
+        return new Presenter($model);
     }
 
     public function getDishes() {
-        $todaysMenu = $this->orderInteractor->readAllMenusByDate(new \DateTime('next tuesday'))->toArray();
+        $todaysMenu = $this->orderInteractor->readAllMenusByDate($this->time->today())->toArray();
         if (empty($todaysMenu)) {
             return 'There is no food today :(';
         }

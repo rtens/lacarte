@@ -4,7 +4,6 @@
 namespace spec\rtens\lacarte\specs\order;
 
 
-use spec\rtens\lacarte\fixtures\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\component\order\TodaysDishesFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
@@ -19,6 +18,12 @@ use spec\rtens\lacarte\Specification;
  */
 class DisplayTodaysDishesTest extends Specification {
 
+    function testNoFoodToday() {
+        $this->session->givenIAmLoggedAsTheUser('Homer');
+        $this->component->whenIOpenThePage();
+        $this->component->thenThereShouldBeAMessageContaining('no food');
+    }
+
     function testShowTodaysDishes() {
         $this->session->givenIAmLoggedAsTheUser('Homer');
         $this->time->givenNowIs('2013-04-04 18:00:00');
@@ -29,6 +34,9 @@ class DisplayTodaysDishesTest extends Specification {
 
         $this->component->whenIOpenThePage();
 
-        $this->component->thenThereShouldBe_Dishes('3');
+        $this->component->thenThereShouldBe_Dishes(3);
+        $this->component->thenDish_ShouldBe(1, 'Dish 1');
+        $this->component->thenDish_ShouldBe(2, 'Dish 2');
+        $this->component->thenDish_ShouldBe(3, 'Dish 3');
     }
 }
