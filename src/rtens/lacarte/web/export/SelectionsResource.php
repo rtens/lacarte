@@ -105,11 +105,11 @@ class SelectionsResource extends DynamicResource {
 
                 $selections[$selection->id] = array(
                     'dish' => intval($selection->getDishId()),
+                    'yielded' => false,
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS)),
-						'yielded' => false
+						'avatar' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS))
                     )
                 );
             } catch (NotFoundException $e) {}
