@@ -1,13 +1,13 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\user;
+namespace spec\rtens\lacarte\fixtures\resource\user;
 
-use rtens\lacarte\web\user\LoginComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\user\LoginResource;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 /**
- * @property LoginComponent component
+ * @property LoginResource component
  */
-class LoginComponentFixture extends ComponentFixture {
+class LoginResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -26,7 +26,7 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function whenILogInAsAdmin() {
-        $this->model = $this->component->doLoginAdmin($this->email, $this->password);
+        $this->responder = $this->component->doLoginAdmin($this->email, $this->password);
     }
 
     public function thenTheErrorMessageShouldBe($msg) {
@@ -34,11 +34,11 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function thenTheAdminEmailFieldShouldContain($string) {
-        $this->spec->assertEquals($string, $this->getField('email'));
+        $this->spec->assertEquals($string, $this->getField('email/value'));
     }
 
     public function whenIOpenThePage() {
-        $this->model = $this->component->doGet();
+        $this->responder = $this->component->doGet();
     }
 
     public function thenThereShouldBeNoErrorMessage() {
@@ -46,7 +46,7 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function whenILogOut() {
-        $this->model = $this->component->doLogout();
+        $this->responder = $this->component->doLogout();
     }
 
     public function givenIHaveEnterTheKey($string) {
@@ -54,10 +54,10 @@ class LoginComponentFixture extends ComponentFixture {
     }
 
     public function whenILogInAsUser() {
-        $this->model = $this->component->doPost($this->key);
+        $this->responder = $this->component->doPost($this->key);
     }
 
     protected function getComponentClass() {
-        return LoginComponent::$CLASS;
+        return LoginResource::$CLASS;
     }
 }

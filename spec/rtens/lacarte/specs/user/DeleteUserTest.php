@@ -1,16 +1,15 @@
 <?php
 namespace spec\rtens\lacarte\specs\user;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\user\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
+use spec\rtens\lacarte\fixtures\resource\user\ListResourceFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
  * @property UserFixture user <-
  * @property SessionFixture session <-
- * @property ListComponentFixture component <-
+ * @property ListResourceFixture component <-
  */
 class DeleteUserTest extends Specification {
 

@@ -1,10 +1,9 @@
 <?php
 namespace spec\rtens\lacarte\specs\order;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\order\SelectionsComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
+use spec\rtens\lacarte\fixtures\resource\order\SelectionsResourceFixture;
 use spec\rtens\lacarte\fixtures\service\MailFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
@@ -14,7 +13,7 @@ use spec\rtens\lacarte\Specification;
  * @property SessionFixture session <-
  * @property UserFixture user <-
  * @property MailFixture mail <-
- * @property SelectionsComponentFixture component <-
+ * @property SelectionsResourceFixture component <-
  */
 class SendMailTest extends Specification {
 

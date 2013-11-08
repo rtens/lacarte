@@ -1,19 +1,19 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\model\Order;
-use rtens\lacarte\web\order\SelectComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\order\SelectResource;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use watoki\collections\Map;
 
 /**
- * @property SelectComponent component
+ * @property SelectResource component
  * @property UserFixture user <-
  * @property OrderFixture order <-
  */
-class SelectComponentFixture extends ComponentFixture {
+class SelectResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -24,11 +24,11 @@ class SelectComponentFixture extends ComponentFixture {
     private $currentOrder;
 
     public function whenIOpenThePageForOrder($string) {
-        $this->model = $this->component->doGet($this->order->getOrder($string)->id);
+        $this->responder = $this->component->doGet($this->order->getOrder($string)->id);
     }
 
     public function whenIOpenThePageForOrderForTheUser($orderName, $userName) {
-        $this->model = $this->component->doGet($this->order->getOrder($orderName)->id, $this->user->getUser($userName));
+        $this->responder = $this->component->doGet($this->order->getOrder($orderName)->id, $this->user->getUser($userName));
     }
 
     public function thenTheDisplayedTimeLeftShouldBe($string) {
@@ -106,11 +106,11 @@ class SelectComponentFixture extends ComponentFixture {
     }
 
     public function whenISaveMySelections() {
-        $this->model = $this->component->doPost($this->currentOrder->id, new Map($this->selections));
+        $this->responder = $this->component->doPost($this->currentOrder->id, new Map($this->selections));
     }
 
     protected function getComponentClass() {
-        return SelectComponent::$CLASS;
+        return SelectResource::$CLASS;
     }
 
     public function thenTheErrorMessageShouldBe($value) {

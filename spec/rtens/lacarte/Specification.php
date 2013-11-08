@@ -12,12 +12,8 @@ abstract class Specification extends \watoki\scrut\Specification {
     /** @var MockFactory */
     public $mockFactory;
 
-    protected function setUp() {
-        $this->mockFactory = new MockFactory();
-        parent::setUp();
-    }
-
     protected function loadDependencies() {
+        $this->mockFactory = new MockFactory();
 
         $userFilesDir = __DIR__ . '/__userfiles';
         $this->cleanUp($userFilesDir);

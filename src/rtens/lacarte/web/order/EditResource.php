@@ -1,43 +1,32 @@
 <?php
 namespace rtens\lacarte\web\order;
  
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
-use rtens\lacarte\web\DefaultComponent;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
 use watoki\collections\Set;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class EditComponent extends DefaultComponent {
+class EditResource extends DefaultResource {
 
     public static $CLASS = __CLASS__;
 
+    /** @var \rtens\lacarte\OrderInteractor <- */
     private $orderInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-        UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor) {
-
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-
-        $this->orderInteractor = $orderInteractor;
-    }
 
     public function doGet($order) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('list.html'));
+            return new Redirecter(Url::parse('list.html'));
         }
-        return $this->assembleMyModel($order);
+        return new Presenter($this->assembleMyModel($order));
     }
 
     public function doPost($order, $dish) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('list.html'));
+            return new Redirecter(Url::parse('list.html'));
         }
 
         $dishes = new Set();
@@ -49,13 +38,13 @@ class EditComponent extends DefaultComponent {
 
         try {
             $this->orderInteractor->updateDishes($dishes);
-            return $this->assembleMyModel($order, array(
+            return new Presenter($this->assembleMyModel($order, array(
                 'success' => 'Order saved'
-            ));
+            )));
         } catch (\Exception $e) {
-            return $this->assembleMyModel($order, array(
+            return new Presenter($this->assembleMyModel($order, array(
                 'error' => $e->getMessage()
-            ));
+            )));
         }
     }
 

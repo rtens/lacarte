@@ -1,18 +1,17 @@
 <?php
-namespace spec\rtens\lacarte\fixtures\component\user;
+namespace spec\rtens\lacarte\fixtures\resource\user;
 
-use rtens\lacarte\web\user\ListComponent;
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use rtens\lacarte\web\user\ListResource;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
 use spec\rtens\lacarte\fixtures\service\FileFixture;
 
 /**
- * @property ListComponent component
+ * @property ListResource component
  * @property UserFixture user <-
  * @property FileFixture files <-
  */
-class ListComponentFixture extends ComponentFixture {
+class ListResourceFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
@@ -29,15 +28,15 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function whenICreateANewUser() {
-        $this->model = $this->component->doPost($this->newName, $this->newEmail);
+        $this->responder = $this->component->doPost($this->newName, $this->newEmail);
     }
 
     public function whenIAccessTheUserList() {
-        $this->model = $this->component->doGet();
+        $this->responder = $this->component->doGet();
     }
 
     public function whenIDeleteTheUser($name) {
-        $this->model = $this->component->doDelete($this->user->getUser($name)->id);
+        $this->responder = $this->component->doDelete($this->user->getUser($name)->id);
     }
 
     public function thenTheSuccessMessageShouldBe($string) {
@@ -70,7 +69,7 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function givenIAmEditingTheUser($userName) {
-        $this->model = $this->component->doEdit($this->user->getUser($userName)->id);
+        $this->responder = $this->component->doEdit($this->user->getUser($userName)->id);
         $this->newEmail = $this->getField('editing/email/value');
         $this->newName = $this->getField('editing/name/value');
 
@@ -81,7 +80,7 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     public function whenISaveMyChanges() {
-        $this->model = $this->component->doSave($this->newName, $this->newEmail, $this->getField('editing/id/value'));
+        $this->responder = $this->component->doSave($this->newName, $this->newEmail, $this->getField('editing/id/value'));
     }
 
     public function thenThereShouldBeNoSuccessMessage() {
@@ -113,6 +112,6 @@ class ListComponentFixture extends ComponentFixture {
     }
 
     protected function getComponentClass() {
-        return ListComponent::$CLASS;
+        return ListResource::$CLASS;
     }
 }

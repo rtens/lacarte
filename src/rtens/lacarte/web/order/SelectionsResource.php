@@ -1,22 +1,18 @@
 <?php
 namespace rtens\lacarte\web\order;
 
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\NotFoundException;
-use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\User;
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class SelectionsComponent extends DefaultComponent {
+class SelectionsResource extends DefaultResource {
 
     static $CLASS = __CLASS__;
 
@@ -26,25 +22,20 @@ class SelectionsComponent extends DefaultComponent {
     /** @var Menu[] Cache for Menus */
     private $menus = array();
 
+    /** @var \rtens\lacarte\OrderInteractor <- */
     private $orderInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->orderInteractor = $orderInteractor;
-    }
 
     public function doGet($order) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('list.html'));
+            return new Redirecter(Url::parse('list.html'));
         }
 
-        return $this->assembleMyModel($order);
+        return new Presenter($this->assembleMyModel($order));
     }
 
     public function doSendMail($order, $subject, $body, $onlyWithout = false) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('list.html'));
+            return new Redirecter(Url::parse('list.html'));
         }
 
         $emailModel = array(
@@ -58,22 +49,22 @@ class SelectionsComponent extends DefaultComponent {
         );
 
         if (!trim($subject) || !trim($body)) {
-            return $this->assembleMyModel($order, array(
+            return new Presenter($this->assembleMyModel($order, array(
                 'error' => 'Please fill out subject and body to send an email',
                 'email' => $emailModel
-            ));
+            )));
         }
 
         try {
             $this->orderInteractor->sendMail($this->orderInteractor->readById($order), $subject, $body, $onlyWithout);
-            return $this->assembleMyModel($order, array(
+            return new Presenter($this->assembleMyModel($order, array(
                 'success' => 'Email was sent to users' . ($onlyWithout ? ' without selections' : '')
-            ));
+            )));
         } catch (\Exception $e) {
-            return $this->assembleMyModel($order, array(
+            return new Presenter($this->assembleMyModel($order, array(
                 'error' => $e->getMessage(),
                 'email' => $emailModel
-            ));
+            )));
         }
     }
 

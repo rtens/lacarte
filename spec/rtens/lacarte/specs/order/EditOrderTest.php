@@ -1,16 +1,15 @@
 <?php
 namespace spec\rtens\lacarte\specs\order;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\order\EditComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
+use spec\rtens\lacarte\fixtures\resource\order\EditResourceFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
  * @property OrderFixture order <-
  * @property SessionFixture session <-
- * @property EditComponentFixture component <-
+ * @property EditResourceFixture component <-
  */
 class EditOrderTest extends Specification {
 
