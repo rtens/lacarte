@@ -2,51 +2,29 @@
 namespace rtens\lacarte\web\order;
 
 
-use rtens\lacarte\core\Session;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\controller\Module;
-use watoki\curir\Path;
-use watoki\factory\Factory;
+use rtens\lacarte\web\DefaultResource;
 
-class TodaysDishesComponent extends DefaultComponent {
+class TodaysDishesComponent extends DefaultResource {
 
-    /**
-     * @var \DateTime
-     */
-    public $time;
+    static $CLASS = __CLASS__;
 
-    /**
-     * @var \rtens\lacarte\OrderInteractor
-     */
+    /** @var \rtens\lacarte\OrderInteractor <- */
     public $orderInteractor;
-
-    function __construct(
-        Factory $factory,
-        Path $route, Module $parent = null,
-        UserInteractor $userInteractor,
-        Session $session,
-        OrderInteractor $orderInteractor
-    ) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-
-        $this->orderInteractor = $orderInteractor;
-        $this->time = new \DateTime('next tuesday');
-
-    }
 
     public function doGet() {
         return $this->assembleModel();
     }
 
     protected function assembleModel($model = array()) {
+        $nextTuesday = new \DateTime('next tuesday');
+
         return parent::assembleModel(
             array_merge(
                 array(
                     'dish' => $this->getDishes(),
-                    'date' => $this->time->format('Y-m-d'),
+                    'date' => $nextTuesday->format('Y-m-d'),
                     'error' => null
                 ),
                 $model
@@ -55,7 +33,7 @@ class TodaysDishesComponent extends DefaultComponent {
     }
 
     public function getDishes() {
-        $todaysMenu = $this->orderInteractor->readAllMenusByDate($this->time)->toArray();
+        $todaysMenu = $this->orderInteractor->readAllMenusByDate(new \DateTime('next tuesday'))->toArray();
         if (empty($todaysMenu)) {
             return 'There is no food today :(';
         }

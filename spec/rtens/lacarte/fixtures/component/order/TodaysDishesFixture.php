@@ -3,15 +3,14 @@
 
 namespace spec\rtens\lacarte\fixtures\component\order;
 
-
 use rtens\lacarte\web\order\TodaysDishesComponent;
-use spec\rtens\lacarte\fixtures\component\ComponentFixture;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 
 /**
  * @property TodaysDishesComponent component
  */
-class TodaysDishesFixture extends ComponentFixture {
+class TodaysDishesFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
