@@ -2,41 +2,48 @@
 namespace rtens\lacarte\web\order;
 
 use rtens\lacarte\core\NotFoundException;
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Session;
-use rtens\lacarte\utils\TimeService;
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class ListComponent extends DefaultComponent {
+class ListResource extends DefaultResource {
 
     public static $CLASS = __CLASS__;
 
-    private $time;
+    /** @var \rtens\lacarte\utils\TimeService <- */
+    protected $time;
 
-    private $orderInteractor;
-
-    function __construct(
-        Factory $factory,
-        Path $route,
-        Module $parent = null,
-        UserInteractor $userInteractor,
-        Session $session,
-        OrderInteractor $orderInteractor,
-        TimeService $time
-    ) {
-
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->orderInteractor = $orderInteractor;
-        $this->time = $time;
-    }
+    /** @var \rtens\lacarte\OrderInteractor <- */
+    protected $orderInteractor;
 
     public function doGet() {
-        return $this->assembleModel();
+        return new Presenter($this->assembleModel());
+    }
+
+    public function doPost($firstDay, $lastDay, $deadline) {
+        if (!$this->isAdmin()) {
+            return new Presenter($this->assembleModel(
+                array(
+                    'error' => 'Access denied.'
+                )
+            ));
+        }
+        try {
+            $order = $this->orderInteractor->createOrder(
+                $this->getAdminGroupId(),
+                new \DateTime($firstDay),
+                new \DateTime($lastDay),
+                new \DateTime($deadline)
+            );
+            return new Redirecter(Url::parse('edit.html?order=' . $order->id));
+        } catch (\Exception $e) {
+            return new Presenter($this->assembleModel(
+                array(
+                    'error' => $e->getMessage()
+                )
+            ));
+        }
     }
 
     protected function assembleModel($model = array()) {
@@ -48,8 +55,8 @@ class ListComponent extends DefaultComponent {
                     'lastDay' => array('value' => $this->time->fromString('friday next week')->format('Y-m-d')),
                     'deadline' => array(
                         'value' => $this->time->fromString('thursday this week 18:00')->format(
-                            'Y-m-d H:i'
-                        )
+                                'Y-m-d H:i'
+                            )
                     ),
                     'error' => null,
                     'today' => $this->getTodaysOrder()
@@ -57,31 +64,6 @@ class ListComponent extends DefaultComponent {
                 $model
             )
         );
-    }
-
-    public function doPost($firstDay, $lastDay, $deadline) {
-        if (!$this->isAdmin()) {
-            return $this->assembleModel(
-                array(
-                    'error' => 'Access denied.'
-                )
-            );
-        }
-        try {
-            $order = $this->orderInteractor->createOrder(
-                $this->getAdminGroupId(),
-                new \DateTime($firstDay),
-                new \DateTime($lastDay),
-                new \DateTime($deadline)
-            );
-            return $this->redirect(Url::parse('edit.html?order=' . $order->id));
-        } catch (\Exception $e) {
-            return $this->assembleModel(
-                array(
-                    'error' => $e->getMessage()
-                )
-            );
-        }
     }
 
     private function assembleOrders() {

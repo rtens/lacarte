@@ -1,48 +1,33 @@
 <?php
 namespace rtens\lacarte\web\export;
 
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
 use rtens\lacarte\core\NotFoundException;
-use rtens\lacarte\core\Session;
-use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
 use rtens\lacarte\model\User;
-use rtens\lacarte\utils\CsvRenderer;
-use rtens\lacarte\web\DefaultComponent;
-use watoki\curir\Path;
-use watoki\curir\Url;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\web\DefaultResource;
+use watoki\curir\http\Url;
+use watoki\curir\responder\Redirecter;
 
-class DishesComponent extends DefaultComponent {
+class DishesResource extends DefaultResource {
 
     static $CLASS = __CLASS__;
-
-    const UTF8_BOM = "\xEF\xBB\xBF";
 
     /** @var array|User[] */
     private $userCache = array();
 
+    /** @var \rtens\lacarte\OrderInteractor <- */
     private $orderInteractor;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null,
-                         UserInteractor $userInteractor, Session $session, OrderInteractor $orderInteractor) {
-        parent::__construct($factory, $route, $parent, $userInteractor, $session);
-        $this->orderInteractor = $orderInteractor;
-
-        $this->rendererFactory->setRenderer('csv', CsvRenderer::$CLASS);
-    }
 
     public function doGet($order) {
         if (!$this->isAdmin()) {
-            return $this->redirect(Url::parse('../order/list.html'));
+            return new Redirecter(Url::parse('../order/list.html'));
         }
 
-        return array(
+        return new Presenter(array(
             'content' => $this->assembleRows($this->orderInteractor->readById($order))
-        );
+        ));
     }
 
     private function assembleRows(Order $order) {
@@ -83,10 +68,6 @@ class DishesComponent extends DefaultComponent {
             $this->userCache[$userId] = $this->userInteractor->readById($userId);
         }
         return $this->userCache[$userId];
-    }
-
-    public function render($model) {
-        return self::UTF8_BOM . parent::render($model);
     }
 
 }

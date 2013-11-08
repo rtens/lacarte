@@ -1,9 +1,8 @@
 <?php
 namespace spec\rtens\lacarte\specs\order;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\order\ListComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
+use spec\rtens\lacarte\fixtures\resource\order\ListResourceFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\Specification;
@@ -12,7 +11,7 @@ use spec\rtens\lacarte\Specification;
  * @property TimeFixture time <-
  * @property OrderFixture order <-
  * @property SessionFixture session <-
- * @property ListComponentFixture component <-
+ * @property ListResourceFixture component <-
  */
 class ListOrdersTest extends Specification {
 

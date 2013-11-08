@@ -1,11 +1,10 @@
 <?php
 namespace spec\rtens\lacarte\specs\order;
 
-use rtens\mockster\MockFactory;
-use spec\rtens\lacarte\fixtures\component\order\SelectComponentFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\SelectionFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
+use spec\rtens\lacarte\fixtures\resource\order\SelectResourceFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\Specification;
@@ -16,7 +15,7 @@ use spec\rtens\lacarte\Specification;
  * @property OrderFixture order <-
  * @property SessionFixture session <-
  * @property UserFixture user <-
- * @property SelectComponentFixture component <-
+ * @property SelectResourceFixture component <-
  */
 class MakeSelectionTest extends Specification {
 

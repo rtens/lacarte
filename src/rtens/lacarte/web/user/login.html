@@ -20,15 +20,15 @@
         <h3 class="form-signin-heading">laCarte - tickets, please!</h3>
 
         <div class="input-append">
-            <input class="span3" type="text" name="key" placeholder="Your key"/>
+            <input class="span3" type="text" name="key" value="" property="key" placeholder="Your key"/>
             <input class="btn" type="submit" value="Go!"/>
         </div>
     </form>
 
     <h4>Admins only</h4>
 
-    <form class="form-inline form-admin" action="login.html?action=loginAdmin" method="post">
-        <input name="email" type="text" class="input-small span2" placeholder="Email"/>
+    <form class="form-inline form-admin" action="login.html?method=loginAdmin" method="post">
+        <input property="email" name="email" value="" type="text" class="input-small span2" placeholder="Email"/>
         <input name="password" type="password" class="input-small" placeholder="Password"/>
         <button type="submit" class="btn">Up!</button>
     </form>

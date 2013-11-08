@@ -39,3 +39,9 @@ a:hover {
 .btn-large {
     margin-top: 20px;
 }
+
+@media (max-width: 979px) {
+    table.span7 {
+        width: 100%
+    }
+}

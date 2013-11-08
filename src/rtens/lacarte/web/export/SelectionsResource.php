@@ -1,59 +1,47 @@
 <?php
 namespace rtens\lacarte\web\export;
  
-use rtens\lacarte\core\FileRepository;
-use rtens\lacarte\OrderInteractor;
-use rtens\lacarte\UserInteractor;
-use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
 use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
-use rtens\lacarte\utils\TimeService;
-use watoki\curir\Path;
-use watoki\curir\controller\Component;
-use watoki\curir\controller\Module;
-use watoki\factory\Factory;
+use rtens\lacarte\Presenter;
+use rtens\lacarte\WebResource;
+use watoki\curir\resource\DynamicResource;
 
-class SelectionsComponent extends Component {
+class SelectionsResource extends DynamicResource {
 
     public static $CLASS = __CLASS__;
 
+    /** @var \rtens\lacarte\core\Configuration <- */
     private $configuration;
 
+    /** @var \rtens\lacarte\utils\TimeService <- */
     private $time;
 
+    /** @var \rtens\lacarte\OrderInteractor <- */
     private $orderInteractor;
 
+    /** @var \rtens\lacarte\UserInteractor <- */
     private $userInteractor;
 
+    /** @var \rtens\lacarte\core\FileRepository <- */
     private $files;
-
-    function __construct(Factory $factory, Path $route, Module $parent = null, Configuration $config,
-                         TimeService $time, OrderInteractor $orderInteractor, UserInteractor $userInteractor,
-                         FileRepository $files) {
-        parent::__construct($factory, $route, $parent);
-        $this->configuration = $config;
-        $this->time = $time;
-        $this->orderInteractor = $orderInteractor;
-        $this->userInteractor = $userInteractor;
-        $this->files = $files;
-    }
 
     public function doGet($token, $date = null) {
         if ($token != $this->configuration->getApiToken()) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => 'Wrong token.'
-            ));
+            )));
         }
 
         if ($date) {
             try {
                 $date = new \DateTime($date);
             } catch (\Exception $e) {
-                return $this->assembleModel(array(
+                return new Presenter($this->assembleModel(array(
                     'error' => 'Could not parse date.'
-                ));
+                )));
             }
         } else {
             $date = $this->time->fromString('today');
@@ -62,19 +50,19 @@ class SelectionsComponent extends Component {
         $menus = $this->orderInteractor->readAllMenusByDate($date);
 
         if ($menus->isEmpty()) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => 'No menu found for given date.'
-            ));
+            )));
         } else if ($menus->count() > 1) {
-            return $this->assembleModel(array(
+            return new Presenter($this->assembleModel(array(
                 'error' => 'More than one menu found for given date.'
-            ));
+            )));
         }
 
-        return $this->assembleModel(array(
+        return new Presenter($this->assembleModel(array(
             'menu' => $this->assembleDishes($menus->one()),
             'selections' => $this->assembleSelections($menus->one())
-        ));
+        )));
     }
 
     private function assembleModel($model = array()) {
@@ -121,7 +109,7 @@ class SelectionsComponent extends Component {
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
-						'avatar' => $this->files->getUserAvatarUrl($user, $this->getRoot())
+						'avatar' => $this->files->getUserAvatarUrl($user, $this->getAncestor(WebResource::$CLASS))
                     )
                 );
             } catch (NotFoundException $e) {}
