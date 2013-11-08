@@ -1,6 +1,7 @@
 <?php
 namespace rtens\lacarte\model\stores;
 
+use DateTime;
 use rtens\lacarte\model\Selection;
 use watoki\collections\Set;
 
@@ -30,6 +31,20 @@ class SelectionStore extends Store {
 
     public function update(Selection $selection) {
         $this->updateEntity($selection, 'selections');
+    }
+
+    public function readByUserAndDate($userId, Datetime $date) {
+        var_dump($this->inflateAll($this->db->readAll('
+            SELECT * FROM
+              (SELECT * FROM selections AS SEL
+                    JOIN menus AS MEN ON SEL.menuId=MEN.id) AS SELMEN
+                    JOIN dishes AS DIS ON SELMEN.menuId = DIS.menuId
+                    WHERE SELMEN.userId = ?
+                    AND SELMEN.date = ?
+                    '
+            , array($userId, $date->format('Y-m-d 00:00:00'))))
+        );
+
     }
 
     public function readAllByDishId($dishId) {

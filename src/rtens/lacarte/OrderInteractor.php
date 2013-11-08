@@ -232,6 +232,10 @@ class OrderInteractor {
         return $this->menuStore->readAllByDate($date);
     }
 
+    public function readByUserAndDate($userId, $date) {
+        return $this->selectionStore->readByUserAndDate($userId, $date);
+    }
+
     /**
      * @param int $dishId
      * @return \watoki\collections\Set|Selection[]

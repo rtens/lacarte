@@ -6174,8 +6174,9 @@ a.badge:focus {
 .bigscreen {
     padding: 8px 35px 8px 14px;
     font-family: sans-serif;
-    line-height: 50px;
-    font-size: 46px;
+    line-height: 64px;
+    text-align: center;
+    font-size: 64px;
     margin-bottom: 20px;
     background-color: #dff0d8;
     border: 1px solid #fbeed5;
