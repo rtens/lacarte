@@ -17,7 +17,12 @@ class MenuResource extends DynamicResource {
         return new Presenter(array(
             'adminOnly' => $this->session->has('admin'),
             'relative' => function (Element $e) {
-                    $e->setAttribute('src', $this->getAncestor(WebResource::$CLASS)->getUrl('common/' . $e->getAttribute('src')->getValue()));
+                    foreach (array('src', 'href') as $attribute) {
+                        if ($e->getAttribute($attribute)) {
+                            $e->setAttribute($attribute, $this->getAncestor(WebResource::$CLASS)
+                                ->getUrl('common/' . $e->getAttribute($attribute)->getValue()));
+                        }
+                    }
                     return true;
                 }
         ));
