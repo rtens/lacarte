@@ -197,12 +197,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/dom.git",
-                "reference": "27e264be3fc2dd216b235744829513f3db49463a"
+                "reference": "6e7940dbca9e9008c18381eb0aa86ea10e304476"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/dom/zipball/27e264be3fc2dd216b235744829513f3db49463a",
-                "reference": "27e264be3fc2dd216b235744829513f3db49463a",
+                "url": "https://api.github.com/repos/watoki/dom/zipball/6e7940dbca9e9008c18381eb0aa86ea10e304476",
+                "reference": "6e7940dbca9e9008c18381eb0aa86ea10e304476",
                 "shasum": ""
             },
             "require": {
@@ -233,7 +233,7 @@
                 "parser",
                 "watoki"
             ],
-            "time": "2013-10-25 08:40:11"
+            "time": "2013-11-09 10:12:08"
         },
         {
             "name": "watoki/factory",
