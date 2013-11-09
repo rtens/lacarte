@@ -4,7 +4,7 @@
 namespace spec\rtens\lacarte\specs\order;
 
 
-use spec\rtens\lacarte\fixtures\component\order\TodaysDishesFixture;
+use spec\rtens\lacarte\fixtures\resource\order\TodaysDishesFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
 use spec\rtens\lacarte\fixtures\service\TimeFixture;

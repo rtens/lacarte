@@ -1,7 +1,7 @@
 <?php
 
 
-namespace spec\rtens\lacarte\fixtures\component\order;
+namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\web\order\TodaysDishesResource;
 use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
