@@ -4,7 +4,6 @@ namespace rtens\lacarte;
 use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
-use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
@@ -238,6 +237,14 @@ class OrderInteractor {
      */
     public function readAllSelectionsByDishId($dishId) {
         return $this->selectionStore->readAllByDishId($dishId);
+    }
+
+    /**
+     * @param int $selectionId
+     * @param boolean $yielded
+     */
+    public function yieldSelection($selectionId, $yielded) {
+        $selection = $this->selectionStore->readById($selectionId);
     }
 
 }

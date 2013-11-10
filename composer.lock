@@ -56,12 +56,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "7ec2f86df8a0164d1677368f43a4a548b80a1402"
+                "reference": "ba3a0f7e18c6942f9f501be218360bffba6a9bdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/7ec2f86df8a0164d1677368f43a4a548b80a1402",
-                "reference": "7ec2f86df8a0164d1677368f43a4a548b80a1402",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/ba3a0f7e18c6942f9f501be218360bffba6a9bdc",
+                "reference": "ba3a0f7e18c6942f9f501be218360bffba6a9bdc",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-25 05:58:50"
+            "time": "2013-11-08 00:49:34"
         },
         {
             "name": "watoki/collections",
@@ -147,12 +147,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "5ba6b384f387d24e9ff941bf319f3845d76482d9"
+                "reference": "bfbcbedddcc7c38cf0503749abb81c1718775f0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/5ba6b384f387d24e9ff941bf319f3845d76482d9",
-                "reference": "5ba6b384f387d24e9ff941bf319f3845d76482d9",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/bfbcbedddcc7c38cf0503749abb81c1718775f0f",
+                "reference": "bfbcbedddcc7c38cf0503749abb81c1718775f0f",
                 "shasum": ""
             },
             "require": {
@@ -189,7 +189,7 @@
                 "routing",
                 "watoki"
             ],
-            "time": "2013-11-10 12:48:21"
+            "time": "2013-11-10 15:59:52"
         },
         {
             "name": "watoki/dom",
@@ -351,7 +351,7 @@
                     "spec\\watoki\\stache": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
