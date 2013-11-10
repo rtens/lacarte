@@ -16,7 +16,7 @@ class SelectionResource extends DefaultResource {
     static $CLASS = __CLASS__;
 
     /** @var \rtens\lacarte\OrderInteractor <- */
-    private $orderInteractor;
+    public $orderInteractor;
 
     /**
      * @param int $order ID of order to display
@@ -68,13 +68,13 @@ class SelectionResource extends DefaultResource {
     }
 
     private function assembleActions(Order $order, Selection $selection) {
-        if (!$selection->getDishId()) {
+        if (!$this->orderInteractor->canYield($selection->id, $this->getLoggedInUser())) {
             return null;
         }
-        $href = '?order=' . $order->id . '&selection=' . $selection->id . '&method=';
+        $href = '?order=' . $order->id . '&selection=' . $selection->id . '&method=yield';
         return array(
-            'yield' => !$selection->isYielded() ? array('href' => $href . 'yield') : null,
-            'unyield' => $selection->isYielded() ? array('href' => $href . 'unyield') : null
+            'yield' => !$selection->isYielded() ? array('href' => $href) : null,
+            'unyield' => $selection->isYielded() ? array('href' => $href . '&yielded=false') : null
         );
     }
 
@@ -103,6 +103,26 @@ class SelectionResource extends DefaultResource {
             }
         }
         return $notSelected;
+    }
+
+    /**
+     * @param int $order
+     * @param int $selection
+     * @param bool $yielded
+     * @return Presenter
+     */
+    public function doYield($order, $selection, $yielded = true) {
+        if ($this->orderInteractor->canYield($selection, $this->getLoggedInUser())) {
+            $this->orderInteractor->yieldSelection($selection, $yielded);
+            $error = null;
+        } else {
+            $error = 'Could not update selection.';
+        }
+
+        return new Presenter($this->assembleModel(array(
+            'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
+            'error' => $error
+        )));
     }
 
 }

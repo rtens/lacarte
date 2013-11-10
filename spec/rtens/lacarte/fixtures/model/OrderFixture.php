@@ -191,8 +191,16 @@ class OrderFixture extends Fixture {
     }
 
     public function thenSelection_ShouldBeYielded($num) {
-        $selection = $this->selectionStore->readAll();
-        $this->spec->assertTrue($selection[$num - 1]->isYielded());
+        $selections = $this->selectionStore->readAll();
+        $this->spec->assertTrue($selections[$num - 1]->isYielded(), 'Selection not yielded');
+    }
+
+    public function thenNoSelectionShouldBeYielded() {
+        foreach ($this->selectionStore->readAll() as $selection) {
+            if ($selection->isYielded()) {
+                $this->spec->fail("Selection {$selection->id} is yielded");
+            }
+        }
     }
 }
 

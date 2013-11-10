@@ -4,16 +4,19 @@ namespace spec\rtens\lacarte\specs\order;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\resource\order\SelectionFixture;
 use spec\rtens\lacarte\fixtures\service\SessionFixture;
+use spec\rtens\lacarte\fixtures\service\TimeFixture;
 use spec\rtens\lacarte\Specification;
 
 /**
  * @property OrderFixture order <-
  * @property SessionFixture session <-
+ * @property TimeFixture time <-
  * @property SelectionFixture res <-
  */
 class MarkAsSickTest extends Specification {
 
     protected function background() {
+        $this->time->givenNowIs('2000-01-01 15:00');
         $this->session->givenIAmLoggedAsTheUser('Bart');
         $this->order->givenAnOrder_With_MenusEach_DishesStartingOn('Test Order', 3, 2, '2000-01-03');
         $this->order->givenDish_OfMenu_OfThisOrderIs(1, 1, 'Dish One A');
@@ -39,16 +42,36 @@ class MarkAsSickTest extends Specification {
         $this->res->thenSelection_ShouldNotBeYieldableNorUnYieldable(3);
     }
 
-    function testNotLoggedIn() {
-        $this->markTestIncomplete();
+    function testOtherUser() {
+        $this->res->whenIOpenThePageForOrder('Test Order');
+
+        $this->session->givenIAmLoggedAsTheUser('Lisa');
+        $this->order->given_SelectedNoDishForMenu_OfOrder('Lisa', 1, 'Test Order');
+        $this->order->given_SelectedNoDishForMenu_OfOrder('Lisa', 2, 'Test Order');
+        $this->order->given_SelectedNoDishForMenu_OfOrder('Lisa', 3, 'Test Order');
+
+        $this->res->whenIYieldSelection(1);
+
+        $this->order->thenNoSelectionShouldBeYielded();
+        $this->res->thenTheErrorMessageShouldBe('Could not update selection.');
     }
 
-    function testSucceed() {
-        $this->markTestIncomplete();
+    function testYield() {
+        $this->res->whenIOpenThePageForOrder('Test Order');
+        $this->res->whenIYieldSelection(1);
+
+        $this->res->thenThereShouldBeNoErrorMessage();
+        $this->order->thenSelection_ShouldBeYielded(1);
     }
 
     function testTooLate() {
-        $this->markTestIncomplete();
+        $this->time->givenNowIs('2001-01-04');
+
+        $this->res->whenIOpenThePageForOrder('Test Order');
+        $this->res->whenIYieldSelection(1);
+
+        $this->order->thenNoSelectionShouldBeYielded();
+        $this->res->thenTheErrorMessageShouldBe('Could not update selection.');
     }
 
 } 

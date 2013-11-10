@@ -13,7 +13,9 @@ use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
 use rtens\lacarte\model\stores\SelectionStore;
 use rtens\lacarte\model\stores\UserStore;
+use rtens\lacarte\model\User;
 use rtens\lacarte\utils\MailService;
+use rtens\lacarte\utils\TimeService;
 use watoki\collections\Collection;
 use watoki\collections\Liste;
 use watoki\collections\Set;
@@ -23,6 +25,9 @@ class OrderInteractor {
     const DISH_PER_MENU = 3;
 
     public static $CLASS = __CLASS__;
+
+    /** @var TimeService <- */
+    public $time;
 
     private $groupStore;
 
@@ -247,6 +252,25 @@ class OrderInteractor {
         $selection = $this->selectionStore->readById($selectionId);
         $selection->setYielded($yielded);
         $this->selectionStore->update($selection);
+    }
+
+    public function canYield($selectionId, User $user) {
+        $selection = $this->selectionStore->readById($selectionId);
+
+        if (!$selection->getDishId()) {
+            return false;
+        }
+
+        if ($selection->getUserId() != $user->id) {
+            return false;
+        }
+
+        $menu = $this->menuStore->readById($selection->getMenuId());
+        if ($this->time->today() > $menu->getDate()) {
+            return false;
+        }
+
+        return true;
     }
 
 }

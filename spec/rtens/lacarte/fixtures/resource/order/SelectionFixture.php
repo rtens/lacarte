@@ -1,6 +1,7 @@
 <?php
 namespace spec\rtens\lacarte\fixtures\resource\order;
 
+use rtens\lacarte\model\Order;
 use rtens\lacarte\web\order\SelectionResource;
 use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
@@ -13,8 +14,16 @@ class SelectionFixture extends ResourceFixture {
 
     public static $CLASS = __CLASS__;
 
+    /** @var Order|null */
+    private $currentOrder;
+
     public function whenIOpenThePageForOrder($orderName) {
-        $this->responder = $this->component->doGet($this->order->getOrder($orderName)->id);
+        $this->currentOrder = $this->order->getOrder($orderName);
+        $this->responder = $this->component->doGet($this->currentOrder->id);
+    }
+
+    public function whenIYieldSelection($selectionId) {
+        $this->responder = $this->component->doYield($this->currentOrder->id, $selectionId, true);
     }
 
     public function thenTheErrorMessageShouldBe($string) {
@@ -62,8 +71,8 @@ class SelectionFixture extends ResourceFixture {
 
     public function thenSelection_ShouldNotBeYieldableNorUnYieldable($int) {
         $int--;
-        $this->spec->assertNull($this->getField("order/selection/$int/action/unyield"));
-        $this->spec->assertNull($this->getField("order/selection/$int/action/yield"));
+        $this->spec->assertNull($this->getField("order/selection/$int/action"));
+        $this->spec->assertNull($this->getField("order/selection/$int/action"));
     }
 
     public function thenNotSelectedDish_OfSelection_ShouldBe($int, $int1, $string) {
