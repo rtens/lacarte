@@ -50,7 +50,7 @@ class SelectResource extends DefaultResource {
 
         if ($selection) {
             try {
-                $selections = $this->collectSelections($order, $selection, $user, $userId);
+                $selections = $this->collectSelections($order, new Map($selection), $user, $userId);
                 $this->orderInteractor->saveSelections($selections);
 
                 return new Presenter($this->assembleMyModel($orderEntity, $userId, array(
