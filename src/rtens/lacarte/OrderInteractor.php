@@ -4,7 +4,6 @@ namespace rtens\lacarte;
 use rtens\lacarte\core\Configuration;
 use rtens\lacarte\core\NotFoundException;
 use rtens\lacarte\model\Dish;
-use rtens\lacarte\model\Group;
 use rtens\lacarte\model\Menu;
 use rtens\lacarte\model\Order;
 use rtens\lacarte\model\Selection;
@@ -66,7 +65,7 @@ class OrderInteractor {
         if ($lastDay <= $firstDay) {
             throw new \InvalidArgumentException('First day must be before last day');
         } else if ($deadline > $firstDay) {
-            throw new \InvalidArgumentException('Deadline must be before or on first day');
+            throw new \InvalidArgumentException('Deadline must be before first day');
         }
 
         $name = $firstDay->format('d.m.Y') . ' - ' . $lastDay->format('d.m.Y');
@@ -238,6 +237,16 @@ class OrderInteractor {
      */
     public function readAllSelectionsByDishId($dishId) {
         return $this->selectionStore->readAllByDishId($dishId);
+    }
+
+    /**
+     * @param int $selectionId
+     * @param boolean $yielded
+     */
+    public function yieldSelection($selectionId, $yielded) {
+        $selection = $this->selectionStore->readById($selectionId);
+        $selection->setYielded($yielded);
+        $this->selectionStore->update($selection);
     }
 
 }

@@ -1,7 +1,6 @@
 <?php
 namespace rtens\lacarte\model\stores;
 
-use DateTime;
 use rtens\lacarte\model\Selection;
 use watoki\collections\Set;
 
@@ -15,6 +14,7 @@ class SelectionStore extends Store {
     protected function inflate($row) {
         $selection = new Selection($row['userId'], $row['menuId'], $row['dishId']);
         $selection->id = intval($row['id']);
+        $selection->setYielded((boolean) $row['yielded']);
         return $selection;
     }
 
@@ -35,5 +35,9 @@ class SelectionStore extends Store {
 
     public function readAllByDishId($dishId) {
         return $this->inflateAll($this->db->readAll('SELECT * FROM selections WHERE dishId = ?', array($dishId)));
+    }
+
+    public function readById($selectionId) {
+        return $this->inflate($this->db->readOne('SELECT * FROM selections WHERE id = ?', array($selectionId)));
     }
 }

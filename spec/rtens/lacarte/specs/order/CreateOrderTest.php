@@ -103,11 +103,11 @@ class CreateOrderTest extends Specification {
         $this->session->givenIAmLoggedInAsAdmin();
         $this->component->givenIHaveEnteredTheFirstDay('2013-04-03');
         $this->component->givenIHaveEnteredTheLastDay('2013-04-13');
-        $this->component->givenIHaveEnteredTheDeadline('2013-04-04 18:00');
+        $this->component->givenIHaveEnteredTheDeadline('2013-04-03 18:00');
 
         $this->component->whenICreateANewOrder();
 
-        $this->component->thenTheErrorMessageShouldBe('Deadline must be before or on first day');
+        $this->component->thenTheErrorMessageShouldBe('Deadline must be before first day');
     }
 
 }

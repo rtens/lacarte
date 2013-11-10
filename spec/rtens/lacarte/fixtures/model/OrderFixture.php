@@ -9,7 +9,6 @@ use rtens\lacarte\model\stores\DishStore;
 use rtens\lacarte\model\stores\MenuStore;
 use rtens\lacarte\model\stores\OrderStore;
 use rtens\lacarte\model\stores\SelectionStore;
-use rtens\lacarte\OrderInteractor;
 use spec\rtens\lacarte\Specification;
 use watoki\factory\Factory;
 use watoki\scrut\Fixture;
@@ -176,6 +175,15 @@ class OrderFixture extends Fixture {
 
     public function givenTheOrder($string) {
         $this->givenTheOrder_WithDeadline($string, 'tomorrow');
+    }
+
+    public function thenThereShouldBe_Selections($count) {
+        $this->spec->assertCount($count, $this->selectionStore->readAll());
+    }
+
+    public function thenSelection_ShouldBeYielded($num) {
+        $selection = $this->selectionStore->readAll();
+        $this->spec->assertTrue($selection[$num - 1]->isYielded());
     }
 }
 

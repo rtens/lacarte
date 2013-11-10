@@ -14,6 +14,9 @@ class Selection {
     /** @var int */
     private $dishId;
 
+    /** @var boolean */
+    private $yielded = false;
+
     function __construct($userId, $menuId, $dishId = 0) {
         $this->userId = $userId;
         $this->menuId = $menuId;
@@ -50,6 +53,20 @@ class Selection {
 
     public function hasDish() {
         return $this->dishId != 0;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isYielded() {
+        return $this->yielded;
+    }
+
+    /**
+     * @param boolean $yielded
+     */
+    public function setYielded($yielded = true) {
+        $this->yielded = $yielded;
     }
 
 }
