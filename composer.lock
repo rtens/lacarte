@@ -147,12 +147,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/curir.git",
-                "reference": "51062e0d0574dab45082fde7a6cf65288d4cfbef"
+                "reference": "5ba6b384f387d24e9ff941bf319f3845d76482d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/curir/zipball/51062e0d0574dab45082fde7a6cf65288d4cfbef",
-                "reference": "51062e0d0574dab45082fde7a6cf65288d4cfbef",
+                "url": "https://api.github.com/repos/watoki/curir/zipball/5ba6b384f387d24e9ff941bf319f3845d76482d9",
+                "reference": "5ba6b384f387d24e9ff941bf319f3845d76482d9",
                 "shasum": ""
             },
             "require": {
@@ -189,7 +189,7 @@
                 "routing",
                 "watoki"
             ],
-            "time": "2013-11-09 21:37:31"
+            "time": "2013-11-10 12:48:21"
         },
         {
             "name": "watoki/dom",
