@@ -245,6 +245,8 @@ class OrderInteractor {
      */
     public function yieldSelection($selectionId, $yielded) {
         $selection = $this->selectionStore->readById($selectionId);
+        $selection->setYielded($yielded);
+        $this->selectionStore->update($selection);
     }
 
 }

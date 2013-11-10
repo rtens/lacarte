@@ -14,6 +14,7 @@ class SelectionStore extends Store {
     protected function inflate($row) {
         $selection = new Selection($row['userId'], $row['menuId'], $row['dishId']);
         $selection->id = intval($row['id']);
+        $selection->setYielded((boolean) $row['yielded']);
         return $selection;
     }
 
