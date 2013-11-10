@@ -23,11 +23,17 @@
 
         <div property="order">
 
-        <h2>Your Selection for <span property="name">This Order</span></h2>
+        <h2>Your Selections for <span property="name">This Order</span></h2>
 
         <div property="selection">
             <h4 property="date">Monday, 24.04.2013</h4>
-            <p class="choice" property="dish">Some really tasty stuff you should try it</p>
+            <p class="choice">
+                <span property="dish">Some really tasty stuff you should try it</span>
+                <span property="action">
+                    <a property="yield" href="#" class="btn btn-success btn-small">Up for grabs</a>
+                    <a property="unyield" href="#" class="btn btn-danger btn-small">Take it back</a>
+                </span>
+            </p>
             <p style="color: silver" property="notSelected">Something you didn't want</p>
             <p style="color: silver" property="notSelected">Nor this</p>
         </div>
@@ -35,7 +41,24 @@
         <div property="selection">
             <h4 property="date">Tuesday, 25.04.2013</h4>
             <div class="choice" property="dish">
-                <span property="text">More good stuff</span>
+                <p class="choice" property="dish">
+                    This is even better
+                    <a class="btn btn-success btn-small">Up for grabs</a>
+                </p>
+                <p style="color: silver" property="notSelected">Something you didn't want</p>
+                <p style="color: silver" property="notSelected">Nor this</p>
+            </div>
+        </div>
+
+        <div property="selection">
+            <h4 property="date">Tuesday, 25.04.2013</h4>
+            <div class="choice" property="dish">
+                <p class="choice" property="dish">
+                    This is even better hard to believe but seems like I gave it aways
+                    <a class="btn btn-danger btn-small">Take it back</a>
+                </p>
+                <p style="color: silver" property="notSelected">Something you didn't want</p>
+                <p style="color: silver" property="notSelected">Nor this</p>
             </div>
         </div>
 

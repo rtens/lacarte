@@ -44,7 +44,7 @@ abstract class ResourceFixture extends Fixture {
         $this->spec->assertTrue(is_array($field), $string . ' is not an array');
 
         foreach (explode('/', $string) as $key) {
-            if (!array_key_exists($key, $field)) {
+            if (!$field || !array_key_exists($key, $field)) {
                 throw new \Exception("Could not find '$key' in " . json_encode($field));
             }
             $field = $field[$key];

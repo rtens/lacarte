@@ -48,6 +48,24 @@ class SelectionFixture extends ResourceFixture {
         $this->spec->assertCount($int1, $this->getField("order/selection/$int/notSelected"));
     }
 
+    public function thenSelection_ShouldBeUnYieldable($int) {
+        $int--;
+        $this->spec->assertNotNull($this->getField("order/selection/$int/action/unyield"));
+        $this->spec->assertNull($this->getField("order/selection/$int/action/yield"));
+    }
+
+    public function thenSelection_ShouldBeYieldable($int) {
+        $int--;
+        $this->spec->assertNull($this->getField("order/selection/$int/action/unyield"));
+        $this->spec->assertNotNull($this->getField("order/selection/$int/action/yield"));
+    }
+
+    public function thenSelection_ShouldNotBeYieldableNorUnYieldable($int) {
+        $int--;
+        $this->spec->assertNull($this->getField("order/selection/$int/action/unyield"));
+        $this->spec->assertNull($this->getField("order/selection/$int/action/yield"));
+    }
+
     public function thenNotSelectedDish_OfSelection_ShouldBe($int, $int1, $string) {
         $int--;
         $int1--;

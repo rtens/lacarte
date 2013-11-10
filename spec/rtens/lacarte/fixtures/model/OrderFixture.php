@@ -173,6 +173,15 @@ class OrderFixture extends Fixture {
         $this->selectionStore->create($selection);
     }
 
+    public function given_YieldedHisSelectionOfMenu_OfOrder($userName, $menuNum, $orderName) {
+        $menus = $this->menuStore->readAllByOrderId($this->orders[$orderName]->id);
+        $menu = $menus[$menuNum - 1];
+
+        $selection = $this->selectionStore->readByMenuIdAndUserId($menu->id, $this->user->getUser($userName)->id);
+        $selection->setYielded(true);
+        $this->selectionStore->update($selection);
+    }
+
     public function givenTheOrder($string) {
         $this->givenTheOrder_WithDeadline($string, 'tomorrow');
     }

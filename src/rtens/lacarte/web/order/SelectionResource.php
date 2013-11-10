@@ -60,10 +60,22 @@ class SelectionResource extends DefaultResource {
             $selections[] = array(
                 'date' => $menu->getDate()->format('l, j.n.Y'),
                 'dish' => $this->getSelectedDishText($selection),
-                'notSelected' => $this->assembleNotSelectedDishTexts($menu, $selection)
+                'notSelected' => $this->assembleNotSelectedDishTexts($menu, $selection),
+                'action' => $this->assembleActions($order, $selection)
             );
         }
         return $selections;
+    }
+
+    private function assembleActions(Order $order, Selection $selection) {
+        if (!$selection->getDishId()) {
+            return null;
+        }
+        $href = '?order=' . $order->id . '&selection=' . $selection->id . '&method=';
+        return array(
+            'yield' => !$selection->isYielded() ? array('href' => $href . 'yield') : null,
+            'unyield' => $selection->isYielded() ? array('href' => $href . 'unyield') : null
+        );
     }
 
     /**
