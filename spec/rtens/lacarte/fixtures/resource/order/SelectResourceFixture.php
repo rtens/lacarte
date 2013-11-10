@@ -3,10 +3,9 @@ namespace spec\rtens\lacarte\fixtures\resource\order;
 
 use rtens\lacarte\model\Order;
 use rtens\lacarte\web\order\SelectResource;
-use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
 use spec\rtens\lacarte\fixtures\model\UserFixture;
-use watoki\collections\Map;
+use spec\rtens\lacarte\fixtures\resource\ResourceFixture;
 
 /**
  * @property SelectResource component
@@ -106,7 +105,7 @@ class SelectResourceFixture extends ResourceFixture {
     }
 
     public function whenISaveMySelections() {
-        $this->responder = $this->component->doPost($this->currentOrder->id, new Map($this->selections));
+        $this->responder = $this->component->doPost($this->currentOrder->id, $this->selections);
     }
 
     protected function getComponentClass() {
