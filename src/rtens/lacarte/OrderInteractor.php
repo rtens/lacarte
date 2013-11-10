@@ -65,7 +65,7 @@ class OrderInteractor {
         if ($lastDay <= $firstDay) {
             throw new \InvalidArgumentException('First day must be before last day');
         } else if ($deadline > $firstDay) {
-            throw new \InvalidArgumentException('Deadline must be before or on first day');
+            throw new \InvalidArgumentException('Deadline must be before first day');
         }
 
         $name = $firstDay->format('d.m.Y') . ' - ' . $lastDay->format('d.m.Y');
