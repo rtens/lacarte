@@ -62,6 +62,10 @@ class SelectionsResourceFixture extends ResourceFixture {
         $this->spec->assertEquals($string, $this->getField("selections/$int/user/avatar"));
     }
 
+    public function thenSelection_ShouldBeYielded($int) {
+        $this->spec->assertTrue($this->getField("selections/$int/yielded"));
+    }
+
     protected function getComponentClass() {
         return SelectionsResource::$CLASS;
     }

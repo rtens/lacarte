@@ -121,4 +121,18 @@ class SelectionsOfTheDayTest extends Specification {
         $this->component->thenTheAvatarOfTheUserOfSelection_ShouldBe(2, 'http://lacarte/user/avatars/2.jpg');
     }
 
+    function testYieldedSelection() {
+        $this->order->givenAnOrder_With_MenusEach_DishesStartingOn('Test Order', 1, 1, '2000-01-03');
+        $this->order->givenDish_OfMenu_OfThisOrderIs(1, 1, 'A');
+
+        $this->user->givenTheUser('Bart');
+
+        $this->order->given_SelectedDish_ForMenu_OfOrder('Bart', 'A', 1, 'Test Order');
+        $this->order->given_YieldedHisSelectionOfMenu_OfOrder('Bart', 1, 'Test Order');
+
+        $this->component->whenIOpenTheSelectionsOf_WithToken('2000-01-03', 'token');
+
+        $this->component->thenSelection_ShouldBeYielded(1);
+    }
+
 }

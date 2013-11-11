@@ -105,7 +105,7 @@ class SelectionsResource extends DynamicResource {
 
                 $selections[$selection->id] = array(
                     'dish' => intval($selection->getDishId()),
-                    'yielded' => false,
+                    'yielded' => $selection->isYielded(),
                     'user' => array(
                         'id' => $user->id,
                         'name' => $user->getName(),
