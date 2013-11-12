@@ -21,11 +21,11 @@ abstract class Specification extends \watoki\scrut\Specification {
 
         $stateFile = $userFilesDir . '/migration' . uniqid();
 
-        $config = $this->mockFactory->getInstance(Configuration::Configuration);
+        $config = $this->mockFactory->getInstance(Configuration::$CLASS);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
         $config->__mock()->method('getHost')->willReturn('http://lacarte');
         $config->__mock()->method('getUserFilesDirectory')->willReturn($userFilesDir);
-        $this->factory->setSingleton(Configuration::Configuration, $config);
+        $this->factory->setSingleton(Configuration::$CLASS, $config);
 
         if (file_exists($stateFile))
             unlink($stateFile);

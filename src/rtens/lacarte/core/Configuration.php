@@ -2,39 +2,57 @@
 namespace rtens\lacarte\core;
 
 
-interface Configuration {
+class Configuration {
 
-    const Configuration = __CLASS__;
+    public static $CLASS = __CLASS__;
+
+    private $rootDir;
+
+    function __construct($rootDir) {
+        $this->rootDir = $rootDir;
+    }
 
     /**
      * @return string
      * @see http://www.php.net/manual/de/pdo.drivers.php
      */
-    function getPdoDataSourceName();
+    function getPdoDataSourceName() {
+        return 'sqlite:' . $this->rootDir . '/opt/db.sq3';
+    }
 
     /**
      * @return string|null
      */
-    function getPdoUser();
+    function getPdoUser() {
+        return null;
+    }
 
     /**
      * @return string|null
      */
-    function getPdoPassword();
+    function getPdoPassword() {
+        return null;
+    }
 
     /**
      * @return string e.g. 'http://my.page.com'
      */
-    function getHost();
+    function getHost() {
+        return 'http://localhost';
+    }
 
     /**
      * @return string
      */
-    function getApiToken();
+    function getApiToken() {
+        return 'token';
+    }
 
     /**
      * @return string
      */
-    function getUserFilesDirectory();
+    function getUserFilesDirectory() {
+        return $this->rootDir . '/opt/files';
+    }
 
 }

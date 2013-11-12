@@ -18,7 +18,8 @@
         "watoki/stache": "*",
         "watoki/factory": "*",
         "watoki/curir": "*",
-        "watoki/stepper": "*"
+        "watoki/stepper": "*",
+        "watoki/cfg": "*"
     },
     "require-dev": {
         "rtens/mockster": "2.*",

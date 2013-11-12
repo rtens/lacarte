@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a0998265d7a3884a34f739c7af8fb6d3",
+    "hash": "e3b7c0ea7585d650a108504f70281140",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -95,6 +95,53 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2013-11-08 00:49:34"
+        },
+        {
+            "name": "watoki/cfg",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/watoki/cfg.git",
+                "reference": "4744376f0773ade0c85dad3ec86dd4b5a666b195"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/watoki/cfg/zipball/4744376f0773ade0c85dad3ec86dd4b5a666b195",
+                "reference": "4744376f0773ade0c85dad3ec86dd4b5a666b195",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.8",
+                "watoki/factory": "*"
+            },
+            "require-dev": {
+                "watoki/scrut": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "watoki\\cfg": "src/",
+                    "spec\\watoki\\cfg": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Martens",
+                    "email": "Nikolas.M@rtens.org",
+                    "homepage": "http://rtens.org"
+                }
+            ],
+            "description": "Configuration loader",
+            "homepage": "http://github.com/watoki/cfg",
+            "keywords": [
+                "configuration",
+                "watoki"
+            ],
+            "time": "2013-11-12 09:52:16"
         },
         {
             "name": "watoki/collections",

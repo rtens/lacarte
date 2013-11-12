@@ -1,22 +1,12 @@
 <?php
 
-use cfg\rtens\lacarte\DefaultConfiguration;
-use cfg\rtens\lacarte\UserConfiguration;
 use rtens\lacarte\core\Configuration;
 
 require __DIR__ . '/vendor/autoload.php';
 
 $factory = new \watoki\factory\Factory();
 
-require_once __DIR__ . '/config/DefaultConfiguration.php';
-
-$userConfig = __DIR__ . '/config/UserConfiguration.php';
-if (file_exists($userConfig)) {
-    require_once $userConfig;
-    $factory->setSingleton(Configuration::Configuration, new UserConfiguration());
-} else {
-    $factory->setSingleton(Configuration::Configuration, new DefaultConfiguration());
-}
-
+$configLoader = new \watoki\cfg\Loader($factory);
+$configLoader->loadConfiguration(Configuration::$CLASS, __DIR__ . '/config/UserConfiguration.php', array('rootDir' => __DIR__));
 
 return $factory;

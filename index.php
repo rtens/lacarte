@@ -5,7 +5,8 @@ $factory = require_once 'bootstrap.php';
 
 try {
     /** @var \rtens\lacarte\core\Configuration $config */
-    $config = $factory->getInstance(\rtens\lacarte\core\Configuration::Configuration);
+    $config = $factory->getInstance(\rtens\lacarte\core\Configuration::$CLASS);
+
     $app = new \watoki\curir\WebApplication(\rtens\lacarte\WebResource::$CLASS,
         \watoki\curir\http\Url::parse($config->getHost()), $factory);
     $app->run();
