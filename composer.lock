@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/cfg.git",
-                "reference": "d44a131e8d94ea505d29d57405e3b09157ab3be0"
+                "reference": "302c997fe89b7389d4916d0e7df8fa1f53e14533"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/cfg/zipball/d44a131e8d94ea505d29d57405e3b09157ab3be0",
-                "reference": "d44a131e8d94ea505d29d57405e3b09157ab3be0",
+                "url": "https://api.github.com/repos/watoki/cfg/zipball/302c997fe89b7389d4916d0e7df8fa1f53e14533",
+                "reference": "302c997fe89b7389d4916d0e7df8fa1f53e14533",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "configuration",
                 "watoki"
             ],
-            "time": "2013-11-12 11:07:13"
+            "time": "2013-11-21 12:47:38"
         },
         {
             "name": "watoki/cli",
@@ -102,12 +102,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/cli.git",
-                "reference": "d8c433cf72b722ab05ee8859d0846df8e3c58f62"
+                "reference": "78f94ce01f006718a819703e8f0d997e29a7cc21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/cli/zipball/d8c433cf72b722ab05ee8859d0846df8e3c58f62",
-                "reference": "d8c433cf72b722ab05ee8859d0846df8e3c58f62",
+                "url": "https://api.github.com/repos/watoki/cli/zipball/78f94ce01f006718a819703e8f0d997e29a7cc21",
+                "reference": "78f94ce01f006718a819703e8f0d997e29a7cc21",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "cli",
                 "watoki"
             ],
-            "time": "2013-11-19 09:30:00"
+            "time": "2013-11-21 13:13:13"
         },
         {
             "name": "watoki/collections",
@@ -424,12 +424,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/stepper.git",
-                "reference": "ad87158cc935e5fa7ad2848495ea40c3aef1e4eb"
+                "reference": "1c367b58a44b4ba75837f87079467dc92dca389a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/stepper/zipball/ad87158cc935e5fa7ad2848495ea40c3aef1e4eb",
-                "reference": "ad87158cc935e5fa7ad2848495ea40c3aef1e4eb",
+                "url": "https://api.github.com/repos/watoki/stepper/zipball/1c367b58a44b4ba75837f87079467dc92dca389a",
+                "reference": "1c367b58a44b4ba75837f87079467dc92dca389a",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +465,7 @@
                 "migration",
                 "watoki"
             ],
-            "time": "2013-11-18 14:59:39"
+            "time": "2013-11-21 12:57:49"
         },
         {
             "name": "watoki/tempan",
