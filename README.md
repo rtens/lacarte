@@ -5,12 +5,12 @@ date and a number of Dishes.
 
 ## Installation
 
-The installation script `install.php` downloads all dependencies with composer and sets up the SQLite
-database and configuration files. So all you need to do is.
+The installation script `setup.php` downloads all dependencies with composer and sets up the SQLite
+database and configuration files and can also run the tests. So all you need to do is.
 
 	git clone https://github.com/rtens/lacarte.git
 	cd lacarte
-	php install.php
+	php setup.php test
 
 ## Background
 
@@ -28,7 +28,6 @@ exercise since it's actually in use at [researchgate] together with an iPad appl
 I would be happy to find contributers. If you find a bug or are missing a feature, check out the [issues] which
 I'm using for project management. The `+` tags refer to the importance of an issue.
 
-If you are only interested in HTML: you can browse through the templates even without PHP. There is also a `test`
-module which renders the output of the component's automated tests.
+If you are only interested in HTML: you can browse through the templates even without PHP.
 
 [issues]: https://github.com/rtens/lacarte/issues

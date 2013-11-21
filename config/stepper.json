@@ -1,5 +1,0 @@
-{
-    "bootstrap": "bootstrap.php",
-    "state": "opt/migration.state",
-    "namespace": "rtens\\lacarte\\model\\migration"
-}

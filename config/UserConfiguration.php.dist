@@ -1,6 +1,0 @@
-<?php
-namespace rtens\lacarte\core;
-
-class UserConfiguration extends Configuration {
-
-}
