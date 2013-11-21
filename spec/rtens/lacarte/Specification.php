@@ -2,6 +2,7 @@
 namespace spec\rtens\lacarte;
 
 use rtens\lacarte\core\Configuration;
+use rtens\lacarte\model\migration\Step1;
 use rtens\mockster\MockFactory;
 use watoki\stepper\Migrater;
 
@@ -19,30 +20,24 @@ abstract class Specification extends \watoki\scrut\Specification {
         $this->cleanUp($userFilesDir);
         @mkdir($userFilesDir);
 
-        $stateFile = $userFilesDir . '/migration' . uniqid();
-
         $config = $this->mockFactory->getInstance(Configuration::$CLASS);
         $config->__mock()->method('getPdoDataSourceName')->willReturn('sqlite::memory:');
         $config->__mock()->method('getHost')->willReturn('http://lacarte');
         $config->__mock()->method('getUserFilesDirectory')->willReturn($userFilesDir);
         $this->factory->setSingleton(Configuration::$CLASS, $config);
 
-        if (file_exists($stateFile))
-            unlink($stateFile);
-
         $that = $this;
-        $this->undos[] = function () use ($that, $stateFile, $userFilesDir) {
-            unlink($stateFile);
+        $this->undos[] = function () use ($that, $userFilesDir) {
             $that->cleanUp($userFilesDir);
         };
 
-        $this->migrate($stateFile);
+        $this->migrate();
 
         parent::loadDependencies();
     }
 
-    private function migrate($stateFile) {
-        $migrater = new Migrater($this->factory, 'rtens\lacarte\model\migration', $stateFile);
+    private function migrate() {
+        $migrater = new Migrater($this->factory->getInstance(Step1::$CLASS));
         $migrater->migrate();
     }
 

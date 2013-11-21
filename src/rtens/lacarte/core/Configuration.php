@@ -17,7 +17,7 @@ class Configuration {
      * @see http://www.php.net/manual/de/pdo.drivers.php
      */
     function getPdoDataSourceName() {
-        return 'sqlite:' . $this->rootDir . '/opt/db.sq3';
+        return 'sqlite:' . $this->rootDir . '/usr/db.sq3';
     }
 
     /**
@@ -52,7 +52,7 @@ class Configuration {
      * @return string
      */
     function getUserFilesDirectory() {
-        return $this->rootDir . '/opt/files';
+        return $this->rootDir . '/usr/files';
     }
 
 }

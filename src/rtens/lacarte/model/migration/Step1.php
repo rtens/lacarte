@@ -1,7 +1,11 @@
 <?php
 namespace rtens\lacarte\model\migration;
 
+use watoki\stepper\Step;
+
 class Step1 extends BaseStep {
+
+    public static $CLASS = __CLASS__;
 
     public function up() {
         $this->db->execute("CREATE TABLE IF NOT EXISTS groups (
@@ -55,5 +59,19 @@ class Step1 extends BaseStep {
         $this->db->execute("DROP TABLE menus;");
         $this->db->execute("DROP TABLE dishes;");
         $this->db->execute("DROP TABLE selections;");
+    }
+
+    /**
+     * @return Step|null Return the next step or null if this was the last step
+     */
+    public function next() {
+        return $this->factory->getInstance(Step2::$CLASS);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function canBeUndone() {
+        return true;
     }
 }

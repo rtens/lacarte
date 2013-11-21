@@ -2,7 +2,7 @@
 /vendor
 /build
 /#notes
-/opt
+/usr
 Thumbs.db
 .htaccess
 /config/UserConfiguration.php
