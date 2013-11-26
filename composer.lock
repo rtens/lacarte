@@ -102,12 +102,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/watoki/cli.git",
-                "reference": "78f94ce01f006718a819703e8f0d997e29a7cc21"
+                "reference": "24dde7bae046ba97e2945e5ab4a4c936e1a342ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/watoki/cli/zipball/78f94ce01f006718a819703e8f0d997e29a7cc21",
-                "reference": "78f94ce01f006718a819703e8f0d997e29a7cc21",
+                "url": "https://api.github.com/repos/watoki/cli/zipball/24dde7bae046ba97e2945e5ab4a4c936e1a342ca",
+                "reference": "24dde7bae046ba97e2945e5ab4a4c936e1a342ca",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "cli",
                 "watoki"
             ],
-            "time": "2013-11-21 13:13:13"
+            "time": "2013-11-22 10:44:19"
         },
         {
             "name": "watoki/collections",
@@ -949,12 +949,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "1f7cabb841e62ec49615bd965ac780fd994b3f64"
+                "reference": "9de619fff37677c6a4d71aba0fc8ede5c5186c9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/1f7cabb841e62ec49615bd965ac780fd994b3f64",
-                "reference": "1f7cabb841e62ec49615bd965ac780fd994b3f64",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/9de619fff37677c6a4d71aba0fc8ede5c5186c9a",
+                "reference": "9de619fff37677c6a4d71aba0fc8ede5c5186c9a",
                 "shasum": ""
             },
             "require": {
@@ -963,7 +963,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.4-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -987,7 +987,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2013-10-17 11:48:11"
+            "time": "2013-11-24 20:17:07"
         },
         {
             "name": "watoki/scrut",

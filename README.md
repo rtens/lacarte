@@ -10,6 +10,7 @@ database and configuration files and can also run the tests. So all you need to 
 
 	git clone https://github.com/rtens/lacarte.git
 	cd lacarte
+	php setup.php install
 	php setup.php test
 
 ## Background
