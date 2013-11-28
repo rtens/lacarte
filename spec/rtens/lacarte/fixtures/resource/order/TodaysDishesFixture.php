@@ -23,13 +23,15 @@ class TodaysDishesFixture extends ResourceFixture {
         $this->spec->assertCount($int, $this->getField('dish'));
     }
 
-    public function thenThereShouldBeAMessageContaining($string) {
-        $this->spec->assertContains($string, $this->getField('dish'));
+    public function thenThereShouldBeNoFood() {
+        $this->spec->assertNull($this->getField('dish'));
+        $this->spec->assertTrue($this->getField('nothing'));
     }
 
     public function thenDish_ShouldBe($int, $string) {
         $int--;
-        $this->spec->assertEquals($string, $this->getField("dish/$int/_"));
+        $this->spec->assertFalse($this->getField('nothing'));
+        $this->spec->assertEquals($string, $this->getField("dish/$int"));
     }
 
 

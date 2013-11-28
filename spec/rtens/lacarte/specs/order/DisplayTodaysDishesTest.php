@@ -1,8 +1,5 @@
 <?php
-
-
 namespace spec\rtens\lacarte\specs\order;
-
 
 use spec\rtens\lacarte\fixtures\resource\order\TodaysDishesFixture;
 use spec\rtens\lacarte\fixtures\model\OrderFixture;
@@ -21,7 +18,7 @@ class DisplayTodaysDishesTest extends Specification {
     function testNoFoodToday() {
         $this->session->givenIAmLoggedAsTheUser('Homer');
         $this->component->whenIOpenThePage();
-        $this->component->thenThereShouldBeAMessageContaining('no food');
+        $this->component->thenThereShouldBeNoFood();
     }
 
     function testShowTodaysDishes() {

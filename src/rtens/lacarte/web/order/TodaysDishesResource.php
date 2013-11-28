@@ -3,7 +3,6 @@ namespace rtens\lacarte\web\order;
 
 
 use rtens\lacarte\model\Dish;
-use rtens\lacarte\OrderInteractor;
 use rtens\lacarte\Presenter;
 use rtens\lacarte\utils\TimeService;
 use rtens\lacarte\web\DefaultResource;
@@ -19,27 +18,26 @@ class TodaysDishesResource extends DefaultResource {
     public $orderInteractor;
 
     public function doGet() {
-        $model = array(
-            'dish' => $this->getDishes(),
-            'date' => $this->time->today()->format('Y-m-d'),
-            'error' => null
-        );
-        return new Presenter($model);
-    }
-
-    public function getDishes() {
         $todaysMenu = $this->orderInteractor->readAllMenusByDate($this->time->today())->toArray();
         if (empty($todaysMenu)) {
-            return 'There is no food today :(';
+            return new Presenter(array(
+                'nothing' => true,
+                'dish' => null
+            ));
         }
-        $todaysDishes = $this->orderInteractor->readDishesByMenuId($todaysMenu[0]->id);
+
+        return new Presenter(array(
+            'nothing' => false,
+            'dish' => $this->getDishes($todaysMenu)
+        ));
+    }
+
+    public function getDishes($menus) {
+        $todaysDishes = $this->orderInteractor->readDishesByMenuId($menus[0]->id);
         $dishes = array();
         foreach ($todaysDishes as $dish) {
             /** @var Dish $dish */
-            $dishes[] = array(
-                '_' => $dish->getTextIn(Dish::LANG_ENGLISH),
-                'class' => 'today'
-            );
+            $dishes[] = $dish->getTextIn(Dish::LANG_ENGLISH);
         }
         return $dishes;
     }
