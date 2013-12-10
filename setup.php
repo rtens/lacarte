@@ -17,8 +17,8 @@ if (!file_exists('build/composer.phar')) {
     file_put_contents("build/install_composer.php", file_get_contents('http://getcomposer.org/installer'));
 
     echo "Installing composer.phar" . PHP_EOL;
-    system(exec('which php') . " build/install_composer.php --install-dir build");
-    system(exec('which php') . " build/composer.phar install --dev");
+    system("php build/install_composer.php --install-dir build");
+    system("php build/composer.phar install --dev");
 }
 
 /** @var \watoki\factory\Factory $factory */
@@ -28,11 +28,11 @@ $command = new DependentCommandGroup();
 $app = new CliApplication($command);;
 
 $command->add('install-dependencies', GenericCommand::build(function () {
-    system(exec('which php') . " build/composer.phar install --dev");
+    system("php build/composer.phar install --dev");
 })->setDescription('Installs dependencies of the project into "vendor" directory.'));
 
 $command->add('update-dependencies', GenericCommand::build(function () {
-    system(shell_exec(exec('which php') . " build/composer.phar update"));
+    system(shell_exec("php build/composer.phar update"));
 })->setDescription('Updates the dependencies of the project.'));
 
 $command->add('migrate', new StepperCommand($factory->getInstance(Step1::$CLASS), __DIR__ . '/usr/migration.state'));
@@ -47,7 +47,7 @@ $command->add('install', GenericCommand::build(function (Console $console) {
 })->setDescription('Installs the project'));
 
 $command->add('test', GenericCommand::build(function () {
-    system(exec('which php') . " vendor/phpunit/phpunit/phpunit.php");
+    system("php vendor/phpunit/phpunit/phpunit.php");
 })->setDescription('Runs the test suite.'));
 
 $command->add('build', GenericCommand::build()->setDescription('Builds project for new deployment'));
