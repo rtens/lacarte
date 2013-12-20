@@ -24,8 +24,7 @@ class CsvRenderer {
             $headers = array_unique(array_merge($headers, array_keys($row)));
         }
 
-        $file = 'file.csv';
-        $fp = fopen($file, 'w');
+        $fp = tmpfile();
         $delimiter = $this->delimiter();
 
         fputcsv($fp, $headers, $delimiter);
@@ -38,11 +37,10 @@ class CsvRenderer {
             fputcsv($fp, $fields, $delimiter);
         }
 
+        fseek($fp, 0);
+        $content = stream_get_contents($fp);
+
         fclose($fp);
-
-        $content = file_get_contents($file);
-        @unlink($file);
-
         return $content;
     }
 
