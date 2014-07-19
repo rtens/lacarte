@@ -28,7 +28,7 @@ class xxSelectionResource extends DynamicResource {
             );
         }
 
-        return new Presenter($model);
+        return new Presenter($this, $model);
     }
 
     protected function getPlaceholderKey() {

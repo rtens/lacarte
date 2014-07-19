@@ -24,7 +24,7 @@ class LoginResource extends DefaultResource {
         $group = $this->userInteractor->authorizeAdmin($email, $password);
 
         if (!$group) {
-            return new Presenter(array(
+            return new Presenter($this, array(
                 'error' => 'Could not find group for given email and password',
                 'email' => array('value' => $email)
             ));
@@ -38,7 +38,7 @@ class LoginResource extends DefaultResource {
         if ($this->isLoggedIn()) {
             return $this->redirectToList();
         }
-        return new Presenter($this->assembleModel());
+        return new Presenter($this, $this->assembleModel());
     }
 
     private function redirectToList() {
@@ -58,7 +58,7 @@ class LoginResource extends DefaultResource {
         try {
             $this->login($key);
         } catch (\Exception $e) {
-            return new Presenter(array(
+            return new Presenter($this, array(
                 'error' => 'You entered an invalid key',
                 'key' => array('value' => $key)
             ));

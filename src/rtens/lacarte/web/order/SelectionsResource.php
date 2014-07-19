@@ -30,7 +30,7 @@ class SelectionsResource extends DefaultResource {
             return new Redirecter(Url::parse('list.html'));
         }
 
-        return new Presenter($this->assembleMyModel($order));
+        return new Presenter($this, $this->assembleMyModel($order));
     }
 
     public function doSendMail($order, $subject, $body, $onlyWithout = false) {
@@ -49,7 +49,7 @@ class SelectionsResource extends DefaultResource {
         );
 
         if (!trim($subject) || !trim($body)) {
-            return new Presenter($this->assembleMyModel($order, array(
+            return new Presenter($this, $this->assembleMyModel($order, array(
                 'error' => 'Please fill out subject and body to send an email',
                 'email' => $emailModel
             )));
@@ -57,11 +57,11 @@ class SelectionsResource extends DefaultResource {
 
         try {
             $this->orderInteractor->sendMail($this->orderInteractor->readById($order), $subject, $body, $onlyWithout);
-            return new Presenter($this->assembleMyModel($order, array(
+            return new Presenter($this, $this->assembleMyModel($order, array(
                 'success' => 'Email was sent to users' . ($onlyWithout ? ' without selections' : '')
             )));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleMyModel($order, array(
+            return new Presenter($this, $this->assembleMyModel($order, array(
                 'error' => $e->getMessage(),
                 'email' => $emailModel
             )));

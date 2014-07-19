@@ -28,17 +28,17 @@ class SelectionResource extends DefaultResource {
         }
 
         try {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
                 'error' => null
             )));
         } catch (NotFoundException $nfe) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'order' => null,
                 'error' => 'You seem to have no selections for this order.'
             )));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'order' => null,
                 'error' => $e->getMessage()
             )));
@@ -119,7 +119,7 @@ class SelectionResource extends DefaultResource {
             $error = 'Could not update selection.';
         }
 
-        return new Presenter($this->assembleModel(array(
+        return new Presenter($this, $this->assembleModel(array(
             'order' => $this->assembleOrder($this->orderInteractor->readById($order)),
             'error' => $error
         )));

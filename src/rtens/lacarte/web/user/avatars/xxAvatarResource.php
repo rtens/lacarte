@@ -35,15 +35,16 @@ class FilePresenter extends Responder {
     }
 
     /**
-     * @param resource\DynamicResource $resource
      * @param \watoki\curir\http\Request $request
      * @return \watoki\curir\http\Response
      */
-    public function createResponse(DynamicResource $resource, Request $request) {
-        $file = $this->directory . DIRECTORY_SEPARATOR . $this->name . '.' . $request->getFormat();
+    public function createResponse(Request $request) {
+        $formats = $request->getFormats();
+
+        $file = $this->directory . DIRECTORY_SEPARATOR . $this->name . '.' . $formats[0];
         if (file_exists($file)) {
             $response = new Response(file_get_contents($file));
-            $response->getHeaders()->set(Response::HEADER_CONTENT_TYPE, MimeTypes::getType($request->getFormat()));
+            $response->getHeaders()->set(Response::HEADER_CONTENT_TYPE, MimeTypes::getType($formats[0]));
             return $response;
         }
 

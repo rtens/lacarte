@@ -25,7 +25,7 @@ class DishesResource extends DefaultResource {
             return new Redirecter(Url::parse('../order/list.html'));
         }
 
-        return new Presenter(array(
+        return new Presenter($this, array(
             'content' => $this->assembleRows($this->orderInteractor->readById($order))
         ));
     }

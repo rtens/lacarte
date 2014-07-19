@@ -18,12 +18,12 @@ class ListResource extends DefaultResource {
     protected $orderInteractor;
 
     public function doGet() {
-        return new Presenter($this->assembleModel());
+        return new Presenter($this, $this->assembleModel());
     }
 
     public function doPost($firstDay, $lastDay, $deadline) {
         if (!$this->isAdmin()) {
-            return new Presenter($this->assembleModel(
+            return new Presenter($this, $this->assembleModel(
                 array(
                     'error' => 'Access denied.'
                 )
@@ -38,7 +38,7 @@ class ListResource extends DefaultResource {
             );
             return new Redirecter(Url::parse('edit.html?order=' . $order->id));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleModel(
+            return new Presenter($this, $this->assembleModel(
                 array(
                     'error' => $e->getMessage()
                 )

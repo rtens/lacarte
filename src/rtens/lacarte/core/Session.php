@@ -1,7 +1,6 @@
 <?php
 namespace rtens\lacarte\core;
 
-use watoki\collections\Map;
 use watoki\factory\Factory;
 
 class Session {

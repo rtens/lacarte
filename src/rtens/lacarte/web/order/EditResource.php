@@ -21,7 +21,7 @@ class EditResource extends DefaultResource {
         if (!$this->isAdmin()) {
             return new Redirecter(Url::parse('list.html'));
         }
-        return new Presenter($this->assembleMyModel($order));
+        return new Presenter($this, $this->assembleMyModel($order));
     }
 
     public function doPost($order, $dish) {
@@ -38,11 +38,11 @@ class EditResource extends DefaultResource {
 
         try {
             $this->orderInteractor->updateDishes($dishes);
-            return new Presenter($this->assembleMyModel($order, array(
+            return new Presenter($this, $this->assembleMyModel($order, array(
                 'success' => 'Order saved'
             )));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleMyModel($order, array(
+            return new Presenter($this, $this->assembleMyModel($order, array(
                 'error' => $e->getMessage()
             )));
         }

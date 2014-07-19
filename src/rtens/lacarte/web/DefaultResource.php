@@ -72,7 +72,7 @@ abstract class DefaultResource extends DynamicResource {
             'parent' => $this
         ));
         return array_merge(array(
-            'menu' => $menu->doGet()->createResponse($menu, new Request(new Path()))->getBody(),
+            'menu' => $menu->doGet()->createResponse(new Request(new Path(), array('html')))->getBody(),
             'adminOnly' => $this->isAdmin(),
             'userOnly' => $this->isUser(),
         ), $model);
@@ -80,7 +80,7 @@ abstract class DefaultResource extends DynamicResource {
 
     private function redirectToLogin(Request $request) {
         $redirecter = new Redirecter(Url::parse($this->getAncestor(WebResource::$CLASS)->getUrl('user/login.html')));
-        return $redirecter->createResponse($this, $request);
+        return $redirecter->createResponse($request);
     }
 
     protected function requiresLogin() {

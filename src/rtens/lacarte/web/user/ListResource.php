@@ -19,14 +19,14 @@ class ListResource extends DefaultResource {
         if (!$this->isAdmin()) {
             return new Redirecter(Url::parse('../order/list.html'));
         }
-        return new Presenter($this->assembleModel());
+        return new Presenter($this, $this->assembleModel());
     }
 
     public function doEdit($user) {
         if (!$this->isAdmin()) {
             return new Redirecter(Url::parse('../order/list.html'));
         }
-        return new Presenter($this->assembleModel(array(), $user));
+        return new Presenter($this, $this->assembleModel(array(), $user));
     }
 
     public function doPost($name, $email) {
@@ -35,7 +35,7 @@ class ListResource extends DefaultResource {
         }
 
         if (!$this->isAdmin()) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => 'Access denied. Must be administrator.',
                 'email' => array('value' => $email),
                 'name' => array('value' => $name)
@@ -46,11 +46,11 @@ class ListResource extends DefaultResource {
             $groupId = $this->session->get('admin');
             $this->userInteractor->createUser($groupId, $name, $email);
 
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'success' => "The user $name was created."
             )));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => $e->getMessage(),
                 'email' => array('value' => $email),
                 'name' => array('value' => $name)
@@ -67,7 +67,7 @@ class ListResource extends DefaultResource {
         $entity->id = $user;
         $this->userInteractor->delete($entity);
 
-        return new Presenter($this->assembleModel(array(
+        return new Presenter($this, $this->assembleModel(array(
             'success' => 'The user has been deleted'
         )));
     }
@@ -82,7 +82,7 @@ class ListResource extends DefaultResource {
             $pictureTmp = $_FILES['picture']['tmp_name'];
 
             if ('jpg' != strtolower(substr($picture, strrpos($picture, '.') + 1))) {
-                return new Presenter($this->assembleModel(array(
+                return new Presenter($this, $this->assembleModel(array(
                     'error' => 'Only jpg-files allowed.',
                     'notEditing' => null,
                     'editing' => $this->assembleEditingUser($userId, $name, $email)
@@ -94,7 +94,7 @@ class ListResource extends DefaultResource {
 
             @mkdir($avatarDir, 0777, true);
             if(!$this->files->moveUploadedFile($pictureTmp, $avatarPath)) {
-                return new Presenter($this->assembleModel(array(
+                return new Presenter($this, $this->assembleModel(array(
                     'error' => 'There was an error uploading the file, please try again!'
                 )));
             }
@@ -102,7 +102,7 @@ class ListResource extends DefaultResource {
 
         $user = $this->userInteractor->readById($userId);
         if(!$email || !$name) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => 'Could not update user. Missing data.',
                 'notEditing' => null,
                 'editing' => $this->assembleEditingUser($userId, $name, $email)
@@ -112,11 +112,11 @@ class ListResource extends DefaultResource {
         $user->setName($name);
         try {
             $this->userInteractor->updateUser($user);
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'success' => 'The user has been updated'
             )));
         } catch (\Exception $e) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => $e->getMessage()
             )));
         }

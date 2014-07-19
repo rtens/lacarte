@@ -20,13 +20,13 @@ class TodaysDishesResource extends DefaultResource {
     public function doGet() {
         $todaysMenu = $this->orderInteractor->readAllMenusByDate($this->time->today())->toArray();
         if (empty($todaysMenu)) {
-            return new Presenter(array(
+            return new Presenter($this, array(
                 'nothing' => true,
                 'dish' => null
             ));
         }
 
-        return new Presenter(array(
+        return new Presenter($this, array(
             'nothing' => false,
             'dish' => $this->getDishes($todaysMenu)
         ));

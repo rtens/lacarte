@@ -1,7 +1,6 @@
 <?php
 namespace rtens\lacarte\model\stores;
  
-use rtens\lacarte\core\Database;
 use rtens\lacarte\model\Group;
 
 class GroupStore extends Store {

@@ -14,12 +14,14 @@ class MenuResource extends DynamicResource {
     protected $session;
 
     public function doGet() {
-        return new Presenter(array(
+        $that = $this;
+
+        return new Presenter($this, array(
             'adminOnly' => $this->session->has('admin'),
-            'relative' => function (Element $e) {
+            'relative' => function (Element $e) use ($that) {
                     foreach (array('src', 'href') as $attribute) {
                         if ($e->getAttribute($attribute)) {
-                            $e->setAttribute($attribute, $this->getAncestor(WebResource::$CLASS)
+                            $e->setAttribute($attribute, $that->getAncestor(WebResource::$CLASS)
                                 ->getUrl('common/' . $e->getAttribute($attribute)->getValue()));
                         }
                     }

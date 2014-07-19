@@ -3,7 +3,6 @@ namespace rtens\lacarte\model\stores;
  
 use rtens\lacarte\model\Menu;
 use watoki\collections\Liste;
-use watoki\collections\Set;
 
 class MenuStore extends Store {
 

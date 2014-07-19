@@ -34,7 +34,7 @@ class SelectResource extends DefaultResource {
             return new Redirecter(Url::parse('selection.html?order=' . $entity->id));
         }
 
-        return new Presenter($this->assembleMyModel($entity, $user));
+        return new Presenter($this, $this->assembleMyModel($entity, $user));
     }
 
     /**
@@ -53,13 +53,13 @@ class SelectResource extends DefaultResource {
                 $selections = $this->collectSelections($order, new Map($selection), $user, $userId);
                 $this->orderInteractor->saveSelections($selections);
 
-                return new Presenter($this->assembleMyModel($orderEntity, $userId, array(
+                return new Presenter($this, $this->assembleMyModel($orderEntity, $userId, array(
                     'success' => 'Selection saved'
                 )));
             } catch (\InvalidArgumentException $e) {}
         }
 
-        return new Presenter($this->assembleMyModel($orderEntity, $userId, array(
+        return new Presenter($this, $this->assembleMyModel($orderEntity, $userId, array(
             'error' => 'Please make a selection for every day'
         )));
     }

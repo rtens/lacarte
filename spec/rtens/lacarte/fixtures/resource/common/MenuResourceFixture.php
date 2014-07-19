@@ -17,8 +17,8 @@ class MenuResourceFixture extends ResourceFixture {
     private $dom;
 
     public function whenITheMenuIsRendered() {
-        $request = new Request(new Path(), 'html');
-        $response = $this->component->doGet()->createResponse($this->component, $request);
+        $request = new Request(new Path(), array('html'));
+        $response = $this->component->doGet()->createResponse($request);
         $this->dom = new Parser($response->getBody());
     }
 

@@ -30,7 +30,7 @@ class SelectionsResource extends DynamicResource {
 
     public function doGet($token, $date = null) {
         if ($token != $this->configuration->getApiToken()) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => 'Wrong token.'
             )));
         }
@@ -39,7 +39,7 @@ class SelectionsResource extends DynamicResource {
             try {
                 $date = new \DateTime($date);
             } catch (\Exception $e) {
-                return new Presenter($this->assembleModel(array(
+                return new Presenter($this, $this->assembleModel(array(
                     'error' => 'Could not parse date.'
                 )));
             }
@@ -50,16 +50,16 @@ class SelectionsResource extends DynamicResource {
         $menus = $this->orderInteractor->readAllMenusByDate($date);
 
         if ($menus->isEmpty()) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => 'No menu found for given date.'
             )));
         } else if ($menus->count() > 1) {
-            return new Presenter($this->assembleModel(array(
+            return new Presenter($this, $this->assembleModel(array(
                 'error' => 'More than one menu found for given date.'
             )));
         }
 
-        return new Presenter($this->assembleModel(array(
+        return new Presenter($this, $this->assembleModel(array(
             'menu' => $this->assembleDishes($menus->one()),
             'selections' => $this->assembleSelections($menus->one())
         )));
